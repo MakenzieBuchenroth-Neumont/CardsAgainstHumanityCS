@@ -13,71 +13,115 @@ namespace CardsAgainstHumanity
 {
     class Program
     {
-        
+
         public static Player player = new Player();
-        public static IPAddress ipaddr;
-        public static TcpListener tcplst;
-        public static RootObject cards;
-        public static string cardDirectory = Path.Combine(Environment.CurrentDirectory, "cards");
+        public static TcpClient client;
 
         static void Main(string[] args)
         {
+            DisplayLogo();
 
-            Console.WriteLine("Enter a username for the game:");
-            player.Name = Console.ReadLine();
+            Console.WriteLine("Please elect one and only one player to host the game.\n");
+            Console.WriteLine("If you are that player, please type 'server' now.\n");
+            Console.WriteLine("Otherwise, type whatever the hell you want, apart from 'server' of course.");
+            string whoami = Console.ReadLine();
 
-            if (player.IpAddress == "failed")
+            if (whoami.ToLower().Trim() == "server" || whoami.ToLower().Trim() == "'server'")
             {
-                Console.WriteLine("failed to obtain ip address");
-                Console.WriteLine("Please enter the ip address assigned to you by the network you wish to play on:");
-                player.IpAddress = Console.ReadLine();
+                Console.WriteLine("\nYou are the host\n");
+                System.Diagnostics.Process.Start(Environment.CurrentDirectory + "\\server.exe"); //start server
             }
+
+            Console.WriteLine("Enter a username for the game, and make sure its different from everyone else's:");
+            player.Name = Console.ReadLine();
+            Console.WriteLine("Enter the server ip address:");
+            string ipaddr = Console.ReadLine();
+            client = new TcpClient(ipaddr, 1337);
+            Console.WriteLine(Connect("player.join"));
+            Console.ReadLine();
+
+//             if (player.IpAddress == "failed")
+//             {
+//                 Console.WriteLine("failed to obtain ip address");
+//                 Console.WriteLine("Please enter the ip address assigned to you by the network you wish to play on:");
+//                 player.IpAddress = Console.ReadLine();
+//             }
 
             Console.WriteLine(player.ToString());
-            cards = DeserializeCards(Path.Combine(cardDirectory, "white/base.json"));
-            Stack<Card> stack = new Stack<Card>();
-            Random r = new Random();
-            int[] list = Enumerable.Range(0, cards.cards.Count-1).ToArray();
-            Random random = new Random();
-            Shuffler shuffler = new Shuffler();
-            shuffler.Shuffle(list);
-
-            foreach (int value in list)
-            {
-                stack.push(cards.cards[value]);
-            }
-
-            stack.display();
-
-            try
-            {
-                ipaddr = IPAddress.Parse(player.IpAddress);
-                tcplst = new TcpListener(ipaddr, 1337);
-
-                tcplst.Start();
-
-                Console.WriteLine("Listening on port 1337...");
-                Console.WriteLine("The local end point is  :" + tcplst.LocalEndpoint);
-                Console.WriteLine("Waiting for a connection.....");
-            }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine("Error:\n" + ex.StackTrace);
-            }
 
             Console.ReadLine();
 
+        }
 
-       }
-
-        static RootObject DeserializeCards(string path)
+        static string Connect(String message)
         {
-            using (StreamReader file = File.OpenText(path))
+            try
             {
-                JsonSerializer serializer = new JsonSerializer();
-                RootObject cards = (RootObject)serializer.Deserialize(file, typeof(RootObject));
-                return cards;
+                // Translate the passed message into ASCII and store it as a Byte array.
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+
+                // Get a client stream for reading and writing. 
+                //  Stream stream = client.GetStream();
+
+                NetworkStream stream = client.GetStream();
+
+                // Send the message to the connected TcpServer. 
+                stream.Write(data, 0, data.Length);
+
+                //Console.WriteLine("Sent: {0}", message);
+
+                // Receive the TcpServer.response. 
+
+                // Buffer to store the response bytes.
+                data = new Byte[256];
+
+                // String to store the response ASCII representation.
+                String responseData = String.Empty;
+
+                // Read the first batch of the TcpServer response bytes.
+                Int32 bytes = stream.Read(data, 0, data.Length);
+                responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                //Console.WriteLine("Received: {0}", responseData);
+
+                // Close everything.
+                stream.Close();
+                client.Close();
+
+                return responseData;
             }
+            catch (ArgumentNullException e)
+            {
+                Console.WriteLine("ArgumentNullException: {0}", e);
+            }
+            catch (SocketException e)
+            {
+                Console.WriteLine("SocketException: {0}", e);
+            }
+
+            return "<<THE SHIT HAS HIT THE FAN>>";
+        }
+
+        static void DisplayLogo()
+        {
+                        Console.WriteLine(@"
+.------..------..------..------..------.                        
+|C.--. ||A.--. ||R.--. ||D.--. ||S.--. |                        
+| :/\: || (\/) || :(): || :/\: || :/\: |                        
+| :\/: || :\/: || ()() || (__) || :\/: |                        
+| '--'C|| '--'A|| '--'R|| '--'D|| '--'S|                        
+`------'`------'`------'`------'`------'                        
+.------..------..------..------..------..------..------.        
+|A.--. ||G.--. ||A.--. ||I.--. ||N.--. ||S.--. ||T.--. |        
+| (\/) || :/\: || (\/) || (\/) || :(): || :/\: || :/\: |        
+| :\/: || :\/: || :\/: || :\/: || ()() || :\/: || (__) |        
+| '--'A|| '--'G|| '--'A|| '--'I|| '--'N|| '--'S|| '--'T|        
+`------'`------'`------'`------'`------'`------'`------'        
+.------..------..------..------..------..------..------..------.
+|H.--. ||U.--. ||M.--. ||A.--. ||N.--. ||I.--. ||T.--. ||Y.--. |
+| :/\: || (\/) || (\/) || (\/) || :(): || (\/) || :/\: || (\/) |
+| (__) || :\/: || :\/: || :\/: || ()() || :\/: || (__) || :\/: |
+| '--'H|| '--'U|| '--'M|| '--'A|| '--'N|| '--'I|| '--'T|| '--'Y|
+`------'`------'`------'`------'`------'`------'`------'`------'");
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,12 +18,12 @@ namespace CardsAgainstHumanity
             get { return name; }
             set { name = value; }
         }
-        private string ipAddress;
+        private IPAddress ipAddress;
 
         public string IpAddress
         {
-            get { return ipAddress; }
-            set { ipAddress = value; }
+            get { return ipAddress.ToString(); }
+            set { ipAddress = IPAddress.Parse(value); }
         }
         private bool isCzar;
 
@@ -47,26 +49,11 @@ namespace CardsAgainstHumanity
             isCzar = false;
         }
 
-        public string FindIP()
+        public IPAddress FindIP()
         {
-            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
-                {
-                    foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
-                        {
-                            if (ip.Address.ToString().Substring(0, 10) == "192.168.1.")
-                            {
-                                return ip.Address.ToString();
-                            }
-                        }
-                    }
-                }
-            }
-
-            return "failed";
+            UdpClient u = new UdpClient("8.8.8.8", 1);
+            IPAddress localAddr = ((IPEndPoint)u.Client.LocalEndPoint).Address;
+            return localAddr;
         }
 
         public override string ToString()
