@@ -6,8 +6,9 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace CardsAgainstHumanity
 {
@@ -70,7 +71,7 @@ namespace CardsAgainstHumanity
 
                 //Console.WriteLine("Sent: {0}", message);
 
-                // Receive the TcpServer.response. 
+                // Receive the TcpServer.response.
 
                 // Buffer to store the response bytes.
                 data = new Byte[256];
@@ -82,6 +83,12 @@ namespace CardsAgainstHumanity
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                 //Console.WriteLine("Received: {0}", responseData);
+
+                if (message == "!send object" && responseData == "!expecting obj")
+                {
+                    IFormatter formatter = new BinaryFormatter();
+                    formatter.Serialize(stream, player);
+                }
 
                 // Close everything.
                 stream.Close();

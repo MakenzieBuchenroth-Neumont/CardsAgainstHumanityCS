@@ -45,7 +45,7 @@ namespace Server
             stack.display();
 
             Thread tcplistener = new Thread(listener);
-           tcplistener.Start();
+            tcplistener.Start();
 
         }
 
@@ -102,8 +102,15 @@ namespace Server
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                         Console.WriteLine("Received: {0}", data);
 
-                        // Process the data sent by the client.
-                        data = "Message Received";
+                        if (data == "!send obj")
+                        {
+                            data = "!expecting obj";
+                        }
+                        else
+                        {
+                            // Process the data sent by the client.
+                            data = "Message Received";
+                        }
 
                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 

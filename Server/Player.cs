@@ -7,9 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardsAgainstHumanity
+namespace Server
 {
-    [Serializable]
     class Player
     {
         private string name;
@@ -46,15 +45,8 @@ namespace CardsAgainstHumanity
         public Player()
         {
             name = "";
-            ipAddress = FindIP();
+            ipAddress = IPAddress.Parse("");
             isCzar = false;
-        }
-
-        public IPAddress FindIP()
-        {
-            UdpClient u = new UdpClient("8.8.8.8", 1);
-            IPAddress localAddr = ((IPEndPoint)u.Client.LocalEndPoint).Address;
-            return localAddr;
         }
 
         public override string ToString()
