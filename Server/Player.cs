@@ -9,11 +9,7 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-<<<<<<< HEAD
     public class Player
-=======
-    class Player
->>>>>>> e6a68aa863f859a5b87f43b2ca11f07471856356
     {
         private string name;
 
@@ -45,7 +41,6 @@ namespace Server
             set { lastDump = value; }
         }
 
-<<<<<<< HEAD
         private int points;
 
         public int Points
@@ -83,14 +78,6 @@ namespace Server
             {
                 return false;
             }
-=======
-
-        public Player()
-        {
-            name = "";
-            ipAddress = IPAddress.Parse("");
-            isCzar = false;
->>>>>>> e6a68aa863f859a5b87f43b2ca11f07471856356
         }
 
         public override string ToString()

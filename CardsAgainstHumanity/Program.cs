@@ -7,14 +7,8 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-<<<<<<< HEAD
 using System.Threading;
 using System.Collections.Generic;
-=======
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
->>>>>>> e6a68aa863f859a5b87f43b2ca11f07471856356
 
 namespace CardsAgainstHumanity
 {
@@ -139,12 +133,8 @@ namespace CardsAgainstHumanity
 
                 NetworkStream stream = client.GetStream();
 
-<<<<<<< HEAD
                 stream.Write(data, 0, data.Length);
                 Console.WriteLine("Sent: {0}", message);
-=======
-                // Receive the TcpServer.response.
->>>>>>> e6a68aa863f859a5b87f43b2ca11f07471856356
 
                 data = new Byte[256];
                 String responseData = String.Empty;
@@ -153,12 +143,6 @@ namespace CardsAgainstHumanity
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                 
                 Console.WriteLine("Received: {0}", responseData);
-
-                if (message == "!send object" && responseData == "!expecting obj")
-                {
-                    IFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize(stream, player);
-                }
 
                 // Close everything.
                 stream.Close();
