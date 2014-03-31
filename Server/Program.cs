@@ -67,6 +67,7 @@ namespace Server
 
             Thread tcplistener = new Thread(listener);
             tcplistener.Start();
+<<<<<<< HEAD
             while (true)
             {
 
@@ -76,6 +77,8 @@ namespace Server
                     Console.WriteLine(responce);
                 }
             }
+=======
+>>>>>>> e6a68aa863f859a5b87f43b2ca11f07471856356
 
         }
 
@@ -127,6 +130,7 @@ namespace Server
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                         Console.WriteLine("Received: {0}", data);
 
+<<<<<<< HEAD
                         if (data.Substring(0,1) == "!")
                         {
                             data = parseCommand(data);
@@ -134,6 +138,15 @@ namespace Server
                         }
                         else
                         {
+=======
+                        if (data == "!send obj")
+                        {
+                            data = "!expecting obj";
+                        }
+                        else
+                        {
+                            // Process the data sent by the client.
+>>>>>>> e6a68aa863f859a5b87f43b2ca11f07471856356
                             data = "Message Received";
                         }
 

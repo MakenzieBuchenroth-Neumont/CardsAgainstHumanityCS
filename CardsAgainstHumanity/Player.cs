@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace CardsAgainstHumanity
 {
+    [Serializable]
     class Player
     {
         private string name;

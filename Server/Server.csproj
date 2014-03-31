@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\Downloads\Net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\Bin\Net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,7 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Card.cs" />
+<<<<<<< HEAD
     <Compile Include="GameManager.cs" />
+=======
+>>>>>>> e6a68aa863f859a5b87f43b2ca11f07471856356
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
