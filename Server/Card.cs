@@ -16,9 +16,14 @@ namespace Server
         {
             return text + "\n";// + "-" + definitionProvider + "-" + definitionText + "\n";
         }
+
+        public string toHand()
+        {
+            return text;
+        }
     }
 
-    public class RootObject
+    public class CardSet
     {
         public string cardSetName { get; set; }
         public string cardSetType { get; set; }

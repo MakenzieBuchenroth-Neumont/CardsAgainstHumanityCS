@@ -9,6 +9,7 @@ namespace Server
 
     public class Shuffler
     {
+        private System.Random _rng;
 
         public Shuffler()
         {
@@ -26,7 +27,5 @@ namespace Server
                 array[k] = temp;
             }
         }
-
-        private System.Random _rng;
     }
 }

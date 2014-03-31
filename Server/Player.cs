@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardsAgainstHumanity
+namespace Server
 {
-    class Player
+    public class Player
     {
         private string name;
 
@@ -41,41 +41,48 @@ namespace CardsAgainstHumanity
             set { lastDump = value; }
         }
 
-        public List<string> hand;
+        private int points;
 
-
-        public Player()
+        public int Points
         {
-            name = "";
-            ipAddress = FindIP();
-            isCzar = false;
-            lastDump = "";
-            hand = new List<string>();
+            get { return points; }
+            set { points = value; }
         }
 
-        public void SeperateHand(string handString)
+
+        public Player(string name, string ipAddress, string isCzar, string lastDump)
         {
-            hand = handString.Split('-').ToList();
+            this.name = name;
+            this.ipAddress = IPAddress.Parse(ipAddress);
+            this.isCzar = bool.Parse(isCzar);
+            this.lastDump = lastDump;
+            this.points = 0;
         }
 
-        public void DisplayHand()
+        public int TimeSinceDump()
         {
-            for (int i = 0; i < hand.Count; i++)
+            string[] temp = lastDump.Split(':');
+            int hours = int.Parse(temp[0]);
+            int minutes = int.Parse(temp[1]);
+
+            return minutes + (hours * 60);
+        }
+
+        public bool hasWon()
+        {
+            if (this.points == 10)
             {
-                Console.WriteLine(i + ".\t" + hand[i] + "\n");
+                return true;
             }
-        }
-
-        public IPAddress FindIP()
-        {
-            UdpClient u = new UdpClient("8.8.8.8", 1);
-            IPAddress localAddr = ((IPEndPoint)u.Client.LocalEndPoint).Address;
-            return localAddr;
+            else
+            {
+                return false;
+            }
         }
 
         public override string ToString()
         {
-            return name + "-" + ipAddress + "-" + isCzar.ToString() + "-" + lastDump;
+            return name + "-" + ipAddress + "-" + isCzar.ToString();
         }
     }
 }

@@ -1,60 +1,90 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using System.IO;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.IO;
 using System.Threading;
 
 namespace Server
 {
-    class Program
+    public class Program
     {
-        
         public static IPAddress ipaddr;
-        public static RootObject cards;
+        public static CardSet whiteCardSet;
+        public static CardSet blackCardSet;
+        public static GameManager gameManager;
         public static string cardDirectory = Path.Combine(Environment.CurrentDirectory, "cards");
 
         static void Main(string[] args)
         {
-            SetIP();
+
             DisplayLogo();
+
+            ipaddr = SetIP();
+
             Console.WriteLine("\nThis is the server window. \n");
+            Console.WriteLine("Hit enter for a standard game, otherwise enter 'custom'");
+            if (Console.ReadLine().ToLower() == "custom")
+            {
+                //do custom setup
+                gameManager = new GameManager();
+            }
+            else
+            {
+                gameManager = new GameManager();
+            }
             Console.WriteLine("All players will be asked to input the host IP, which is: " + ipaddr.ToString() + "\n");
             Console.WriteLine("This window will now keep a log of all connections and server actions.\n");
             Console.WriteLine("If anything unexpected happens ; check here.");
             Console.ReadLine();
 
-            cards = DeserializeCards(Path.Combine(cardDirectory, "white/base.json"));
-            Stack<Card> stack = new Stack<Card>();
             Random r = new Random();
-            int[] list = Enumerable.Range(0, cards.cards.Count - 1).ToArray();
             Random random = new Random();
             Shuffler shuffler = new Shuffler();
-            shuffler.Shuffle(list);
+            whiteCardSet = DeserializeCards(Path.Combine(cardDirectory, "white/base.json"));
+            blackCardSet = DeserializeCards(Path.Combine(cardDirectory, "black/base.json"));
+            int[] whiteList = Enumerable.Range(0, whiteCardSet.cards.Count - 1).ToArray();
+            int[] blackList = Enumerable.Range(0, blackCardSet.cards.Count - 1).ToArray();
+            shuffler.Shuffle(whiteList);
+            shuffler.Shuffle(blackList);
 
-            foreach (int value in list)
+            foreach (int value in whiteList)
             {
-                stack.push(cards.cards[value]);
+                gameManager.whiteDeck.push(whiteCardSet.cards[value]);
             }
 
-            stack.display();
+            foreach (int value in blackList)
+            {
+                gameManager.blackDeck.push(blackCardSet.cards[value]);
+            }
+
+            gameManager.blackDeck.display();
 
             Thread tcplistener = new Thread(listener);
-           tcplistener.Start();
+            tcplistener.Start();
+            while (true)
+            {
+
+                if (gameManager.players.Count > 0)
+                {
+                    string responce = parseCommand(Console.ReadLine());
+                    Console.WriteLine(responce);
+                }
+            }
 
         }
 
-        static RootObject DeserializeCards(string path)
+        static CardSet DeserializeCards(string path)
         {
             using (StreamReader file = File.OpenText(path))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                RootObject cards = (RootObject)serializer.Deserialize(file, typeof(RootObject));
+                CardSet cards = (CardSet)serializer.Deserialize(file, typeof(CardSet));
                 return cards;
             }
         }
@@ -64,46 +94,48 @@ namespace Server
             TcpListener server = null;
             try
             {
-                // Set the TcpListener on port 1337 ;).
-                Int32 port = 1337;
-                IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+                int port = 1337;
 
-                // TcpListener server = new TcpListener(port);
-                server = new TcpListener(localAddr, port);
-
-                // Start listening for client requests.
+                server = new TcpListener(ipaddr, port);
                 server.Start();
 
                 // Buffer for reading data
                 Byte[] bytes = new Byte[256];
                 String data = null;
 
-                // Enter the listening loop. 
+                // listening loop. 
                 while (true)
                 {
                     Console.Write("Waiting for a connection... ");
-
+                    if (Console.KeyAvailable)
+                    {
+                        Console.WriteLine("\n");
+                        Thread.Sleep(1000);
+                    }
                     // Perform a blocking call to accept requests. 
-                    // You could also user server.AcceptSocket() here.
                     TcpClient client = server.AcceptTcpClient();
                     Console.WriteLine("Connected!");
 
                     data = null;
 
-                    // Get a stream object for reading and writing
                     NetworkStream stream = client.GetStream();
 
                     int i;
 
-                    // Loop to receive all the data sent by the client. 
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
-                        // Translate data bytes to a ASCII string.
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                         Console.WriteLine("Received: {0}", data);
 
-                        // Process the data sent by the client.
-                        data = "Message Received";
+                        if (data.Substring(0,1) == "!")
+                        {
+                            data = parseCommand(data);
+                            Console.WriteLine(data);
+                        }
+                        else
+                        {
+                            data = "Message Received";
+                        }
 
                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 
@@ -113,6 +145,7 @@ namespace Server
                     }
 
                     // Shutdown and end connection
+                    stream.Close();
                     client.Close();
                 }
             }
@@ -127,14 +160,142 @@ namespace Server
             }
 
 
-            Console.WriteLine("\nHit enter to continue...");
             Console.Read();
         }
 
-        static void SetIP()
+        static IPAddress SetIP()
         {
             UdpClient u = new UdpClient("8.8.8.8", 1);
-            ipaddr = ((IPEndPoint)u.Client.LocalEndPoint).Address;
+            return ((IPEndPoint)u.Client.LocalEndPoint).Address;
+        }
+
+        static string parseCommand(string command)
+        {
+            if (command.StartsWith("!player.join"))
+            {
+                string [] playerinfo = parseFields(command);
+                gameManager.players.Add(new Player(playerinfo[0], playerinfo[1], playerinfo[2], playerinfo[3]));
+                return "Added player: " + playerinfo[0];
+            }
+            else if (command.StartsWith("!player.draw"))
+            {
+                int numCards;
+                if(command.Substring(command.IndexOf('|')+1) == "max")
+                {
+                    numCards = gameManager.maxCards;
+                }
+                else
+                {
+                    numCards = int.Parse(command.Substring(command.IndexOf('|') + 1));
+                }
+                string hand = "";
+
+                for (int i = 0; i < numCards; i++)
+                {
+                    hand += gameManager.whiteDeck.pop().toHand();
+                    hand += "-";
+                }
+                return hand;
+            }
+            else if (command.StartsWith("!player.isCzar"))
+            {
+                return gameManager.players[gameManager.CzarCounter].IpAddress.ToString();
+            }
+            else if (command.StartsWith("!player.play"))
+            {
+                string[] playerinfo = parseFields(command);
+
+                gameManager.currentPlayerCards.Add(new PlayInfo(playerinfo[0],playerinfo[1]));
+
+                return "";
+            }
+            else if (command.StartsWith("!game.blackcard"))
+            {
+                return gameManager.currentBlackCard.text;
+            }
+            else if (command.StartsWith("!player.hasWon"))
+            {
+                bool temp;
+
+                foreach (Player p in gameManager.players)
+                {
+                    temp = p.hasWon();
+                    if (temp)
+                    {
+                        return p.Name;
+                    }
+                }
+
+                return "no";
+            }
+            else if (command.StartsWith("!game.start"))
+            {
+                gameManager.gameStarted = true;
+
+                gameManager.players = gameManager.players.OrderBy(o => o.TimeSinceDump()).ToList();
+                gameManager.players[0].IsCzar = true;
+
+                return gameManager.players[0].Name + " is the Card Czar";
+
+            }
+            else if (command.StartsWith("!game.hasStarted"))
+            {
+                return gameManager.gameStarted.ToString();
+            }
+            else if (command.StartsWith("!game.roundPlayed"))
+            {
+                return gameManager.played().ToString();
+            }
+            else if (command.StartsWith("!game.roundWinner"))
+            {
+                return gameManager.roundWinner;
+            }
+            else if (command.StartsWith("!game.newRound"))
+            {
+                gameManager.NewRound();
+                return "0";
+            }
+            else if (command.StartsWith("!game.roundEntries"))
+            {
+                string temp = "";
+                foreach (PlayInfo p in gameManager.currentPlayerCards)
+                {
+                    temp += p.card + "-";
+                }
+
+                temp = temp.Substring(0, temp.Length - 1);
+
+                return temp;
+            }
+            else if (command.StartsWith("!game.setWinner"))
+            {
+                command = command.Substring(command.IndexOf('|') + 1);
+                gameManager.roundWinner = gameManager.currentPlayerCards[int.Parse(command)].cardPlayer;
+                foreach (Player p in gameManager.players)
+                {
+                    if (p.Name == gameManager.roundWinner)
+                    {
+                        p.Points++;
+                    }
+                }
+                return "";
+            }
+            else if (command == "\n")
+            {
+                return "";
+            }
+            else
+            {
+                return "Unknown Command";
+            }
+        }
+
+        static string[] parseFields(string command)
+        {
+            command = command.Substring(command.IndexOf('|') + 1);
+            string[] playerinfo = command.Split('-');
+
+            return playerinfo;
         }
 
         static void DisplayLogo()

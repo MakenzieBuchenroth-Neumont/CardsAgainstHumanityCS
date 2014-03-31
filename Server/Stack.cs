@@ -1,6 +1,6 @@
 ﻿using System;
 
-class Stack<T>
+public class Stack<T>
 {
 
     class Node

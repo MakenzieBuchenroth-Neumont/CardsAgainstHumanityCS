@@ -1,24 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Net;
+using System.IO;
+using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.IO;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace CardsAgainstHumanity
 {
     class Program
     {
-
         public static Player player = new Player();
-        public static TcpClient client;
+        public static string ipaddr;
+        public static int port = 1337;
+        public static Stopwatch stopwatch = new Stopwatch();
+        public static bool isServer;
 
         static void Main(string[] args)
         {
+
             DisplayLogo();
 
             Console.WriteLine("Please elect one and only one player to host the game.\n");
@@ -30,14 +34,50 @@ namespace CardsAgainstHumanity
             {
                 Console.WriteLine("\nYou are the host\n");
                 System.Diagnostics.Process.Start(Environment.CurrentDirectory + "\\server.exe"); //start server
+                isServer = true;
+            }
+            else
+            {
+                isServer = false;
             }
 
-            Console.WriteLine("Enter a username for the game, and make sure its different from everyone else's:");
+            Console.WriteLine("Enter a username for the game:");
             player.Name = Console.ReadLine();
-            Console.WriteLine("Enter the server ip address:");
-            string ipaddr = Console.ReadLine();
-            client = new TcpClient(ipaddr, 1337);
-            Console.WriteLine(Connect("player.join"));
+            bool correct = false;
+
+            while (correct == false)
+            {
+                Console.WriteLine("Enter Hours since your last dump e.g '1', '2' etc");
+                int hours;
+                if (!int.TryParse(Console.ReadLine(),out hours))
+                {
+                    Console.WriteLine("entry not correctly formatted, must be a single or d whole number");
+                    continue;
+                }
+
+                Console.WriteLine("Enter Minutes since your last dump");
+                int minutes;
+                if (!int.TryParse(Console.ReadLine(),out minutes))
+                {
+                    Console.WriteLine("entry not correctly formatted, must be a single or double digit whole number");
+                    continue;
+                }
+
+                correct = true;
+                Console.WriteLine(hours.ToString() + ":" + minutes.ToString());
+                player.LastDump = hours.ToString() + ":" + minutes.ToString();
+            }
+            if (isServer)
+            {
+                ipaddr = player.IpAddress;
+            }
+            else
+            {
+                Console.WriteLine("Enter the server ip address:");
+                ipaddr = Console.ReadLine();
+            }
+
+            Console.WriteLine(Connect("!player.join|" + player));
             Console.ReadLine();
 
 //             if (player.IpAddress == "failed")
@@ -46,8 +86,34 @@ namespace CardsAgainstHumanity
 //                 Console.WriteLine("Please enter the ip address assigned to you by the network you wish to play on:");
 //                 player.IpAddress = Console.ReadLine();
 //             }
+//             
+            string handString = Connect("!player.draw|max");
+            player.SeperateHand(handString);
 
-            Console.WriteLine(player.ToString());
+            while (Connect("!game.hasStarted") == "False")
+            {
+                Console.WriteLine("Waiting for game to start.");
+                Thread.Sleep(1000);
+                Console.Clear();
+                Console.WriteLine("Waiting for game to start..");
+                Thread.Sleep(1000);
+                Console.Clear();
+                Console.WriteLine("Waiting for game to start...");
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+
+            while (Connect("!player.hasWon") == "no")
+            {
+                if (Connect("!player.isCzar") == player.IpAddress)
+                {
+                    CzarLoop();
+                }
+                else
+                {
+                    PlayerLoop();
+                }
+            }
 
             Console.ReadLine();
 
@@ -57,35 +123,34 @@ namespace CardsAgainstHumanity
         {
             try
             {
-                // Translate the passed message into ASCII and store it as a Byte array.
-                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+                stopwatch.Start();
 
-                // Get a client stream for reading and writing. 
-                //  Stream stream = client.GetStream();
+                TcpClient client = new TcpClient();
+
+                client.Connect(ipaddr, port);
+
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
 
                 NetworkStream stream = client.GetStream();
 
-                // Send the message to the connected TcpServer. 
                 stream.Write(data, 0, data.Length);
+                Console.WriteLine("Sent: {0}", message);
 
-                //Console.WriteLine("Sent: {0}", message);
-
-                // Receive the TcpServer.response. 
-
-                // Buffer to store the response bytes.
                 data = new Byte[256];
-
-                // String to store the response ASCII representation.
                 String responseData = String.Empty;
 
-                // Read the first batch of the TcpServer response bytes.
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                //Console.WriteLine("Received: {0}", responseData);
+                
+                Console.WriteLine("Received: {0}", responseData);
 
                 // Close everything.
                 stream.Close();
                 client.Close();
+
+                stopwatch.Stop();
+
+                Console.WriteLine(stopwatch.Elapsed);
 
                 return responseData;
             }
@@ -99,7 +164,87 @@ namespace CardsAgainstHumanity
             }
 
             return "<<THE SHIT HAS HIT THE FAN>>";
+
         }
+
+        static void PlayerLoop()
+        {
+            Console.Clear();
+
+            Console.WriteLine(Connect("!game.blackcard") + "\n\n");
+
+            player.DisplayHand();
+
+            Console.WriteLine("Enter the number of the card you wish to play");
+            int cardToPlay = int.Parse(Console.ReadLine());
+
+            Connect("!player.playCard|" + player.hand[cardToPlay] + "-" + player.Name);
+
+            Console.Clear();
+
+            while (Connect("!game.roundWinner") == "wait")
+            {
+                Console.WriteLine("Waiting for Czar to choose.");
+                Thread.Sleep(1000);
+                Console.Clear();
+                Console.WriteLine("Waiting for Czar to choose..");
+                Thread.Sleep(1000);
+                Console.Clear();
+                Console.WriteLine("Waiting for Czar to choose...");
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+
+            Console.Clear();
+
+            Console.WriteLine(Connect("!game.roundWinner") + "Has won the round!");
+            
+        }
+
+        static void CzarLoop()
+        {
+            Connect("!game.newRound");
+
+            string blackcard = Connect("!game.blackcard");
+
+            while (Connect("!game.roundPlayed") == "False")
+            {
+                Console.Clear();
+                Console.WriteLine(blackcard + "\n\n");
+
+                Console.WriteLine("Waiting for players to choose a card.");
+                Console.Clear();
+                Console.WriteLine(blackcard + "\n\n");
+
+                Console.WriteLine("Waiting for players to choose a card..");
+                Console.Clear();
+                Console.WriteLine(blackcard + "\n\n");
+
+                Console.WriteLine("Waiting for players to choose a card...");
+            }
+
+            Console.Clear();
+            Console.WriteLine(blackcard + "\n\n");
+
+            string parse = Connect("!game.roundEntries");
+            string[] entries = parse.Split('-');
+
+            for (int i = 0; i < entries.Length; i++)
+            {
+                Console.WriteLine(i + ".\t" + entries[i] + "\n");
+            }
+
+            Console.WriteLine("Enter the number of the card who wins");
+            int winner = int.Parse(Console.ReadLine());
+
+            Connect("!game.setWinner");
+
+            Console.Clear();
+
+            Console.WriteLine(Connect("!game.roundWinner") + "Has won the round!");
+
+        }
+
 
         static void DisplayLogo()
         {
