@@ -14,11 +14,13 @@ namespace CardsAgainstHumanity
 {
     class Program
     {
+        public static int maxHand;
         public static Player player = new Player();
         public static string ipaddr;
         public static int port = 1337;
         public static Stopwatch stopwatch = new Stopwatch();
         public static bool isServer;
+        public static int bufferSize = 720;
 
         static void Main(string[] args)
         {
@@ -73,11 +75,32 @@ namespace CardsAgainstHumanity
             }
             else
             {
+
                 Console.WriteLine("Enter the server ip address:");
                 ipaddr = Console.ReadLine();
+
+            }
+                 
+            bool connectionSucessful = false;
+
+            while (!connectionSucessful)
+            {
+                try
+                {
+
+                    Console.WriteLine(Connect("!player.join|" + player));
+                }
+                catch (System.Exception)
+                {
+                    Console.WriteLine("Connection failed, Check IP address and try again");
+                    Console.WriteLine("Enter the server ip address:");
+                    ipaddr = Console.ReadLine();
+                    continue;
+                }
+
+                connectionSucessful = true;
             }
 
-            Console.WriteLine(Connect("!player.join|" + player));
             Console.ReadLine();
 
 //             if (player.IpAddress == "failed")
@@ -89,6 +112,7 @@ namespace CardsAgainstHumanity
 //             
             string handString = Connect("!player.draw|max");
             player.SeperateHand(handString);
+            maxHand = player.hand.Count;
 
             while (Connect("!game.hasStarted") == "False")
             {
@@ -103,8 +127,15 @@ namespace CardsAgainstHumanity
                 Console.Clear();
             }
 
-            while (Connect("!player.hasWon") == "no")
+            string hasWon = "no";
+            int numPlayers;
+
+            numPlayers = int.Parse(Connect("!game.numPlayers"));
+            bufferSize = bufferSize * numPlayers;
+
+            while (hasWon == "no" && hasWon.Length>0)
             {
+
                 if (Connect("!player.isCzar") == player.IpAddress)
                 {
                     CzarLoop();
@@ -113,9 +144,26 @@ namespace CardsAgainstHumanity
                 {
                     PlayerLoop();
                 }
+
+                hasWon = Connect("!player.hasWon");
             }
 
+            Console.Clear();
+
+            if (hasWon == player.Name)
+            {
+                Console.WriteLine(" You have Won the game! congratulations!");
+            }
+            else
+            {
+                Console.WriteLine(hasWon + "has Won the game! congratulations!");
+            }
+
+            ThanksForPlaying();
+
             Console.ReadLine();
+
+            Environment.Exit(0);
 
         }
 
@@ -134,15 +182,15 @@ namespace CardsAgainstHumanity
                 NetworkStream stream = client.GetStream();
 
                 stream.Write(data, 0, data.Length);
-                Console.WriteLine("Sent: {0}", message);
+                //Console.WriteLine("Sent: {0}", message);
 
-                data = new Byte[256];
+                data = new Byte[bufferSize];
                 String responseData = String.Empty;
 
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                 
-                Console.WriteLine("Received: {0}", responseData);
+                //Console.WriteLine("Received: {0}", responseData);
 
                 // Close everything.
                 stream.Close();
@@ -150,7 +198,7 @@ namespace CardsAgainstHumanity
 
                 stopwatch.Stop();
 
-                Console.WriteLine(stopwatch.Elapsed);
+                //Console.WriteLine(stopwatch.Elapsed);
 
                 return responseData;
             }
@@ -162,6 +210,14 @@ namespace CardsAgainstHumanity
             {
                 Console.WriteLine("SocketException: {0}", e);
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                Console.WriteLine("Error occurred, please restart the client");
+                Console.WriteLine("Hit enter to exit");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
 
             return "<<THE SHIT HAS HIT THE FAN>>";
 
@@ -169,16 +225,56 @@ namespace CardsAgainstHumanity
 
         static void PlayerLoop()
         {
+            string blackcard = Connect("!game.blackcard");
+
             Console.Clear();
 
-            Console.WriteLine(Connect("!game.blackcard") + "\n\n");
+            Console.WriteLine(blackcard + "\n\n");
 
             player.DisplayHand();
 
-            Console.WriteLine("Enter the number of the card you wish to play");
-            int cardToPlay = int.Parse(Console.ReadLine());
+            int fields = numFields(blackcard);
 
-            Connect("!player.playCard|" + player.hand[cardToPlay] + "-" + player.Name);
+
+            if (fields == 1)
+            {
+                Console.WriteLine("Enter the number of the card you wish to play or dp to display the points tally");
+                string temp = Console.ReadLine();
+                if (temp.ToLower() == "dp")
+                {
+                    Console.WriteLine(Connect("!game.viewPoints"));
+                    temp = Console.ReadLine();
+                }
+                int cardToPlay = int.Parse(temp);
+                Connect("!player.playCard|" + player.hand[cardToPlay] + "`" + player.Name);
+            }
+            else
+            {
+                Random rand = new Random();
+
+                string temp = "";
+                int[] toRemove = new int[fields];
+
+                for (int i = 0; i < fields; i++)
+                {
+                    Console.WriteLine("Enter the number of the card you wish to go in field " + (i + 1) + ":");
+                    int cardToPlay = int.Parse(Console.ReadLine());
+                    toRemove[i] = cardToPlay;
+                    temp += player.hand[cardToPlay] + "`";
+
+                }
+
+                temp += player.Name;
+
+                Connect("!player.playCard|" + temp);
+
+                foreach (int i in toRemove)
+                {
+                    player.hand.RemoveAt(i);
+                }
+            }
+
+            player.SeperateHand(Connect("!player.draw|" + (maxHand - player.hand.Count)));
 
             Console.Clear();
 
@@ -198,6 +294,8 @@ namespace CardsAgainstHumanity
             Console.Clear();
 
             Console.WriteLine(Connect("!game.roundWinner") + "Has won the round!");
+
+            Thread.Sleep(3000);
             
         }
 
@@ -206,6 +304,7 @@ namespace CardsAgainstHumanity
             Connect("!game.newRound");
 
             string blackcard = Connect("!game.blackcard");
+            int fields = numFields(blackcard);
 
             while (Connect("!game.roundPlayed") == "False")
             {
@@ -213,36 +312,74 @@ namespace CardsAgainstHumanity
                 Console.WriteLine(blackcard + "\n\n");
 
                 Console.WriteLine("Waiting for players to choose a card.");
+                Thread.Sleep(1000);
                 Console.Clear();
                 Console.WriteLine(blackcard + "\n\n");
 
                 Console.WriteLine("Waiting for players to choose a card..");
+                Thread.Sleep(1000);
                 Console.Clear();
                 Console.WriteLine(blackcard + "\n\n");
 
                 Console.WriteLine("Waiting for players to choose a card...");
+                Thread.Sleep(1000);
             }
 
             Console.Clear();
             Console.WriteLine(blackcard + "\n\n");
 
             string parse = Connect("!game.roundEntries");
-            string[] entries = parse.Split('-');
+            string[] entries = parse.Split('`');
 
-            for (int i = 0; i < entries.Length; i++)
+            if (numFields(blackcard) == 1)
             {
-                Console.WriteLine(i + ".\t" + entries[i] + "\n");
+                for (int i = 0; i < entries.Length; i++)
+                {
+                    Console.WriteLine(i + ".\t" + entries[i] + "\n");
+                }
+                Console.WriteLine("Enter the number of the card who wins or dp to display the points tally");
+            }
+            else
+            {
+                int count = 0;
+                for (int i = 0; i < entries.Length; i+=fields)
+                {
+                    Console.WriteLine(count + ".\t" + entries[i] + "\n");
+                    for (int j = 1; j < fields; j++)
+                    {
+                        Console.WriteLine(".\t" + entries[i+j] + "\n");
+                    }
+                    count++;
+                }
+                Console.WriteLine("Enter the number of the set who wins or dp to display the points tally");
             }
 
-            Console.WriteLine("Enter the number of the card who wins");
-            int winner = int.Parse(Console.ReadLine());
+            string temp = Console.ReadLine();
+            if (temp.ToLower() == "dp")
+            {
+                Console.WriteLine(Connect("!game.viewPoints"));
+                temp = Console.ReadLine();
+            }
 
-            Connect("!game.setWinner");
+            int winner = int.Parse(temp);
+
+            Connect("!game.setWinner|" + winner);
 
             Console.Clear();
 
-            Console.WriteLine(Connect("!game.roundWinner") + "Has won the round!");
+            Console.WriteLine(Connect("!game.roundWinner") + " has won the round!");
 
+        }
+
+        static int numFields(string qhuest)
+        {
+            int count = 0;
+            foreach (char c in qhuest)
+            {
+                if (c == '_') count++;
+            }
+
+            return count / 3;
         }
 
 
@@ -267,6 +404,20 @@ namespace CardsAgainstHumanity
 | (__) || :\/: || :\/: || :\/: || ()() || :\/: || (__) || :\/: |
 | '--'H|| '--'U|| '--'M|| '--'A|| '--'N|| '--'I|| '--'T|| '--'Y|
 `------'`------'`------'`------'`------'`------'`------'`------'");
+        }
+
+        static void ThanksForPlaying()
+        {
+            Console.WriteLine(@"
+╔╦╗┬ ┬┌─┐┌┐┌┬┌─┌─┐ 
+ ║ ├─┤├─┤│││├┴┐└─┐ 
+ ╩ ┴ ┴┴ ┴┘└┘┴ ┴└─┘ 
+╔═╗┌─┐┬─┐          
+╠╣ │ │├┬┘          
+╚  └─┘┴└─          
+╔═╗┬  ┌─┐┬ ┬┬┌┐┌┌─┐
+╠═╝│  ├─┤└┬┘│││││ ┬
+╩  ┴─┘┴ ┴ ┴ ┴┘└┘└─┘");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Stack<T>
+public class myStack<T>
 {
 
     class Node
@@ -11,7 +11,7 @@ public class Stack<T>
 
     private Node top;
 
-    public Stack()
+    public myStack()
     {
         top = null;
     }

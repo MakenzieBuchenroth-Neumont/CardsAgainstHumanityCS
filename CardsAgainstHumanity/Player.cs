@@ -49,13 +49,13 @@ namespace CardsAgainstHumanity
             name = "";
             ipAddress = FindIP();
             isCzar = false;
-            lastDump = "";
+            lastDump = "100:100";
             hand = new List<string>();
         }
 
         public void SeperateHand(string handString)
         {
-            hand = handString.Split('-').ToList();
+            hand.AddRange(handString.Split('`').ToList());
         }
 
         public void DisplayHand()
@@ -75,7 +75,7 @@ namespace CardsAgainstHumanity
 
         public override string ToString()
         {
-            return name + "-" + ipAddress + "-" + isCzar.ToString() + "-" + lastDump;
+            return name + "`" + ipAddress + "`" + isCzar.ToString() + "`" + lastDump;
         }
     }
 }

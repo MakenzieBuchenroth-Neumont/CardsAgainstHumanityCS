@@ -49,6 +49,13 @@ namespace Server
             set { points = value; }
         }
 
+        public Player()
+        {
+            name = "";
+            IpAddress = "0.0.0.0";
+            isCzar = false;
+            lastDump = "100:100";
+        }
 
         public Player(string name, string ipAddress, string isCzar, string lastDump)
         {
@@ -70,7 +77,7 @@ namespace Server
 
         public bool hasWon()
         {
-            if (this.points == 10)
+            if (this.points == Program.returnPointThresh())
             {
                 return true;
             }
@@ -82,7 +89,7 @@ namespace Server
 
         public override string ToString()
         {
-            return name + "-" + ipAddress + "-" + isCzar.ToString();
+            return name + "`" + ipAddress + "`" + isCzar.ToString();
         }
     }
 }

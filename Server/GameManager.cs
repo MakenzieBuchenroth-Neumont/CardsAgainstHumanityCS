@@ -26,6 +26,8 @@ namespace Server
 
         public List<Player> players;
 
+        public List<AI> AIs;
+
         public List<PlayInfo> currentPlayerCards;
 
         public int CzarCounter;
@@ -38,19 +40,39 @@ namespace Server
 
         public string roundWinner;
 
+        public int numAIs;
+
+        public int pointThreshold;
+
+        public GameManager(int maxCards, int pointThreshold)
+        {
+            whiteDeck = new Stack<Card>();
+            blackDeck = new Stack<Card>();
+            players = new List<Player>();
+            AIs = new List<AI>();
+            currentPlayerCards = new List<PlayInfo>();
+            CzarCounter = 0;
+            gameStarted = false;
+            this.maxCards = maxCards;
+            this.pointThreshold = pointThreshold;
+        }
+
         public GameManager()
         {
-            this.whiteDeck = new Stack<Card>();
-            this.blackDeck = new Stack<Card>();
-            this.players = new List<Player>();
-            this.currentPlayerCards = new List<PlayInfo>();
-            this.CzarCounter = 0;
-            this.gameStarted = false;
-            this.maxCards = 10;
+            whiteDeck = new Stack<Card>();
+            blackDeck = new Stack<Card>();
+            players = new List<Player>();
+            AIs = new List<AI>();
+            currentPlayerCards = new List<PlayInfo>();
+            CzarCounter = 0;
+            gameStarted = false;
+            maxCards = 10;
+            pointThreshold = 10;
         }
 
         public void incrementCzarCounter()
         {
+        
             if (this.CzarCounter != this.players.Count-1)
             {
                 this.CzarCounter++;
@@ -64,14 +86,25 @@ namespace Server
 
         public void NewRound()
         {
-            this.currentBlackCard = blackDeck.pop();
+            this.currentBlackCard = blackDeck.Pop();
             currentPlayerCards.Clear();
             roundWinner = "wait";
         }
 
+        public int numFields(string qhuest)
+        {
+            int count = 0;
+            foreach (char c in qhuest)
+            {
+                if (c == '_') count++;
+            }
+
+            return count / 3;
+        }
+
         public bool played()
         {
-            if (currentPlayerCards.Count == players.Count-1)
+            if (currentPlayerCards.Count == numFields(currentBlackCard.text) * (players.Count-1 + AIs.Count))
             {
                 return true;
             }
