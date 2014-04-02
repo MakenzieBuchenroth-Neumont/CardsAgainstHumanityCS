@@ -78,27 +78,13 @@ namespace CardsAgainstHumanity
 
                 Console.WriteLine("Enter the server ip address:");
                 ipaddr = Console.ReadLine();
-
             }
-                 
-            bool connectionSucessful = false;
 
-            while (!connectionSucessful)
+            while (Connect("!player.join") == "0")
             {
-                try
-                {
-
-                    Console.WriteLine(Connect("!player.join|" + player));
-                }
-                catch (System.Exception)
-                {
-                    Console.WriteLine("Connection failed, Check IP address and try again");
-                    Console.WriteLine("Enter the server ip address:");
-                    ipaddr = Console.ReadLine();
-                    continue;
-                }
-
-                connectionSucessful = true;
+                Console.WriteLine("Connection unresponsive, check the ip and try again");
+                Console.WriteLine("Enter the server ip address:");
+                ipaddr = Console.ReadLine();
             }
 
             Console.ReadLine();
@@ -208,6 +194,10 @@ namespace CardsAgainstHumanity
             }
             catch (SocketException e)
             {
+                if (e.SocketErrorCode.ToString() == "NetworkUnreachable")
+                {
+                    return "0";
+                }
                 Console.WriteLine("SocketException: {0}", e);
             }
             catch (Exception e)
