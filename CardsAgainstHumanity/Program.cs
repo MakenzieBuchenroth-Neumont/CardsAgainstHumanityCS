@@ -80,7 +80,7 @@ namespace CardsAgainstHumanity
                 ipaddr = Console.ReadLine();
             }
 
-            while (Connect("!player.join") == "0")
+            while (Connect("!player.join|" + player) == "0")
             {
                 Console.WriteLine("Connection unresponsive, check the ip and try again");
                 Console.WriteLine("Enter the server ip address:");
