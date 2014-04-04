@@ -439,7 +439,7 @@ namespace Server
                 gameManager.gameStarted = true;
 
                 gameManager.players = gameManager.players.OrderBy(o => o.TimeSinceDump()).ToList();
-                gameManager.players[0].IsCzar = true;
+                gameManager.players[gameManager.CzarCounter].IsCzar = true;
 
                 return gameManager.players[0].Name + " is the Card Czar";
 
