@@ -223,15 +223,15 @@ namespace CardsAgainstHumanity
 
             Console.Clear();
 
-            Console.WriteLine(blackcard + "\n\n");
-
-            player.DisplayHand();
-
             int fields = numFields(blackcard);
 
 
             if (fields == 1)
             {
+                Console.WriteLine(blackcard + "\n\n");
+
+                player.DisplayHand();
+
                 Console.WriteLine("Enter the number of the card you wish to play or dp to display the points tally");
                 playerTimer.Start();
                 if (playerTimer.ElapsedMilliseconds == 60000)
@@ -259,7 +259,10 @@ namespace CardsAgainstHumanity
 
                 for (int i = 0; i < fields; i++)
                 {
-                    Console.WriteLine("Enter the number of the card you wish to go in field or dp to display the points tally" + (i + 1) + ":");
+                    Console.Clear();
+                    Console.WriteLine(blackcard + "\n\n");
+                    player.DisplayHand();
+                    Console.WriteLine(" \n Enter the number of the card you wish to go in field " + (i + 1) + "or dp to display the points tally:");
                     playerTimer.Start();
                     if (playerTimer.ElapsedMilliseconds == 60000)
                     {
