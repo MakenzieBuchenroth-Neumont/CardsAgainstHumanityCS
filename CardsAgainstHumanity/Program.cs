@@ -299,13 +299,13 @@ namespace CardsAgainstHumanity
             while (Connect("!game.roundWinner") == "wait")
             {
                 Console.WriteLine("Waiting for Czar to choose.");
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 Console.Clear();
                 Console.WriteLine("Waiting for Czar to choose..");
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 Console.Clear();
                 Console.WriteLine("Waiting for Czar to choose...");
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 Console.Clear();
             }
 
@@ -412,7 +412,7 @@ namespace CardsAgainstHumanity
 
             Console.WriteLine(Connect("!game.roundWinner") + " has won the round!");
 
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
 
         }
 
