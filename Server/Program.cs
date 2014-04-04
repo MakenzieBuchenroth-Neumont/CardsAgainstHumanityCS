@@ -354,11 +354,51 @@ namespace Server
             {
                 return gameManager.players[gameManager.CzarCounter].IpAddress.ToString();
             }
+            else if (command.StartsWith("!player.leave"))
+            {
+                string[] playerinfo = parseFields(command);
+                foreach (Player p in gameManager.players)
+                {
+                    if (p.Name == playerinfo[0])
+                    {
+                        gameManager.players.Remove(p);
+                    }
+                }
+                foreach (Player p in gameManager.afkPlayers)
+                {
+                    if (p.Name == playerinfo[0])
+                    {
+                        gameManager.afkPlayers.Remove(p);
+                    }
+                }
+                return "0";
+            }
+            else if (command.StartsWith("!player.rejoin"))
+            {
+                string[] playerinfo = parseFields(command);
+                foreach (Player p in gameManager.afkPlayers)
+                {
+                    if (p.Name == playerinfo[0])
+                    {
+                        gameManager.players.Add(p);
+                        gameManager.afkPlayers.Remove(p);
+                    }
+                }
+                return "0";
+            }
             else if (command.StartsWith("!player.playCard"))
             {
                 string[] playerinfo = parseFields(command);
 
                 gameManager.currentPlayerCards.Add(new PlayInfo(playerinfo[0],playerinfo[1]));
+
+                foreach (Player p in gameManager.waitingFor)
+                {
+                    if (p.Name == playerinfo[1])
+                    {
+                        gameManager.waitingFor.Remove(p);
+                    }
+                }
 
                 return "0";
             }
@@ -500,6 +540,16 @@ namespace Server
                     tally += ai.Name + "\t" + ai.Points + "\n";
                 }
                 return tally;
+            }
+            else if (command.StartsWith("!game.timeoutPlayer"))
+            {
+                foreach(Player p in gameManager.waitingFor)
+                {
+                    gameManager.afkPlayers.Add(p);
+                    gameManager.players.Remove(p);
+                }
+
+                return "0";
             }
             else if (command == "\n")
             {

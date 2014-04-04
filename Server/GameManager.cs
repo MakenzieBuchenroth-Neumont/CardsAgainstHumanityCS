@@ -26,9 +26,13 @@ namespace Server
 
         public List<Player> players;
 
+        public List<Player> afkPlayers;
+
         public List<AI> AIs;
 
         public List<PlayInfo> currentPlayerCards;
+
+        public List<Player> waitingFor;
 
         public int CzarCounter;
 
@@ -51,6 +55,8 @@ namespace Server
             players = new List<Player>();
             AIs = new List<AI>();
             currentPlayerCards = new List<PlayInfo>();
+            waitingFor = new List<Player>();
+            afkPlayers = new List<Player>();
             CzarCounter = 0;
             gameStarted = false;
             this.maxCards = maxCards;
@@ -64,6 +70,8 @@ namespace Server
             players = new List<Player>();
             AIs = new List<AI>();
             currentPlayerCards = new List<PlayInfo>();
+            waitingFor = new List<Player>();
+            afkPlayers = new List<Player>();
             CzarCounter = 0;
             gameStarted = false;
             maxCards = 10;
@@ -86,6 +94,7 @@ namespace Server
 
         public void NewRound()
         {
+            waitingFor.AddRange(players);
             this.currentBlackCard = blackDeck.Pop();
             currentPlayerCards.Clear();
             roundWinner = "wait";
@@ -104,7 +113,7 @@ namespace Server
 
         public bool played()
         {
-            if (currentPlayerCards.Count == numFields(currentBlackCard.text) * (players.Count-1 + AIs.Count))
+            if (currentPlayerCards.Count == numFields(currentBlackCard.text) * (players.Count - 1 + AIs.Count))
             {
                 return true;
             }

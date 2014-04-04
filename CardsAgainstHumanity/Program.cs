@@ -19,6 +19,7 @@ namespace CardsAgainstHumanity
         public static string ipaddr;
         public static int port = 1337;
         public static Stopwatch stopwatch = new Stopwatch();
+        public static Stopwatch playerTimer = new Stopwatch();
         public static bool isServer;
         public static int bufferSize = 720;
 
@@ -183,6 +184,7 @@ namespace CardsAgainstHumanity
                 client.Close();
 
                 stopwatch.Stop();
+                stopwatch.Reset();
 
                 //Console.WriteLine(stopwatch.Elapsed);
 
@@ -215,6 +217,8 @@ namespace CardsAgainstHumanity
 
         static void PlayerLoop()
         {
+            Thread.Sleep(1000);
+
             string blackcard = Connect("!game.blackcard");
 
             Console.Clear();
@@ -229,7 +233,15 @@ namespace CardsAgainstHumanity
             if (fields == 1)
             {
                 Console.WriteLine("Enter the number of the card you wish to play or dp to display the points tally");
+                playerTimer.Start();
+                if (playerTimer.ElapsedMilliseconds == 60000)
+                {
+                    TimeoutScreen();
+                    return;
+                }
                 string temp = Console.ReadLine();
+                playerTimer.Stop();
+                playerTimer.Reset();
                 if (temp.ToLower() == "dp")
                 {
                     Console.WriteLine(Connect("!game.viewPoints"));
@@ -247,7 +259,21 @@ namespace CardsAgainstHumanity
 
                 for (int i = 0; i < fields; i++)
                 {
-                    Console.WriteLine("Enter the number of the card you wish to go in field " + (i + 1) + ":");
+                    Console.WriteLine("Enter the number of the card you wish to go in field or dp to display the points tally" + (i + 1) + ":");
+                    playerTimer.Start();
+                    if (playerTimer.ElapsedMilliseconds == 60000)
+                    {
+                        TimeoutScreen();
+                        return;
+                    }
+                    temp = Console.ReadLine();
+                    playerTimer.Stop();
+                    playerTimer.Reset();
+                    if (temp.ToLower() == "dp")
+                    {
+                        Console.WriteLine(Connect("!game.viewPoints"));
+                        temp = Console.ReadLine();
+                    }
                     int cardToPlay = int.Parse(Console.ReadLine());
                     toRemove[i] = cardToPlay;
                     temp += player.hand[cardToPlay] + "`";
@@ -289,12 +315,32 @@ namespace CardsAgainstHumanity
             
         }
 
+        static void TimeoutScreen()
+        {
+            Console.Clear();
+            Console.WriteLine("You have taken too long to play your cards and have been made sit out");
+            Console.WriteLine("To rejoin enter r");
+            Console.WriteLine("To quit enter q");
+            string action = Console.ReadLine();
+            if (action.ToLower().Trim() == "q")
+            {
+                Connect("!player.leave|" + player.Name);
+                Environment.Exit(0);
+            }
+
+            Connect("!player.rejoin|" + player.Name);
+            return;
+
+        }
+
         static void CzarLoop()
         {
             Connect("!game.newRound");
 
             string blackcard = Connect("!game.blackcard");
             int fields = numFields(blackcard);
+
+            int timeout = 0;
 
             while (Connect("!game.roundPlayed") == "False")
             {
@@ -313,6 +359,11 @@ namespace CardsAgainstHumanity
 
                 Console.WriteLine("Waiting for players to choose a card...");
                 Thread.Sleep(1000);
+                timeout++;
+                if (timeout == 20)
+                {
+                    Connect("!game.playerTimeout");
+                }
             }
 
             Console.Clear();
