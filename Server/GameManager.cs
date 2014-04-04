@@ -97,7 +97,6 @@ namespace Server
             waitingFor.AddRange(players);
             this.currentBlackCard = blackDeck.Pop();
             currentPlayerCards.Clear();
-            incrementCzarCounter();
             roundWinner = "wait";
         }
 

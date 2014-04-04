@@ -404,6 +404,8 @@ namespace CardsAgainstHumanity
 
             Console.WriteLine(Connect("!game.roundWinner") + " has won the round!");
 
+            Connect("!game.setNextCzar");
+
             Thread.Sleep(4000);
 
         }

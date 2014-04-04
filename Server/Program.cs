@@ -461,6 +461,11 @@ namespace Server
                 gameManager.NewRound();
                 return "0";
             }
+            else if (command.StartsWith("!game.setNextCzar"))
+            {
+                gameManager.incrementCzarCounter();
+                return "0";
+            }
             else if (command.StartsWith("!game.numPlayers"))
             {
                 return (gameManager.numAIs + gameManager.players.Count).ToString();
