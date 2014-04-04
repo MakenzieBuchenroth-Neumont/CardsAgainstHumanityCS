@@ -549,7 +549,7 @@ namespace Server
                 }
                 return tally;
             }
-            else if (command.StartsWith("!game.timeoutPlayer"))
+            else if (command.StartsWith("!game.playerTimeout"))
             {
                 foreach(Player p in gameManager.waitingFor)
                 {
