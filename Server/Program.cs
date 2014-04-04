@@ -357,33 +357,36 @@ namespace Server
             else if (command.StartsWith("!player.leave"))
             {
                 string[] playerinfo = parseFields(command);
-                foreach (Player p in gameManager.players)
+
+                for (int i = 0; i < gameManager.players.Count; i++)
                 {
-                    if (p.Name == playerinfo[0])
+                    if (gameManager.players[i].Name == playerinfo[0])
                     {
-                        gameManager.players.Remove(p);
+                        gameManager.players.RemoveAt(i);
                     }
                 }
-                foreach (Player p in gameManager.afkPlayers)
+
+                for (int i = 0; i < gameManager.afkPlayers.Count; i++)
                 {
-                    if (p.Name == playerinfo[0])
+                    if (gameManager.afkPlayers[i].Name == playerinfo[0])
                     {
-                        gameManager.afkPlayers.Remove(p);
+                        gameManager.afkPlayers.RemoveAt(i);
                     }
-                }
+                } 
                 return "0";
             }
             else if (command.StartsWith("!player.rejoin"))
             {
                 string[] playerinfo = parseFields(command);
-                foreach (Player p in gameManager.afkPlayers)
+
+                for (int i = 0; i < gameManager.afkPlayers.Count; i++)
                 {
-                    if (p.Name == playerinfo[0])
+                    if (gameManager.afkPlayers[i].Name == playerinfo[0])
                     {
-                        gameManager.players.Add(p);
-                        gameManager.afkPlayers.Remove(p);
+                        gameManager.players.Add(gameManager.afkPlayers[i]);
+                        gameManager.afkPlayers.RemoveAt(i);
                     }
-                }
+                } 
                 return "0";
             }
             else if (command.StartsWith("!player.playCard"))
@@ -392,13 +395,13 @@ namespace Server
 
                 gameManager.currentPlayerCards.Add(new PlayInfo(playerinfo[0],playerinfo[1]));
 
-                foreach (Player p in gameManager.waitingFor)
+                for (int i = 0; i < gameManager.waitingFor.Count; i++ )
                 {
-                    if (p.Name == playerinfo[1])
+                    if (gameManager.waitingFor[i].Name == playerinfo[1])
                     {
-                        gameManager.waitingFor.Remove(p);
+                        gameManager.waitingFor.RemoveAt(i);
                     }
-                }
+                } 
 
                 return "0";
             }
