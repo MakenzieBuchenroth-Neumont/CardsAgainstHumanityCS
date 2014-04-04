@@ -196,7 +196,7 @@ namespace CardsAgainstHumanity
             }
             catch (SocketException e)
             {
-                if (e.SocketErrorCode.ToString() == "NetworkUnreachable")
+                if (e.SocketErrorCode.ToString() == "TimedOut")
                 {
                     return "0";
                 }
@@ -256,7 +256,6 @@ namespace CardsAgainstHumanity
                 Random rand = new Random();
 
                 string temp = "";
-                int[] toRemove = new int[fields];
 
                 for (int i = 0; i < fields; i++)
                 {
@@ -267,7 +266,6 @@ namespace CardsAgainstHumanity
                         TimeoutScreen();
                         return;
                     }
-                    temp = Console.ReadLine();
                     playerTimer.Stop();
                     playerTimer.Reset();
                     if (temp.ToLower() == "dp")
@@ -275,8 +273,7 @@ namespace CardsAgainstHumanity
                         Console.WriteLine(Connect("!game.viewPoints"));
                         temp = Console.ReadLine();
                     }
-                    int cardToPlay = int.Parse(Console.ReadLine());
-                    toRemove[i] = cardToPlay;
+                    int cardToPlay = int.Parse(Console.ReadLine());;
                     temp += player.hand[cardToPlay] + "`";
                     player.hand.RemoveAt(cardToPlay);
 
@@ -285,11 +282,6 @@ namespace CardsAgainstHumanity
                 temp += player.Name;
 
                 Connect("!player.playCard|" + temp);
-
-                foreach (int i in toRemove)
-                {
-                    player.hand.RemoveAt(i);
-                }
             }
 
             player.SeperateHand(Connect("!player.draw|" + (maxHand - player.hand.Count)));
