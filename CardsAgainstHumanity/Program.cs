@@ -249,6 +249,7 @@ namespace CardsAgainstHumanity
                 }
                 int cardToPlay = int.Parse(temp);
                 Connect("!player.playCard|" + player.hand[cardToPlay] + "`" + player.Name);
+                player.hand.RemoveAt(cardToPlay);
             }
             else
             {
@@ -277,6 +278,7 @@ namespace CardsAgainstHumanity
                     int cardToPlay = int.Parse(Console.ReadLine());
                     toRemove[i] = cardToPlay;
                     temp += player.hand[cardToPlay] + "`";
+                    player.hand.RemoveAt(cardToPlay);
 
                 }
 
@@ -409,6 +411,8 @@ namespace CardsAgainstHumanity
             Console.Clear();
 
             Console.WriteLine(Connect("!game.roundWinner") + " has won the round!");
+
+            Thread.Sleep(3000);
 
         }
 
