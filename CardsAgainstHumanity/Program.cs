@@ -277,14 +277,10 @@ namespace CardsAgainstHumanity
                         temp = Console.ReadLine();
                     }
                     int cardToPlay = int.Parse(Console.ReadLine());;
-                    temp += player.hand[cardToPlay] + "`";
+                    Connect("!player.playCard|" + player.hand[cardToPlay] + "`" + player.Name);
                     player.hand.RemoveAt(cardToPlay);
 
                 }
-
-                temp += player.Name;
-
-                Connect("!player.playCard|" + temp);
             }
 
             player.SeperateHand(Connect("!player.draw|" + (maxHand - player.hand.Count)));

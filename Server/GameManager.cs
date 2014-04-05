@@ -95,6 +95,7 @@ namespace Server
         public void NewRound()
         {
             waitingFor.AddRange(players);
+            waitingFor.RemoveAt(CzarCounter);
             this.currentBlackCard = blackDeck.Pop();
             currentPlayerCards.Clear();
             roundWinner = "wait";
