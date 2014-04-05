@@ -395,7 +395,7 @@ namespace CardsAgainstHumanity
                 temp = Console.ReadLine();
             }
 
-            int winner = int.Parse(temp);
+            int winner = int.Parse(temp) * numFields(blackcard);
 
             Connect("!game.setWinner|" + winner);
 
