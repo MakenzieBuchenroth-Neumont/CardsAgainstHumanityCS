@@ -139,11 +139,11 @@ namespace CardsAgainstHumanity
 
             if (hasWon == player.Name)
             {
-                Console.WriteLine(" You have Won the game! congratulations!");
+                Console.WriteLine("You have Won the game! congratulations!");
             }
             else
             {
-                Console.WriteLine(hasWon + "has Won the game! congratulations!");
+                Console.WriteLine(hasWon + " has Won the game! congratulations!");
             }
 
             ThanksForPlaying();
@@ -302,7 +302,7 @@ namespace CardsAgainstHumanity
 
             Console.Clear();
 
-            Console.WriteLine(Connect("!game.roundWinner") + "Has won the round!");
+            Console.WriteLine(Connect("!game.roundWinner") + " has won the round!");
 
             Thread.Sleep(3000);
             
