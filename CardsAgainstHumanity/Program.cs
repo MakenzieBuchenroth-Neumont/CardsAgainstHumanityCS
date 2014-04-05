@@ -276,7 +276,13 @@ namespace CardsAgainstHumanity
                         Console.WriteLine(Connect("!game.viewPoints"));
                         temp = Console.ReadLine();
                     }
-                    int cardToPlay = int.Parse(Console.ReadLine());;
+                    int cardToPlay = int.Parse(Console.ReadLine());
+
+                    while (cardToPlay < player.hand.Count - 1 || cardToPlay > -1)
+                    {
+                        Console.WriteLine("invalid choice, pick the number of a card in your hand");
+                        cardToPlay = int.Parse(Console.ReadLine());
+                    }
                     Connect("!player.playCard|" + player.hand[cardToPlay] + "`" + player.Name);
                     player.hand.RemoveAt(cardToPlay);
 
