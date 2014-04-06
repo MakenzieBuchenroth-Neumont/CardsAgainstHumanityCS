@@ -273,8 +273,6 @@ namespace Server
                                 parseCommand("!player.playCard|" + ai.hand[cardToPlay] + "`" + ai.Name);
 
                                 ai.hand.RemoveAt(cardToPlay);
-
-                                //ai.hand[cardToPlay] = parseCommand("!player.draw|1");
                             }
                             else
                             {
@@ -286,21 +284,16 @@ namespace Server
                                 {
                                     while (toRemove.Contains(cardToPlay))
                                     {
-                                        cardToPlay = rand.Next(0, 9);
+                                        cardToPlay = rand.Next(0, ai.hand.Count-1);
                                     }
                                     toRemove[i] = cardToPlay;
                                     temp += ai.hand[cardToPlay] + "`";
-                                    temp += ai.Name;
-
-                                    parseCommand("!player.playCard|" + temp);
-                                    temp = "";
+                                    ai.hand.RemoveAt(cardToPlay);
 
                                 }
 
-                                foreach (int i in toRemove)
-                                {
-                                    ai.hand.RemoveAt(i);
-                                }
+                                temp += ai.Name;
+                                parseCommand("!player.playCard|" + temp);
                             }
 
                              ai.SeperateHand(parseCommand("!player.draw|" + (gameManager.maxCards - ai.hand.Count)));
@@ -391,9 +384,27 @@ namespace Server
             }
             else if (command.StartsWith("!player.playCard"))
             {
+                int entries =  gameManager.numFields(gameManager.currentBlackCard.text);
+
                 string[] playerinfo = parseFields(command);
 
-                gameManager.currentPlayerCards.Add(new PlayInfo(playerinfo[0],playerinfo[1]));
+                if (entries == 1)
+                {
+                    gameManager.currentPlayerCards.Add(new PlayInfo(playerinfo[0], playerinfo[1]));
+                }
+                else
+                {
+                    string temp = "";
+
+                    for (int i = 0; i < entries-1; i++)
+                    {
+                        temp += playerinfo[i] + "`";
+                    }
+
+                    temp = temp.Substring(0, temp.Length - 1);
+
+                    gameManager.currentPlayerCards.Add(new PlayInfo(temp, playerinfo[playerinfo.Length - 1]));
+                }
 
                 for (int i = 0; i < gameManager.waitingFor.Count; i++ )
                 {
@@ -501,6 +512,10 @@ namespace Server
             else if (command.StartsWith("!game.roundEntries"))
             {
                 string temp = "";
+
+                Shuffler shuffler = new Shuffler();
+                shuffler.Shuffle(gameManager.currentPlayerCards);
+
                 foreach (PlayInfo p in gameManager.currentPlayerCards)
                 {
                     temp += p.card + "`";

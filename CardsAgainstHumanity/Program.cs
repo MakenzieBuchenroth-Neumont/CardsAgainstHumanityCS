@@ -256,6 +256,7 @@ namespace CardsAgainstHumanity
                 Random rand = new Random();
 
                 string temp = "";
+                List<int> toRemove = new List<int>();
 
                 for (int i = 0; i < fields; i++)
                 {
@@ -264,13 +265,6 @@ namespace CardsAgainstHumanity
                     player.DisplayHand();
                     Console.WriteLine(" \n Enter the number of the card you wish to go in field " + (i + 1) + "or dp to display the points tally:");
                     playerTimer.Start();
-                    if (playerTimer.ElapsedMilliseconds == 60000)
-                    {
-                        TimeoutScreen();
-                        return;
-                    }
-                    playerTimer.Stop();
-                    playerTimer.Reset();
                     if (temp.ToLower() == "dp")
                     {
                         Console.WriteLine(Connect("!game.viewPoints"));
@@ -283,9 +277,24 @@ namespace CardsAgainstHumanity
                         Console.WriteLine("invalid choice, pick the number of a card in your hand");
                         cardToPlay = int.Parse(Console.ReadLine());
                     }
-                    Connect("!player.playCard|" + player.hand[cardToPlay] + "`" + player.Name);
-                    player.hand.RemoveAt(cardToPlay);
 
+                    temp += player.hand[cardToPlay] + "`";
+
+                    if (playerTimer.ElapsedMilliseconds > 60000)
+                    {
+                        TimeoutScreen();
+                        return;
+                    }
+                }
+
+                playerTimer.Stop();
+                playerTimer.Reset();
+
+                Connect("!player.playCard|" + temp + player.Name);
+
+                foreach (int i in toRemove)
+                {
+                    player.hand.RemoveAt(i);
                 }
             }
 
@@ -382,12 +391,12 @@ namespace CardsAgainstHumanity
             else
             {
                 int count = 0;
-                for (int i = 0; i < entries.Length; i+=fields)
+                for (int i = 0; i < entries.Length; i += fields)
                 {
                     Console.WriteLine(count + ".\t" + entries[i] + "\n");
                     for (int j = 1; j < fields; j++)
                     {
-                        Console.WriteLine(".\t" + entries[i+j] + "\n");
+                        Console.WriteLine(".\t" + entries[i + j] + "\n");
                     }
                     count++;
                 }

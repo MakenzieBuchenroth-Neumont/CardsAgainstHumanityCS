@@ -114,7 +114,7 @@ namespace Server
 
         public bool played()
         {
-            if (currentPlayerCards.Count == numFields(currentBlackCard.text) * (players.Count - 1 + AIs.Count))
+            if (currentPlayerCards.Count == players.Count - 1 + AIs.Count)
             {
                 return true;
             }
