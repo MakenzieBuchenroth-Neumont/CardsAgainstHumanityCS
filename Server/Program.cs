@@ -107,7 +107,7 @@ namespace Server
             {
                 gameManager = new GameManager();
                 CardSet whiteCardSet = DeserializeCards(Path.Combine(cardDirectory, "white/all.json"));
-                CardSet blackCardSet = DeserializeCards(Path.Combine(cardDirectory, "black/all.json"));
+                CardSet blackCardSet = DeserializeCards(Path.Combine(cardDirectory, "black/testDeck.json"));
 
                 int[] whiteList = Enumerable.Range(0, whiteCardSet.cards.Count - 1).ToArray();
                 int[] blackList = Enumerable.Range(0, blackCardSet.cards.Count - 1).ToArray();
@@ -396,7 +396,7 @@ namespace Server
                 {
                     string temp = "";
 
-                    for (int i = 0; i < entries-1; i++)
+                    for (int i = 0; i < entries; i++)
                     {
                         temp += playerinfo[i] + "`";
                     }
