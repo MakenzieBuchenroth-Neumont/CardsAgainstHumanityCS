@@ -88,8 +88,6 @@ namespace CardsAgainstHumanity
                 ipaddr = Console.ReadLine();
             }
 
-            Console.ReadLine();
-
 //             if (player.IpAddress == "failed")
 //             {
 //                 Console.WriteLine("failed to obtain ip address");
@@ -217,13 +215,15 @@ namespace CardsAgainstHumanity
 
         static void PlayerLoop()
         {
-            Thread.Sleep(1000);
+            Thread.Sleep(100);
 
             string blackcard = Connect("!game.blackcard");
 
             Console.Clear();
 
             int fields = numFields(blackcard);
+
+            playerTimer.Start();
 
 
             if (fields == 1)
@@ -233,7 +233,6 @@ namespace CardsAgainstHumanity
                 player.DisplayHand();
 
                 Console.WriteLine("Enter the number of the card you wish to play or dp to display the points tally");
-                playerTimer.Start();
                 if (playerTimer.ElapsedMilliseconds == 60000)
                 {
                     TimeoutScreen();
@@ -264,7 +263,6 @@ namespace CardsAgainstHumanity
                     Console.WriteLine(blackcard + "\n\n");
                     player.DisplayHand();
                     Console.WriteLine(" \n Enter the number of the card you wish to go in field " + (i + 1) + "or dp to display the points tally:");
-                    playerTimer.Start();
                     if (temp.ToLower() == "dp")
                     {
                         Console.WriteLine(Connect("!game.viewPoints"));
@@ -279,12 +277,6 @@ namespace CardsAgainstHumanity
                     }
 
                     temp += player.hand[cardToPlay] + "`";
-
-                    if (playerTimer.ElapsedMilliseconds > 60000)
-                    {
-                        TimeoutScreen();
-                        return;
-                    }
                 }
 
                 playerTimer.Stop();
@@ -410,7 +402,7 @@ namespace CardsAgainstHumanity
                 temp = Console.ReadLine();
             }
 
-            int winner = int.Parse(temp) * numFields(blackcard);
+            int winner = int.Parse(temp);
 
             Connect("!game.setWinner|" + winner);
 
@@ -420,7 +412,7 @@ namespace CardsAgainstHumanity
 
             Connect("!game.setNextCzar");
 
-            Thread.Sleep(4000);
+            Thread.Sleep(2000);
 
         }
 
