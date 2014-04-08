@@ -25,7 +25,7 @@ namespace CardsAgainstHumanity
 
         static void Main(string[] args)
         {
-
+            Console.SetWindowSize(85, 30);
             DisplayLogo();
 
             Console.WriteLine("Please elect one and only one player to host the game.\n");
@@ -77,8 +77,28 @@ namespace CardsAgainstHumanity
             else
             {
 
-                Console.WriteLine("Enter the server ip address:");
+                Console.WriteLine("Enter the server ip address or \"show\" to display the ip addresses for all online machines:");
                 ipaddr = Console.ReadLine();
+                if (ipaddr.ToLower().Trim() == "show")
+                {
+                    stopwatch.Start();
+                    MassPing massPing = new MassPing();
+                    massPing.NetPing();
+
+                    while (!massPing.IsDone())
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                    foreach (string addr in massPing.online)
+                    {
+                        Console.WriteLine(addr);
+                    }
+
+                    Console.WriteLine("\n" + stopwatch.Elapsed);
+                }
+                Console.WriteLine("\nEnter the server ip address:");
+                ipaddr = Console.ReadLine();                
             }
 
             while (Connect("!player.join|" + player) == "0")
@@ -434,7 +454,6 @@ namespace CardsAgainstHumanity
 
             return count / 3;
         }
-
 
         static void DisplayLogo()
         {
