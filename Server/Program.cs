@@ -107,7 +107,7 @@ namespace Server
             {
                 gameManager = new GameManager();
                 CardSet whiteCardSet = DeserializeCards(Path.Combine(cardDirectory, "white/all.json"));
-                CardSet blackCardSet = DeserializeCards(Path.Combine(cardDirectory, "black/testDeck.json"));
+                CardSet blackCardSet = DeserializeCards(Path.Combine(cardDirectory, "black/all.json"));
 
                 int[] whiteList = Enumerable.Range(0, whiteCardSet.cards.Count - 1).ToArray();
                 int[] blackList = Enumerable.Range(0, blackCardSet.cards.Count - 1).ToArray();
@@ -556,11 +556,11 @@ namespace Server
 
                 foreach (Player p in gameManager.players)
                 {
-                    tally += p.Name + "\t" + p.Points + "\n";
+                    tally += p.Name + "\t\t" + p.Points + "\n";
                 }
                 foreach (AI ai in gameManager.AIs)
                 {
-                    tally += ai.Name + "\t" + ai.Points + "\n";
+                    tally += ai.Name + "\t\t" + ai.Points + "\n";
                 }
                 return tally;
             }
