@@ -85,7 +85,7 @@ namespace CardsAgainstHumanity
                     MassPing massPing = new MassPing();
                     massPing.NetPing();
 
-                    while (!massPing.IsDone())
+                    while (massPing.isDone() == false)
                     {
                         Thread.Sleep(100);
                     }
@@ -95,10 +95,12 @@ namespace CardsAgainstHumanity
                         Console.WriteLine(addr);
                     }
 
-                    Console.WriteLine("\n" + stopwatch.Elapsed);
+                    Console.WriteLine("\n" + stopwatch.Elapsed + "\n");
+
+                    Console.WriteLine("\nEnter the server ip address:");
+                    ipaddr = Console.ReadLine(); 
                 }
-                Console.WriteLine("\nEnter the server ip address:");
-                ipaddr = Console.ReadLine();                
+               
             }
 
             while (Connect("!player.join|" + player) == "0")
@@ -107,8 +109,6 @@ namespace CardsAgainstHumanity
                 Console.WriteLine("Enter the server ip address:");
                 ipaddr = Console.ReadLine();
             }
-
-            Console.ReadLine();
 
 //             if (player.IpAddress == "failed")
 //             {
@@ -430,7 +430,7 @@ namespace CardsAgainstHumanity
                 temp = Console.ReadLine();
             }
 
-            int winner = int.Parse(temp) * numFields(blackcard);
+            int winner = int.Parse(temp);
 
             Connect("!game.setWinner|" + winner);
 

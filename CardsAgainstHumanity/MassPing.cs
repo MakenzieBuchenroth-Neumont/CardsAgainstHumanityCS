@@ -16,11 +16,13 @@ namespace CardsAgainstHumanity
         public List<string> online;
         public string[] addresses;
         public string ipaddr;
+        public bool[] tried;
 
         int indexer;
 
         public MassPing()
         {
+            tried = new bool[256];
             ipaddr = FindIP();
             indexer = 0;
             threads = new Thread[256];
@@ -30,9 +32,13 @@ namespace CardsAgainstHumanity
 
         public void NetPing()
         {
-            addresses = new string[256];
             string clientPrefix = ipaddr;
             clientPrefix = clientPrefix.Substring(0, clientPrefix.LastIndexOf('.') + 1);
+
+            for (int i = 0; i < tried.Length; i++)
+            {
+                tried[i] = false;
+            }
 
             for (int i = 0; i < 256; i++)
             {
@@ -40,7 +46,6 @@ namespace CardsAgainstHumanity
             }
 
 
-            Ping pingSender = new Ping();
             for (int i=0; i < threads.Length; i++)
             {
                 threads[i] = new Thread(ThreadPing);
@@ -68,24 +73,29 @@ namespace CardsAgainstHumanity
                 if (reply.Status == IPStatus.Success)
                 {
                     online.Add(pingMe);
+                    tried[indexer] = true;
                 }
             }
             catch (Exception)
             {
             }
-
         }
 
-        public bool IsDone()
+        public bool isDone()
         {
-            if (indexer == 255 && online.Count > 1)
+            bool done = true;
+
+            foreach (bool b in tried)
             {
-                return true;
+                done = b;
+
+                if (done == false)
+                {
+                    return done; 
+                }
             }
-            else
-            {
-                return false;
-            }
+
+            return true;
         }
     }
 }
