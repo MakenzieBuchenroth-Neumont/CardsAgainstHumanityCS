@@ -14,20 +14,17 @@ namespace CardsAgainstHumanity
     {
         public Thread[] threads;
         public List<string> online;
-        public string[] addresses;
+        public Stack<string> addresses;
         public string ipaddr;
-        public bool[] tried;
-
-        int indexer;
+        public int tried;
 
         public MassPing()
         {
-            tried = new bool[256];
+            tried = 0;
             ipaddr = FindIP();
-            indexer = 0;
             threads = new Thread[256];
             online = new List<string>();
-            addresses = new string[256];
+            addresses = new Stack<string>();
         }
 
         public void NetPing()
@@ -35,14 +32,9 @@ namespace CardsAgainstHumanity
             string clientPrefix = ipaddr;
             clientPrefix = clientPrefix.Substring(0, clientPrefix.LastIndexOf('.') + 1);
 
-            for (int i = 0; i < tried.Length; i++)
-            {
-                tried[i] = false;
-            }
-
             for (int i = 0; i < 256; i++)
             {
-                addresses[i] = clientPrefix + i;
+                addresses.Push(clientPrefix + i);
             }
 
 
@@ -50,8 +42,6 @@ namespace CardsAgainstHumanity
             {
                 threads[i] = new Thread(ThreadPing);
                 threads[i].Start();
-                indexer = i;
-
             }
         }
 
@@ -66,15 +56,17 @@ namespace CardsAgainstHumanity
         {
             try
             {
-                string pingMe = addresses[indexer];
+                string pingMe = addresses.Pop();
                 Ping pingSender = new Ping();
                 IPAddress address = IPAddress.Parse(pingMe);
                 PingReply reply = pingSender.Send(address);
+
                 if (reply.Status == IPStatus.Success)
                 {
                     online.Add(pingMe);
-                    tried[indexer] = true;
                 }
+
+                tried++;
             }
             catch (Exception)
             {
@@ -83,19 +75,12 @@ namespace CardsAgainstHumanity
 
         public bool isDone()
         {
-            bool done = true;
-
-            foreach (bool b in tried)
+            if (tried > 254)
             {
-                done = b;
-
-                if (done == false)
-                {
-                    return done; 
-                }
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }
