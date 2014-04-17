@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CardsAgainstHumanity
+namespace CardsAgainstHumanityGUI
 {
-    class Player
+    public class Player
     {
         private string name;
 
