@@ -34,7 +34,6 @@ namespace CardsAgainstHumanityGUI
         {
             InitializeComponent();
             player = playerDetails;
-            Start();
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

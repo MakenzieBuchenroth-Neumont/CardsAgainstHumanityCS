@@ -91,8 +91,8 @@ namespace CardsAgainstHumanityGUI
 
             this.Hide();
             Game game = new Game(player);
-            App.Current.MainWindow = game;
             game.Show();
+            game.Start();
         }
     }
 }
