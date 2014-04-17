@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardsAgainstHumanity", "Car
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardsAgainstHumanityGUI", "..\..\..\SkyDrive\CardsAgainstHumanityC#\CardsAgainstHumanityGUI\CardsAgainstHumanityGUI\CardsAgainstHumanityGUI.csproj", "{656389B2-4479-41EA-AC62-140E6912CD59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardsAgainstHumanityGUI", "CardsAgainstHumanityGUI\CardsAgainstHumanityGUI.csproj", "{656389B2-4479-41EA-AC62-140E6912CD59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

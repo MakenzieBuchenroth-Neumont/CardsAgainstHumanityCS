@@ -82,14 +82,16 @@ namespace CardsAgainstHumanityGUI
                 return;
 
             }
-            else if (connectionVal == "ConnectionRefused")
+            
+            if (connectionVal == "ConnectionRefused")
             {
                 MessageBox.Show("Connection refused, make sure the server is running and port 1337 is accessible");
                 return;
             }
 
-            Game game = new Game(player);
             this.Hide();
+            Game game = new Game(player);
+            App.Current.MainWindow = game;
             game.Show();
         }
     }

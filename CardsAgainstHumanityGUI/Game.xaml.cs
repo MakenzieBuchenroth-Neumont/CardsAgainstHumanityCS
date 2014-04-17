@@ -32,8 +32,8 @@ namespace CardsAgainstHumanityGUI
 
         public Game(Player playerDetails)
         {
-            player = playerDetails;
             InitializeComponent();
+            player = playerDetails;
             Start();
         }
 
