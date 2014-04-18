@@ -278,22 +278,22 @@ namespace CardsAgainstHumanityGUI
 
             int fields = numFields(blackcard);
 
+            whitecard1 = player.hand[0];
+            whitecard2 = player.hand[1];
+            whitecard3 = player.hand[2];
+            whitecard4 = player.hand[3];
+            whitecard5 = player.hand[4];
+            whitecard6 = player.hand[5];
+            whitecard7 = player.hand[6];
+            whitecard8 = player.hand[7];
+            whitecard9 = player.hand[8];
+            whitecard10 = player.hand[9];
+
+            player.IsPlayer = true;
+
             if (fields == 1)
             {
 
-                whitecard1 = player.hand[0];
-                whitecard2 = player.hand[1];
-                whitecard3 = player.hand[2];
-                whitecard4 = player.hand[3];
-                whitecard5 = player.hand[4];
-                whitecard6 = player.hand[5];
-                whitecard7 = player.hand[6];
-                whitecard8 = player.hand[7];
-                whitecard9 = player.hand[8];
-                whitecard10 = player.hand[9];
-
-
-                player.IsPlayer = true;
                 message = ("Click the card you wish to play");
                 playerTimer.Start();
 
@@ -329,38 +329,31 @@ namespace CardsAgainstHumanityGUI
             }
             else
             {
-                Random rand = new Random();
 
                 string temp = "";
                 List<int> toRemove = new List<int>();
 
                 for (int i = 0; i < fields; i++)
                 {
-                    Console.Clear();
-                    Console.WriteLine(blackcard + "\n\n");
-                    player.DisplayHand();
-                    Console.WriteLine(" \n Enter the number of the card you wish to go in field " + (i + 1) + "or dp to display the points tally:");
+                    message ="Click the card you wish to go in field " + (i + 1);
+
                     playerTimer.Start();
-                    if (temp.ToLower() == "dp")
-                    {
-                        Console.WriteLine(Connection.Connect("!game.viewPoints"));
-                        temp = Console.ReadLine();
-                    }
-                    int cardToPlay = int.Parse(Console.ReadLine());
 
-                    while (cardToPlay < player.hand.Count - 1 || cardToPlay > -1)
+                    chosenCard = -1;
+
+                    while (chosenCard == -1)
                     {
-                        Console.WriteLine("invalid choice, pick the number of a card in your hand");
-                        cardToPlay = int.Parse(Console.ReadLine());
+                        Yield(100000);
+
+                        if (playerTimer.ElapsedMilliseconds == 60000)
+                        {
+                            TimeoutScreen();
+                            return;
+                        }
                     }
 
-                    temp += player.hand[cardToPlay] + "`";
+                    temp += player.hand[chosenCard] + "`";
 
-                    if (playerTimer.ElapsedMilliseconds > 60000)
-                    {
-                        TimeoutScreen();
-                        return;
-                    }
                 }
 
                 playerTimer.Stop();
@@ -376,26 +369,17 @@ namespace CardsAgainstHumanityGUI
 
             player.SeperateHand(Connection.Connect("!player.draw|" + (maxHand - player.hand.Count)));
 
-            Console.Clear();
+            message = "waiting for czar to choose";
+            progressBar.Visibility = Visibility.Visible;
 
             while (Connection.Connect("!game.roundWinner") == "wait")
             {
-                Console.WriteLine("Waiting for Czar to choose.");
-                Thread.Sleep(500);
-                Console.Clear();
-                Console.WriteLine("Waiting for Czar to choose..");
-                Thread.Sleep(500);
-                Console.Clear();
-                Console.WriteLine("Waiting for Czar to choose...");
-                Thread.Sleep(500);
-                Console.Clear();
+                Yield(10000000);
             }
 
-            Console.Clear();
+            message = Connection.Connect("!game.roundWinner") + " has won the round!";
 
-            Console.WriteLine(Connection.Connect("!game.roundWinner") + " has won the round!");
-
-            Thread.Sleep(3000);
+            Yield(30000000);
 
         }
 
