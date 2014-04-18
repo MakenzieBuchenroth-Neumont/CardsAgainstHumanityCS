@@ -66,7 +66,7 @@
                     </Image>
                 <TextBlock FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Margin="10,31,10,20"  TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=blackcard}" Foreground="White"/>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Name="c1" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115"  Text="{Binding Path=whitecard1}"/>              
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard1}"/>              
                     <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>
@@ -75,7 +75,7 @@
                         </Button.Background>
                     </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"  Name="c2" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard2}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard2}"/>
                         <Button.OpacityMask>
                             <ImageBrush ImageSource="BlankWhiteCard.png"/>
                         </Button.OpacityMask>
@@ -87,7 +87,7 @@
                         </Button.Background>
                     </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="2"  Name="c3" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard3}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard3}"/>
                         <Button.OpacityMask>
                             <ImageBrush ImageSource="BlankWhiteCard.png"/>
                         </Button.OpacityMask>
@@ -99,7 +99,7 @@
                         </Button.Background>
                     </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="13" Grid.ColumnSpan="2"  Name="c4" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard4}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard4}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -111,7 +111,7 @@
                     </Button.Background>
                 </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  Name="c5" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard5}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard5}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -123,7 +123,7 @@
                     </Button.Background>
                 </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"  Name="c6" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard6}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard6}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -135,7 +135,7 @@
                     </Button.Background>
                 </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="10" Grid.ColumnSpan="2"  Name="c7" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard7}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard7}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -147,7 +147,7 @@
                     </Button.Background>
                 </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="13" Grid.ColumnSpan="2"  Name="c8" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard8}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard8}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -159,7 +159,7 @@
                     </Button.Background>
                 </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  Name="c9" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard9}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard9}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -171,7 +171,7 @@
                     </Button.Background>
                 </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="2" Grid.Column="13" Grid.ColumnSpan="2"  Name="c10" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecard10}"/>
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="10,0" Text="{Binding Path=whitecard10}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -183,10 +183,8 @@
                     </Button.Background>
                 </Button>
                 <ProgressBar Name="progressBar"  Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="2"  Value="50" Maximum="100" IsIndeterminate="True" Height="20" Visibility="Collapsed" />
-                <TextBlock Name="Message"  Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Center"  Text="{Binding Path=message}" HorizontalAlignment="Center" Margin="10,0" FontFamily="Helvetica" FontWeight="Bold" Foreground="White"></TextBlock>
+                <TextBlock Name="Message" TextWrapping="Wrap"  Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Text="{Binding Path=message}" HorizontalAlignment="Center" TextAlignment="Center"  Margin="10,0,10,30" FontFamily="Helvetica" FontWeight="Bold" Foreground="White"></TextBlock>
             </Grid>
         </TabItem>
-        <TabItem Header="Help"></TabItem>
-        <StackPanel Height="22" Width="250"/>
     </TabControl>
 </Window>
