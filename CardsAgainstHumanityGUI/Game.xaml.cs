@@ -30,10 +30,10 @@ namespace CardsAgainstHumanityGUI
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static Player player;
-        public static int chosenWinner;
-        public static int maxHand;
-        public static Stopwatch playerTimer = new Stopwatch();
+        public Player player;
+        public int chosenWinner;
+        public int maxHand;
+        public Stopwatch playerTimer = new Stopwatch();
 
         public ObservableCollection<CardBinding> whitecards { get; set; }
 
@@ -294,6 +294,7 @@ namespace CardsAgainstHumanityGUI
             string parse = Connection.Connect("!game.roundEntries");
             string[] cards = parse.Split('`');
 
+
             if (numFields(blackcard) == 1)
             {
                 for (int i = 0; i < cards.Length; i++)
@@ -315,9 +316,12 @@ namespace CardsAgainstHumanityGUI
                     whitecards.Add( new CardBinding(temp));
                     offset += fields;
 
-                    MessageBox.Show(whitecards[0].Card);
                 }
             }
+
+            DataContext = this;
+
+            MessageBox.Show(whitecards[0].Card);
 
             chosenWinner = -1;
 
