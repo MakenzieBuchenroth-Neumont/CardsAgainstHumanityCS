@@ -197,13 +197,13 @@ namespace CardsAgainstHumanityGUI
 
             if(player.IsCzar)
             {
-                chosenWinner = int.Parse(button.Name.Substring(1));
+                chosenWinner = int.Parse(button.Name.Substring(1))-1;
                 return;
             }
 
             if (player.IsPlayer)
             {
-                chosenCard = int.Parse(button.Name.Substring(1));
+                chosenCard = int.Parse(button.Name.Substring(1))-1;
                 return;
             }
 
@@ -272,7 +272,7 @@ namespace CardsAgainstHumanityGUI
         private void PlayerLoop()
         {
 
-            Yield(1000);
+            Yield(10000000);
 
             string blackcard = Connection.Connect("!game.blackcard");
 
