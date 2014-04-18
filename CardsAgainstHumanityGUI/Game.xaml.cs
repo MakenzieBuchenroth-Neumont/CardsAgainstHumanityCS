@@ -249,8 +249,6 @@ namespace CardsAgainstHumanityGUI
                 hasWon = Connection.Connect("!player.hasWon");
             }
 
-            Console.Clear();
-
             if (hasWon == player.Name)
             {
                 message = "you have won, congratulations!";
