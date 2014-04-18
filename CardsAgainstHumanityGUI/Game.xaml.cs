@@ -272,7 +272,7 @@ namespace CardsAgainstHumanityGUI
         private void PlayerLoop()
         {
 
-            Yield(10000000);
+            Yield(20000000);
 
             string blackcard = Connection.Connect("!game.blackcard");
 
@@ -377,9 +377,11 @@ namespace CardsAgainstHumanityGUI
                 Yield(10000000);
             }
 
+            progressBar.Visibility = Visibility.Collapsed;
+
             message = Connection.Connect("!game.roundWinner") + " has won the round!";
 
-            Yield(30000000);
+            Yield(40000000);
 
         }
 
