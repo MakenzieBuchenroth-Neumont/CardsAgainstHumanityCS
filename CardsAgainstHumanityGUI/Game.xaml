@@ -3,7 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
         x:Class="CardsAgainstHumanityGUI.Game" Title="Cards Against Humanity Game" WindowStyle="ToolWindow"
-        Height="768" Width="1280" Background="#FF7A7C82">
+        Height="768" Width="1280" Background="#FF7A7C82" Name="GameWindow">
     <Window.Resources>
             <Style x:Key="MyButtonStyle" TargetType="Button">
                 <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -34,7 +34,7 @@
     </Window.Resources>
     <TabControl Margin="0,0,4,6">
         <TabItem Header="Game">
-            <Grid>
+            <Grid DataContext="{Binding ElementName=GameWindow, Path=.}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -64,9 +64,9 @@
                             <DropShadowEffect/>
                         </Image.Effect>
                     </Image>
-                <TextBlock FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Margin="10,31,10,20"  TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="What is Batman's guilty pleasure? ___" Foreground="White"/>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"  Name="WhiteCard1" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard1_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115"  Text="The violation of our most basic human rights"/>
+                <TextBlock FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Margin="10,31,10,20"  TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=blackcard}" Foreground="White"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Name="c1" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115"  Text="{Binding Path=whitecards[0].Card}"/>              
                     <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>
@@ -74,8 +74,8 @@
                             <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                         </Button.Background>
                     </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"  Name="WhiteCard2" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard2_Click" BorderBrush="{x:Null}" >
-                        <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"  Name="c2" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[1].Card}"/>
                         <Button.OpacityMask>
                             <ImageBrush ImageSource="BlankWhiteCard.png"/>
                         </Button.OpacityMask>
@@ -86,8 +86,8 @@
                             <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                         </Button.Background>
                     </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="2"  Name="WhiteCard3" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard3_Click" BorderBrush="{x:Null}" >
-                        <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="10" Grid.ColumnSpan="2"  Name="c3" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[2].Card}"/>
                         <Button.OpacityMask>
                             <ImageBrush ImageSource="BlankWhiteCard.png"/>
                         </Button.OpacityMask>
@@ -98,8 +98,8 @@
                             <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                         </Button.Background>
                     </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="13" Grid.ColumnSpan="2"  Name="WhiteCard4" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard4_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="13" Grid.ColumnSpan="2"  Name="c4" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[3].Card}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -110,8 +110,8 @@
                         <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                     </Button.Background>
                 </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  Name="WhiteCard5" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard5_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  Name="c5" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[4].Card}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -122,8 +122,8 @@
                         <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                     </Button.Background>
                 </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"  Name="WhiteCard6" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard6_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2"  Name="c6" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[5].Card}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -134,8 +134,8 @@
                         <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                     </Button.Background>
                 </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="10" Grid.ColumnSpan="2"  Name="WhiteCard7" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard7_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="10" Grid.ColumnSpan="2"  Name="c7" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[6].Card}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -146,8 +146,8 @@
                         <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                     </Button.Background>
                 </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="13" Grid.ColumnSpan="2"  Name="WhiteCard8" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard8_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="1" Grid.Column="13" Grid.ColumnSpan="2"  Name="c8" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[7].Card}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -158,8 +158,8 @@
                         <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                     </Button.Background>
                 </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  Name="WhiteCard9" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard9_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  Name="c9" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[8].Card}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -170,8 +170,8 @@
                         <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                     </Button.Background>
                 </Button>
-                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="2" Grid.Column="13" Grid.ColumnSpan="2"  Name="WhiteCard10" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard10_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="The violation of our most basic human rights"/>
+                <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="2" Grid.Column="13" Grid.ColumnSpan="2"  Name="c10" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
+                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=whitecards[9].Card}"/>
                     <Button.OpacityMask>
                         <ImageBrush ImageSource="BlankWhiteCard.png"/>
                     </Button.OpacityMask>
@@ -182,9 +182,12 @@
                         <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
                     </Button.Background>
                 </Button>
-                <ProgressBar Name="progressBar"  Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="2"  Value="50" Maximum="100" IsIndeterminate="True" Height="20" Visibility="Hidden" />
-                <Label Name="waitingForStart"  Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Center"  Content="Waiting for game to start" Visibility="Hidden" ></Label>
-                <Label Name="waitingForCzar" Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Center"  Content="Waiting for Czar to choose" Visibility="Hidden" ></Label>
+                <ProgressBar Name="progressBar"  Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="2"  Value="50" Maximum="100" IsIndeterminate="True" Height="20" Visibility="Collapsed" />
+                <Label Name="waitingForStart"  Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Center"  Content="Waiting for game to start" Visibility="Collapsed" ></Label>
+                <Label Name="winner" Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Center"  Content="(playerName) has Won the game! congratulations!" Visibility="Collapsed" ></Label>
+                <Label Name="otherWinner" Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Center"  Content="Waiting for Czar to choose" Visibility="Collapsed" ></Label>
+                <Label Name="waitingForPlayers" Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Center"  Content="Waiting for players to choose" Visibility="Collapsed" ></Label>
+                <Label Name="waitingForCzar" Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Center"  Content="Waiting for Czar to choose" Visibility="Collapsed" ></Label>
             </Grid>
         </TabItem>
         <TabItem Header="Help"></TabItem>

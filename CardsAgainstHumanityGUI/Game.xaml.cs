@@ -16,6 +16,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 
 namespace CardsAgainstHumanityGUI
@@ -23,17 +26,41 @@ namespace CardsAgainstHumanityGUI
     /// <summary>
     /// Interaction logic for Game.xaml
     /// </summary>
-    public partial class Game : Window
+    public partial class Game : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public static Player player;
+        public static int chosenWinner;
         public static int maxHand;
         public static Stopwatch playerTimer = new Stopwatch();
-        public static bool isServer;
 
-        public Game(Player playerDetails)
+        public ObservableCollection<CardBinding> whitecards { get; set; }
+
+        private string _blackcard;
+
+        public string blackcard
+        {
+            get { return _blackcard; }
+            set
+            {
+                _blackcard = value;
+                NotifyPropertyChanged("blackcard");
+            }
+        }
+
+        public void NotifyPropertyChanged(String propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+
+        public Game()
         {
             InitializeComponent();
-            player = playerDetails;
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -41,67 +68,22 @@ namespace CardsAgainstHumanityGUI
 
         }
 
-        private void WhiteCard1_Click(object sender, RoutedEventArgs e)
+        private void WhiteCard_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Picked Card 1");
-        }
+            var button = (Button)sender;
 
-        private void WhiteCard2_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Picked Card 2");
-
-        }
-
-        private void WhiteCard3_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Picked Card 3");
+            if(player.IsCzar)
+            {
+                chosenWinner = int.Parse(button.Name.Substring(1));
+                return;
+            }
 
         }
 
-        private void WhiteCard4_Click(object sender, RoutedEventArgs e)
+        public void Start(Player playerDetails)
         {
-            MessageBox.Show("Picked Card 4");
-
-        }
-
-        private void WhiteCard5_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Picked Card 5");
-
-        }
-
-        private void WhiteCard6_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Picked Card 6");
-
-        }
-
-        private void WhiteCard7_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Picked Card 7");
-
-        }
-
-        private void WhiteCard8_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Picked Card 8");
-
-        }
-
-        private void WhiteCard9_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Picked Card 9");
-
-        }
-
-        private void WhiteCard10_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Picked Card 10");
-
-        }
-
-        public void Start()
-        {
+            whitecards = new ObservableCollection<CardBinding>();
+            player = playerDetails;
 
             string handString = Connection.Connect("!player.draw|max");
             player.SeperateHand(handString);
@@ -112,11 +94,11 @@ namespace CardsAgainstHumanityGUI
 
             while (Connection.Connect("!game.hasStarted") == "False")
             {
-                Thread.Sleep(1000);
+                Yield(10000000);
             }
 
-            waitingForStart.Visibility = Visibility.Hidden;
-            progressBar.Visibility = Visibility.Hidden;
+            waitingForStart.Visibility = Visibility.Collapsed;
+            progressBar.Visibility = Visibility.Collapsed;
 
             string hasWon = "no";
             int numPlayers;
@@ -143,21 +125,21 @@ namespace CardsAgainstHumanityGUI
 
             if (hasWon == player.Name)
             {
-                Console.WriteLine("You have Won the game! congratulations!");
+                winner.Visibility = Visibility.Visible;
             }
             else
             {
-                Console.WriteLine(hasWon + " has Won the game! congratulations!");
+                otherWinner.Visibility = Visibility.Visible;
+
             }
 
-
-            Console.ReadLine();
+            Yield(2000000);
 
             Environment.Exit(0);
 
         }
 
-        static void PlayerLoop()
+        private void PlayerLoop()
         {
             Thread.Sleep(1000);
 
@@ -265,7 +247,7 @@ namespace CardsAgainstHumanityGUI
 
         }
 
-        static void TimeoutScreen()
+        private void TimeoutScreen()
         {
             Console.Clear();
             Console.WriteLine("You have taken too long to play your cards and have been made sit out");
@@ -283,86 +265,90 @@ namespace CardsAgainstHumanityGUI
 
         }
 
-        static void CzarLoop()
+        private void CzarLoop()
         {
             Connection.Connect("!game.newRound");
 
-            string blackcard = Connection.Connect("!game.blackcard");
+            blackcard = Connection.Connect("!game.blackcard");
             int fields = numFields(blackcard);
 
             int timeout = 0;
 
+            waitingForPlayers.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
+            
+
             while (Connection.Connect("!game.roundPlayed") == "False")
             {
-                Console.Clear();
-                Console.WriteLine(blackcard + "\n\n");
-
-                Console.WriteLine("Waiting for players to choose a card.");
-                Thread.Sleep(1000);
-                Console.Clear();
-                Console.WriteLine(blackcard + "\n\n");
-
-                Console.WriteLine("Waiting for players to choose a card..");
-                Thread.Sleep(1000);
-                Console.Clear();
-                Console.WriteLine(blackcard + "\n\n");
-
-                Console.WriteLine("Waiting for players to choose a card...");
-                Thread.Sleep(1000);
+                Yield(10000000);
                 timeout++;
-                if (timeout == 20)
+                if (timeout == 60)
                 {
                     Connection.Connect("!game.playerTimeout");
                 }
             }
 
-            Console.Clear();
-            Console.WriteLine(blackcard + "\n\n");
+            waitingForPlayers.Visibility = Visibility.Collapsed;
+            progressBar.Visibility = Visibility.Collapsed;
 
             string parse = Connection.Connect("!game.roundEntries");
-            string[] entries = parse.Split('`');
+            string[] cards = parse.Split('`');
 
             if (numFields(blackcard) == 1)
             {
-                for (int i = 0; i < entries.Length; i++)
+                for (int i = 0; i < cards.Length; i++)
                 {
-                    Console.WriteLine(i + ".\t" + entries[i] + "\n");
+                    whitecards.Add( new CardBinding(cards[i]));
                 }
-                Console.WriteLine("Enter the number of the card who wins or dp to display the points tally");
             }
             else
             {
-                int count = 0;
-                for (int i = 0; i < entries.Length; i += fields)
+                int offset = 0;
+                string temp= "";
+                for (int i = 0; i < cards.Length/fields; i++)
                 {
-                    Console.WriteLine(count + ".\t" + entries[i] + "\n");
-                    for (int j = 1; j < fields; j++)
+                    for (int j = 0; j < fields; j++)
                     {
-                        Console.WriteLine(".\t" + entries[i + j] + "\n");
+                        temp += cards[offset + j] + "\n\n\n";
                     }
-                    count++;
+
+                    whitecards.Add( new CardBinding(temp));
+                    offset += fields;
+
+                    MessageBox.Show(whitecards[0].Card);
                 }
-                Console.WriteLine("Enter the number of the set who wins or dp to display the points tally");
             }
 
-            string temp = Console.ReadLine();
-            if (temp.ToLower() == "dp")
+            chosenWinner = -1;
+
+            while (chosenWinner == -1)
             {
-                Console.WriteLine(Connection.Connect("!game.viewPoints"));
-                temp = Console.ReadLine();
+                Yield(100000);
             }
 
-            int winner = int.Parse(temp);
-
-            Connection.Connect("!game.setWinner|" + winner);
-
-            Console.Clear();
+            Connection.Connect("!game.setWinner|" + chosenWinner);
 
             Console.WriteLine(Connection.Connect("!game.roundWinner") + " has won the round!");
 
             Connection.Connect("!game.setNextCzar");
 
             Thread.Sleep(4000);
+
+        }
+
+        private void Yield(long ticks)
+        {
+
+            // Note: a tick is 100 nanoseconds
+
+            long dtEnd = DateTime.Now.AddTicks(ticks).Ticks;
+
+            while (DateTime.Now.Ticks < dtEnd)
+            {
+
+                this.Dispatcher.Invoke(DispatcherPriority.Background, (DispatcherOperationCallback)delegate(object unused) { return null; }, null);
+
+            }
 
         }
 

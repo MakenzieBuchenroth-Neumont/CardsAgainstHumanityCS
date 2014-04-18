@@ -28,6 +28,8 @@ namespace CardsAgainstHumanityGUI
 
         public Player player = new Player();
 
+        public Game game;
+
         public Login()
         {
             InitializeComponent();
@@ -90,9 +92,9 @@ namespace CardsAgainstHumanityGUI
             }
 
             this.Hide();
-            Game game = new Game(player);
+            game = new Game();
             game.Show();
-            game.Start();
+            game.Start(player);
         }
     }
 }
