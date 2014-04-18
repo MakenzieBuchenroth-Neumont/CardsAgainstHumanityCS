@@ -271,6 +271,7 @@ namespace CardsAgainstHumanityGUI
 
         private void PlayerLoop()
         {
+            Message.Visibility = Visibility.Visible;
 
             Yield(10000000);
 
