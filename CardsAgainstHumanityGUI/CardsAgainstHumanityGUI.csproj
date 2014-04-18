@@ -111,7 +111,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Card.cs" />
-    <Compile Include="CardBinding.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="Game.xaml.cs">
       <DependentUpon>Game.xaml</DependentUpon>

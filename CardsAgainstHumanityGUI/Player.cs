@@ -33,6 +33,14 @@ namespace CardsAgainstHumanityGUI
             set { isCzar = value; }
         }
 
+        private bool isPlayer;
+
+        public bool IsPlayer
+        {
+            get { return isPlayer; }
+            set { isPlayer = value; }
+        }
+
         private string lastDump;
 
         public string LastDump
