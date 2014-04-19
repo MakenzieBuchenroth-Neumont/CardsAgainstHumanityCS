@@ -32,6 +32,7 @@ namespace CardsAgainstHumanityGUI
 
         public Player player;
         public int chosenWinner;
+
         public int chosenCard;
         public int maxHand;
         public Stopwatch playerTimer = new Stopwatch();
@@ -278,6 +279,18 @@ namespace CardsAgainstHumanityGUI
 
             Connection.bufferSize = Connection.bufferSize * numPlayers;
 
+            whitecard1 = "";
+            whitecard2 = "";
+            whitecard3 = "";
+            whitecard4 = "";
+            whitecard5 = "";
+            whitecard6 = "";
+            whitecard7 = "";
+            whitecard8 = "";
+            whitecard9 = "";
+            whitecard10 = "";
+            blackcard = "";
+
             while (hasWon == "no" && hasWon.Length > 0)
             {
 
@@ -431,6 +444,12 @@ namespace CardsAgainstHumanityGUI
             c9.Visibility = Visibility.Hidden;
             c10.Visibility = Visibility.Hidden;
 
+            progressBar.Visibility = Visibility.Collapsed;
+
+            message = Connection.Connect("!game.roundWinner") + " has won the round!";
+
+            Yield(30000000);
+
             whitecard1 = "";
             whitecard2 = "";
             whitecard3 = "";
@@ -442,12 +461,6 @@ namespace CardsAgainstHumanityGUI
             whitecard9 = "";
             whitecard10 = "";
             blackcard = "";
-
-            progressBar.Visibility = Visibility.Collapsed;
-
-            message = Connection.Connect("!game.roundWinner") + " has won the round!";
-
-            Yield(30000000);
 
         }
 
@@ -624,6 +637,37 @@ namespace CardsAgainstHumanityGUI
             c9.Visibility = Visibility.Hidden;
             c10.Visibility = Visibility.Hidden;
 
+
+            StringBuilder sb = new StringBuilder(blackcard);
+
+            List<string> winningCards = new List<string>();
+
+            for (int i = 0; i < fields; i++)
+            {
+                winningCards.Add(cards[chosenWinner + i]);
+            }
+
+            for (int i = 0; i < fields; i++)
+            {
+                int index = sb.ToString().IndexOf("___");
+
+                sb.Remove(index, "___".Length);
+                sb.Insert(index, winningCards[i]);
+
+            }
+
+            blackcard = sb.ToString();
+
+            player.IsCzar = false;
+
+            Connection.Connect("!game.setWinner|" + chosenWinner);
+
+            message = Connection.Connect("!game.roundWinner") + " has won the round!";
+
+            Connection.Connect("!game.setNextCzar");
+
+            Yield(30000000);
+
             whitecard1 = "";
             whitecard2 = "";
             whitecard3 = "";
@@ -635,16 +679,6 @@ namespace CardsAgainstHumanityGUI
             whitecard9 = "";
             whitecard10 = "";
             blackcard = "";
-
-            player.IsCzar = false;
-
-            Connection.Connect("!game.setWinner|" + chosenWinner);
-
-            message = Connection.Connect("!game.roundWinner") + " has won the round!";
-
-            Connection.Connect("!game.setNextCzar");
-
-            Yield(30000000);
 
         }
 
