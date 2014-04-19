@@ -78,6 +78,13 @@ namespace CardsAgainstHumanityGUI
 
             string connectionVal = Connection.Connect("!player.join|" + player);
 
+            if (connectionVal == "nameTaken")
+            {
+                MessageBox.Show("This name is already taken, try another");
+                return;
+
+            }
+
             if (connectionVal == "TimedOut")
             {
                 MessageBox.Show("Connection unresponsive, check the ip and try again");

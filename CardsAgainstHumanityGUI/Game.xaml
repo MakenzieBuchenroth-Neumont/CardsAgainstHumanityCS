@@ -184,6 +184,9 @@
                 </Button>
                 <ProgressBar Name="progressBar"  Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="2"  Value="50" Maximum="100" IsIndeterminate="True" Height="20" Visibility="Collapsed" />
                 <TextBlock Name="Message" TextWrapping="Wrap"  Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Text="{Binding Path=message}" HorizontalAlignment="Center" TextAlignment="Center"  Margin="10,0,10,30" FontFamily="Helvetica" FontWeight="Bold" Foreground="White"></TextBlock>
+                <TextBox Grid.Row="3" Grid.Column ="6" Grid.ColumnSpan ="4" Name="chatBox" IsReadOnly="True" VerticalScrollBarVisibility="Visible" Margin="0,0,0,30" />
+                <TextBox Grid.Row="3" Grid.Column ="6" Grid.ColumnSpan ="4" Name="messageBox" MinHeight="29" VerticalAlignment="Bottom" Margin="0,0,60,0" />
+                <Button Grid.Row="3" Grid.Column ="6" Grid.ColumnSpan ="4" Style="{DynamicResource GreenButton}" Name="sendButton" MinHeight="28" MinWidth="58"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Content ="Send" Padding="1,1,0,0" Click="sendButton_Click"/>
             </Grid>
         </TabItem>
     </TabControl>

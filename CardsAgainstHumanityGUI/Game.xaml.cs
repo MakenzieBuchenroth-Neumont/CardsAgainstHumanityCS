@@ -214,8 +214,22 @@ namespace CardsAgainstHumanityGUI
 
         }
 
+        private void sendButton_Click(object sender, RoutedEventArgs e)
+        {
+            string message = messageBox.Text;
+            messageBox.Text = "";
+
+            message += "`" + player.Name + "`" + DateTime.Now.ToString("HH:mm:ss");
+
+            Connection.Connect("!chat.sendMessage|" + message);
+        }
+
         public void Start(Player playerDetails)
         {
+            Thread chatUpdater = new Thread(chatUpdate);
+
+            chatUpdater.Start();
+
             player = playerDetails;
 
             string handString = Connection.Connect("!player.draw|max");
@@ -580,7 +594,7 @@ namespace CardsAgainstHumanityGUI
 
         }
 
-        static int numFields(string qhuest)
+        private int numFields(string qhuest)
         {
             int count = 0;
             foreach (char c in qhuest)
@@ -589,6 +603,32 @@ namespace CardsAgainstHumanityGUI
             }
 
             return count / 3;
+        }
+
+        private void chatUpdate()
+        {
+            while (true)
+            {
+               string messages = Connection.Connect("!chat.getMessages|" + player.Name);
+
+               if (messages != "0")
+               {
+                   string[] parsedMessages = messages.Split('|');
+
+                   foreach (string s in parsedMessages)
+                   {
+                       string[] messageComponents = s.Split('`');
+                       this.Dispatcher.Invoke((Action)(() =>
+                        {
+                            chatBox.AppendText(messageComponents[1] + " | " + messageComponents[2] + "\n");
+                            chatBox.AppendText(messageComponents[0] + "\n\n");
+                            chatBox.ScrollToEnd();
+                        }));
+                   }
+               }
+
+               Yield(1000000);
+            }
         }
 
     }
