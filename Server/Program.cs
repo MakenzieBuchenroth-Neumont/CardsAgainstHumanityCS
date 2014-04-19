@@ -197,7 +197,7 @@ namespace Server
                         if (data.Substring(0,1) == "!")
                         {
                             data = parseCommand(data);
-                            if (data == "False" || data.Contains('`'))
+                            if (data == "False" || data =="0" || data.Contains('`'))
                             {
                             }
                             else
@@ -321,6 +321,15 @@ namespace Server
             if (command.StartsWith("!player.join"))
             {
                 string [] playerinfo = parseFields(command);
+
+                foreach (Player p in gameManager.players)
+                {
+                    if (playerinfo[0] == p.Name)
+                    {
+                        return "nameTaken";
+                    }
+                }
+
                 gameManager.players.Add(new Player(playerinfo[0], playerinfo[1], playerinfo[2], playerinfo[3]));
                 return "Added player: " + playerinfo[0];
             }
@@ -586,6 +595,40 @@ namespace Server
                        "!game.start \t\t starts the game (do so only after all players have joined) \n" +
                        "!game.addAI \t\t adds a rando cardrisian (a player bot that picks cards randomly) \n" +
                        "!game.quit \t\t ends the game (not gracefully for clients midgame) \n";
+            }
+            else if (command.StartsWith("!chat.sendMessage"))
+            {
+                foreach (Player p in gameManager.players)
+                {
+                    p.messages.Push(command.Substring(command.IndexOf('|') + 1));
+                }
+
+                return "0";
+            }
+            else if (command.StartsWith("!chat.getMessages"))
+            {
+                string name = command.Substring(command.IndexOf('|') + 1);
+                string messages = "";
+                foreach (Player p in gameManager.players)
+                {
+                    if (name == p.Name)
+                    {
+                        while(p.messages.Count != 0)
+                        {
+                            messages += p.messages.Pop() + "|";
+                        }
+                    }
+                }
+                if (messages != "")
+                {
+                    messages = messages.Substring(0, messages.LastIndexOf('|'));
+                    return messages;
+                }
+                else
+                {
+                    return "0";
+                }
+
             }
             else if (command == "\n")
             {

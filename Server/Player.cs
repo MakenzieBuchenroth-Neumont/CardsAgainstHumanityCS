@@ -49,17 +49,21 @@ namespace Server
             set { points = value; }
         }
 
+        public Stack<string> messages;
+
         public Player()
         {
             name = "";
             IpAddress = "0.0.0.0";
             isCzar = false;
             lastDump = "100:100";
+            messages = new Stack<string>();
         }
 
         public Player(string name, string ipAddress, string isCzar, string lastDump)
         {
             this.name = name;
+            messages = new Stack<string>();
             this.ipAddress = IPAddress.Parse(ipAddress);
             this.isCzar = bool.Parse(isCzar);
             this.lastDump = lastDump;
