@@ -377,18 +377,6 @@ namespace CardsAgainstHumanityGUI
 
                 }
 
-                whitecard1 = "";
-                whitecard2 = "";
-                whitecard3 = "";
-                whitecard4 = "";
-                whitecard5 = "";
-                whitecard6 = "";
-                whitecard7 = "";
-                whitecard8 = "";
-                whitecard9 = "";
-                whitecard10 = "";
-                blackcard = "";
-
                 playerTimer.Stop();
                 playerTimer.Reset();
 
@@ -409,6 +397,18 @@ namespace CardsAgainstHumanityGUI
             {
                 Yield(10000000);
             }
+
+            whitecard1 = "";
+            whitecard2 = "";
+            whitecard3 = "";
+            whitecard4 = "";
+            whitecard5 = "";
+            whitecard6 = "";
+            whitecard7 = "";
+            whitecard8 = "";
+            whitecard9 = "";
+            whitecard10 = "";
+            blackcard = "";
 
             c1.Visibility = Visibility.Visible;
             c2.Visibility = Visibility.Visible;
