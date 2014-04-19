@@ -449,6 +449,17 @@ namespace CardsAgainstHumanityGUI
 
         private void CzarLoop()
         {
+            c1.Visibility = Visibility.Hidden;
+            c2.Visibility = Visibility.Hidden;
+            c3.Visibility = Visibility.Hidden;
+            c4.Visibility = Visibility.Hidden;
+            c5.Visibility = Visibility.Hidden;
+            c6.Visibility = Visibility.Hidden;
+            c7.Visibility = Visibility.Hidden;
+            c8.Visibility = Visibility.Hidden;
+            c9.Visibility = Visibility.Hidden;
+            c10.Visibility = Visibility.Hidden;
+
             Connection.Connect("!game.newRound");
 
             blackcard = Connection.Connect("!game.blackcard");
@@ -570,6 +581,17 @@ namespace CardsAgainstHumanityGUI
                 }
                 offset += fields;
             }
+
+            c1.Visibility = Visibility.Visible;
+            c2.Visibility = Visibility.Visible;
+            c3.Visibility = Visibility.Visible;
+            c4.Visibility = Visibility.Visible;
+            c5.Visibility = Visibility.Visible;
+            c6.Visibility = Visibility.Visible;
+            c7.Visibility = Visibility.Visible;
+            c8.Visibility = Visibility.Visible;
+            c9.Visibility = Visibility.Visible;
+            c10.Visibility = Visibility.Visible;
 
             player.IsCzar = true;
 
