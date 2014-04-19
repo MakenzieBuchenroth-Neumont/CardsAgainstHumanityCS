@@ -304,6 +304,8 @@ namespace CardsAgainstHumanityGUI
         {
             Message.Visibility = Visibility.Visible;
 
+            Yield(10000000);
+
             c1.Visibility = Visibility.Visible;
             c2.Visibility = Visibility.Visible;
             c3.Visibility = Visibility.Visible;
@@ -314,8 +316,6 @@ namespace CardsAgainstHumanityGUI
             c8.Visibility = Visibility.Visible;
             c9.Visibility = Visibility.Visible;
             c10.Visibility = Visibility.Visible;
-
-            Yield(10000000);
 
             blackcard = Connection.Connect("!game.blackcard");
 
@@ -497,10 +497,9 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard1 += cards[offset + j] + "\n\n\n";
-                    c1.Visibility = Visibility.Visible;
-
                 }
                 offset += fields;
+                c1.Visibility = Visibility.Visible;
             }
 
             if (cards.Length/fields > 1)
@@ -508,10 +507,9 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard2 += cards[offset + j] + "\n\n\n";
-                    c2.Visibility = Visibility.Visible;
-
                 }
                 offset += fields;
+                c2.Visibility = Visibility.Visible;
             }
 
             if (cards.Length/fields > 2)
@@ -519,10 +517,9 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard3 += cards[offset + j] + "\n\n\n";
-                    c3.Visibility = Visibility.Visible;
-
                 }
                 offset += fields;
+                c3.Visibility = Visibility.Visible;
             }
 
             if (cards.Length/fields > 3)
@@ -530,10 +527,9 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard4 += cards[offset + j] + "\n\n\n";
-                    c4.Visibility = Visibility.Visible;
-
                 }
                 offset += fields;
+                c4.Visibility = Visibility.Visible;
             }
 
             if (cards.Length/fields > 4)
@@ -541,10 +537,9 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard5 += cards[offset + j] + "\n\n\n";
-                    c5.Visibility = Visibility.Visible;
-
                 }
                 offset += fields;
+                c5.Visibility = Visibility.Visible;
             }
 
             if (cards.Length/fields > 5)
@@ -552,10 +547,9 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard6 += cards[offset + j] + "\n\n\n";
-                    c6.Visibility = Visibility.Visible;
-
                 }
                 offset += fields;
+                c6.Visibility = Visibility.Visible;
             }
 
             if (cards.Length/fields > 6)
@@ -563,10 +557,9 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard7 += cards[offset + j] + "\n\n\n";
-                    c7.Visibility = Visibility.Visible;
-
                 }
                 offset += fields;
+                c7.Visibility = Visibility.Visible;
             }
 
             if (cards.Length/fields > 7)
@@ -574,9 +567,8 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard8 += cards[offset + j] + "\n\n\n";
-                    c8.Visibility = Visibility.Visible;
-
                 }
+                c8.Visibility = Visibility.Visible;
                 offset += fields;
             }
 
@@ -585,8 +577,8 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard9 += cards[offset + j] + "\n\n\n";
-                    c9.Visibility = Visibility.Visible;
                 }
+                c9.Visibility = Visibility.Visible;
                 offset += fields;
             }
 
@@ -595,8 +587,8 @@ namespace CardsAgainstHumanityGUI
                 for (int j = 0; j < fields; j++)
                 {
                     whitecard10 += cards[offset + j] + "\n\n\n";
-                    c10.Visibility = Visibility.Visible;
                 }
+                c10.Visibility = Visibility.Visible;
                 offset += fields;
             }
 
