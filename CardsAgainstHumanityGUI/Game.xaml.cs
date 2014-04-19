@@ -410,6 +410,17 @@ namespace CardsAgainstHumanityGUI
                 Yield(10000000);
             }
 
+            c1.Visibility = Visibility.Visible;
+            c2.Visibility = Visibility.Visible;
+            c3.Visibility = Visibility.Visible;
+            c4.Visibility = Visibility.Visible;
+            c5.Visibility = Visibility.Visible;
+            c6.Visibility = Visibility.Visible;
+            c7.Visibility = Visibility.Visible;
+            c8.Visibility = Visibility.Visible;
+            c9.Visibility = Visibility.Visible;
+            c10.Visibility = Visibility.Visible;
+
             progressBar.Visibility = Visibility.Collapsed;
 
             message = Connection.Connect("!game.roundWinner") + " has won the round!";
@@ -580,18 +591,6 @@ namespace CardsAgainstHumanityGUI
             whitecard9 = "";
             whitecard10 = "";
             blackcard = "";
-
-            c1.Visibility = Visibility.Visible;
-            c2.Visibility = Visibility.Visible;
-            c3.Visibility = Visibility.Visible;
-            c4.Visibility = Visibility.Visible;
-            c5.Visibility = Visibility.Visible;
-            c6.Visibility = Visibility.Visible;
-            c7.Visibility = Visibility.Visible;
-            c8.Visibility = Visibility.Visible;
-            c9.Visibility = Visibility.Visible;
-            c10.Visibility = Visibility.Visible;
-
 
             player.IsCzar = false;
 
