@@ -9,22 +9,21 @@ namespace Server
 
     public class Shuffler
     {
-        private System.Random _rng;
+        private Random rand;
 
         public Shuffler()
         {
-            _rng = new Random();
+            rand = new Random();
         }
 
-        public void Shuffle<T>(IList<T> array)
+        public void Shuffle<T>(List<T> list)
         {
-            for (int n = array.Count; n > 1; )
+            for (int n = list.Count-1; n > 0; n--)
             {
-                int k = _rng.Next(n);
-                --n;
-                T temp = array[n];
-                array[n] = array[k];
-                array[k] = temp;
+                int k = rand.Next(n);
+                T temp = list[n];
+                list[n] = list[k];
+                list[k] = temp;
             }
         }
     }

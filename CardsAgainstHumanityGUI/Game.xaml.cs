@@ -197,8 +197,13 @@ namespace CardsAgainstHumanityGUI
 
             if(player.IsCzar)
             {
-                chosenWinner = int.Parse(button.Name.Substring(1))-1;
-                return;
+                int numPlayers = int.Parse(Connection.Connect("!game.numPlayers"));
+                int choice = int.Parse(button.Name.Substring(1));
+                if ( numPlayers -1 >= choice)
+                {
+                    chosenWinner = int.Parse(button.Name.Substring(1)) - 1;
+                    return;
+                }
             }
 
             if (player.IsPlayer)

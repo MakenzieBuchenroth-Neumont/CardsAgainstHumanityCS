@@ -28,6 +28,8 @@ namespace Server
         static void Main(string[] args)
         {
 
+            Console.SetWindowSize(90, 25);
+
             DisplayLogo();
 
             ipaddr = SetIP();
@@ -84,21 +86,17 @@ namespace Server
                     AllBlackCards.AddRange(blackCardSets[i].cards);
                 }
 
+                shuffler.Shuffle(AllWhiteCards);
+                shuffler.Shuffle(AllBlackCards);
 
-                int[] whiteList = Enumerable.Range(0, AllWhiteCards.Count - 1).ToArray();
-                int[] blackList = Enumerable.Range(0, AllBlackCards.Count - 1).ToArray();
-
-                shuffler.Shuffle(whiteList);
-                shuffler.Shuffle(blackList);
-
-                foreach (int value in whiteList)
+                foreach (Card c in AllWhiteCards)
                 {
-                    gameManager.whiteDeck.Push(AllWhiteCards[value]);
+                    gameManager.whiteDeck.Push(c);
                 }
 
-                foreach (int value in blackList)
+                foreach (Card c in AllBlackCards)
                 {
-                    gameManager.blackDeck.Push(AllBlackCards[value]);
+                    gameManager.blackDeck.Push(c);
                 }
 
 
@@ -109,25 +107,23 @@ namespace Server
                 CardSet whiteCardSet = DeserializeCards(Path.Combine(cardDirectory, "white/all.json"));
                 CardSet blackCardSet = DeserializeCards(Path.Combine(cardDirectory, "black/all.json"));
 
-                int[] whiteList = Enumerable.Range(0, whiteCardSet.cards.Count - 1).ToArray();
-                int[] blackList = Enumerable.Range(0, blackCardSet.cards.Count - 1).ToArray();
-                shuffler.Shuffle(whiteList);
-                shuffler.Shuffle(blackList);
+                shuffler.Shuffle(whiteCardSet.cards);
+                shuffler.Shuffle(blackCardSet.cards);
 
-                foreach (int value in whiteList)
+                foreach (Card c in whiteCardSet.cards)
                 {
-                    gameManager.whiteDeck.Push(whiteCardSet.cards[value]);
+                    gameManager.whiteDeck.Push(c);
                 }
 
-                foreach (int value in blackList)
+                foreach (Card c in blackCardSet.cards)
                 {
-                    gameManager.blackDeck.Push(blackCardSet.cards[value]);
+                    gameManager.blackDeck.Push(c);
                 }
             }
             Console.WriteLine("All players will be asked to input the host IP, which is: " + ipaddr.ToString() + "\n");
             Console.WriteLine("This window will now keep a log of all connections and server actions.\n");
-            Console.WriteLine("If anything unexpected happens ; check here.");
-            Console.ReadLine();
+            Console.WriteLine("If anything unexpected happens ; check here. \n");
+            Console.WriteLine("If you are unsure of any server commands, use !help to display a list of commands and their function \n");
 
             AInames = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "AInames.txt")).ToList();
 
@@ -177,7 +173,7 @@ namespace Server
                 // listening loop. 
                 while (true)
                 {
-                    Console.Write("Waiting for a connection... ");
+                    //Console.Write("Waiting for a connection... ");
                     if (Console.KeyAvailable)
                     {
                         Console.WriteLine("\n");
@@ -185,7 +181,7 @@ namespace Server
                     }
                     // Perform a blocking call to accept requests. 
                     TcpClient client = server.AcceptTcpClient();
-                    Console.WriteLine("Connected!");
+                   //Console.WriteLine("Connected!");
 
                     data = null;
 
@@ -201,7 +197,13 @@ namespace Server
                         if (data.Substring(0,1) == "!")
                         {
                             data = parseCommand(data);
-                            Console.WriteLine(data);
+                            if (data == "False" || data.Contains('`'))
+                            {
+                            }
+                            else
+                            {
+                                Console.WriteLine(data);
+                            }
                         }
                         else
                         {
@@ -550,6 +552,10 @@ namespace Server
                 }
                 return "0";
             }
+            else if (command.StartsWith("!game.numPlayers"))
+            {
+                return (gameManager.AIs.Count + gameManager.players.Count).ToString();
+            }
             else if (command.StartsWith("!game.viewPoints"))
             {
                 string tally = "";
@@ -573,6 +579,13 @@ namespace Server
                 }
 
                 return "0";
+            }
+            else if (command.StartsWith("!help"))
+            {
+                return "|command| \t\t |function| \n" +
+                       "!game.start \t\t starts the game (do so only after all players have joined) \n" +
+                       "!game.addAI \t\t adds a rando cardrisian (a player bot that picks cards randomly) \n" +
+                       "!game.quit \t\t ends the game (not gracefully for clients midgame) \n";
             }
             else if (command == "\n")
             {
