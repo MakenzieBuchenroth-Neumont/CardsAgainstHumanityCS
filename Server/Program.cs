@@ -520,6 +520,18 @@ namespace Server
                 return "Added AI:" + newAi.Name;
 
             }
+            else if (command.StartsWith("!game.setWinCards|"))
+            {
+                command = command.Substring(command.IndexOf('|') + 1);
+                
+                gameManager.winCards = command;
+
+                return "0";
+            }
+            else if (command.StartsWith("!game.getWinCards|"))
+            {
+                return gameManager.winCards;
+            }
             else if (command.StartsWith("!game.roundEntries"))
             {
                 string temp = "";

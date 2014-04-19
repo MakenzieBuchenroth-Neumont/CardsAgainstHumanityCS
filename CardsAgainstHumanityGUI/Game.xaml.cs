@@ -446,6 +446,8 @@ namespace CardsAgainstHumanityGUI
 
             progressBar.Visibility = Visibility.Collapsed;
 
+            blackcard = Connection.Connect("!game.getWinCards|" + blackcard);
+
             message = Connection.Connect("!game.roundWinner") + " has won the round!";
 
             Yield(30000000);
@@ -642,9 +644,22 @@ namespace CardsAgainstHumanityGUI
 
             List<string> winningCards = new List<string>();
 
+            int cardOffset = 0;
+
+            if (fields == 2)
+            {
+                cardOffset++;
+            }
+            else if (fields == 3)
+            {
+                cardOffset += 2;
+            }
+
+            cardOffset += chosenWinner-1;
+
             for (int i = 0; i < fields; i++)
             {
-                winningCards.Add(cards[chosenWinner + i]);
+                winningCards.Add(cards[cardOffset + i]);
             }
 
             for (int i = 0; i < fields; i++)
@@ -657,6 +672,8 @@ namespace CardsAgainstHumanityGUI
             }
 
             blackcard = sb.ToString();
+
+            Connection.Connect("!game.setWinCards|" + blackcard);
 
             player.IsCzar = false;
 

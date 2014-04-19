@@ -48,6 +48,8 @@ namespace Server
 
         public int pointThreshold;
 
+        public string winCards;
+
         public GameManager(int maxCards, int pointThreshold)
         {
             whiteDeck = new Stack<Card>();
@@ -99,6 +101,7 @@ namespace Server
             this.currentBlackCard = blackDeck.Pop();
             currentPlayerCards.Clear();
             roundWinner = "wait";
+            winCards = "";
         }
 
         public int numFields(string qhuest)
