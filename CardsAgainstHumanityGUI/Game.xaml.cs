@@ -655,22 +655,10 @@ namespace CardsAgainstHumanityGUI
 
             List<string> winningCards = new List<string>();
 
-            int cardOffset = 0;
-
-            if (fields == 2)
-            {
-                cardOffset++;
-            }
-            else if (fields == 3)
-            {
-                cardOffset += 2;
-            }
-
-            cardOffset += chosenWinner;
 
             for (int i = 0; i < fields; i++)
             {
-                winningCards.Add(cards[cardOffset + i]);
+                winningCards.Add(cards[chosenWinner * fields + i]);
             }
 
             for (int i = 0; i < fields; i++)

@@ -66,12 +66,12 @@
                     </Image>
                 <TextBlock FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="2" Margin="20,31,20,20"  TextWrapping="Wrap" MinHeight="160" MinWidth="115" Text="{Binding Path=blackcard}" Foreground="White"/>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Name="c1" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
-                    <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="20,0" Text="{Binding Path=whitecard1}"/>              
+                        <TextBlock TextWrapping="Wrap" MinHeight="160" MinWidth="115" Margin="20,0" Text="{Binding Path=whitecard1}"/>
                     <Button.Effect>
                             <DropShadowEffect/>
                         </Button.Effect>
                         <Button.Background>
-                            <ImageBrush ImageSource="BlankWhiteCard.png" Stretch="Uniform" TileMode="None" />
+                            <ImageBrush ImageSource="BlankWhiteCard.png" TileMode="None" Stretch="Uniform" />
                         </Button.Background>
                     </Button>
                 <Button  Style="{StaticResource MyButtonStyle}" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"  Name="c2" FontFamily="Helvetica" FontWeight="Bold" FontSize="11" Click="WhiteCard_Click" BorderBrush="{x:Null}" >
