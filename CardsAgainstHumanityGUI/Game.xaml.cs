@@ -409,6 +409,17 @@ namespace CardsAgainstHumanityGUI
                 Yield(10000000);
             }
 
+            c1.Visibility = Visibility.Hidden;
+            c2.Visibility = Visibility.Hidden;
+            c3.Visibility = Visibility.Hidden;
+            c4.Visibility = Visibility.Hidden;
+            c5.Visibility = Visibility.Hidden;
+            c6.Visibility = Visibility.Hidden;
+            c7.Visibility = Visibility.Hidden;
+            c8.Visibility = Visibility.Hidden;
+            c9.Visibility = Visibility.Hidden;
+            c10.Visibility = Visibility.Hidden;
+
             whitecard1 = "";
             whitecard2 = "";
             whitecard3 = "";
@@ -449,16 +460,6 @@ namespace CardsAgainstHumanityGUI
 
         private void CzarLoop()
         {
-            c1.Visibility = Visibility.Hidden;
-            c2.Visibility = Visibility.Hidden;
-            c3.Visibility = Visibility.Hidden;
-            c4.Visibility = Visibility.Hidden;
-            c5.Visibility = Visibility.Hidden;
-            c6.Visibility = Visibility.Hidden;
-            c7.Visibility = Visibility.Hidden;
-            c8.Visibility = Visibility.Hidden;
-            c9.Visibility = Visibility.Hidden;
-            c10.Visibility = Visibility.Hidden;
 
             Connection.Connect("!game.newRound");
 
@@ -600,6 +601,17 @@ namespace CardsAgainstHumanityGUI
             {
                 Yield(100000);
             }
+
+            c1.Visibility = Visibility.Hidden;
+            c2.Visibility = Visibility.Hidden;
+            c3.Visibility = Visibility.Hidden;
+            c4.Visibility = Visibility.Hidden;
+            c5.Visibility = Visibility.Hidden;
+            c6.Visibility = Visibility.Hidden;
+            c7.Visibility = Visibility.Hidden;
+            c8.Visibility = Visibility.Hidden;
+            c9.Visibility = Visibility.Hidden;
+            c10.Visibility = Visibility.Hidden;
 
             whitecard1 = "";
             whitecard2 = "";
