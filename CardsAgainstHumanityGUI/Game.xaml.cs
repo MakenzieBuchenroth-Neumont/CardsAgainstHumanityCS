@@ -242,6 +242,17 @@ namespace CardsAgainstHumanityGUI
             player.SeperateHand(handString);
             maxHand = player.hand.Count;
 
+            whitecard1 = player.hand[0];
+            whitecard2 = player.hand[1];
+            whitecard3 = player.hand[2];
+            whitecard4 = player.hand[3];
+            whitecard5 = player.hand[4];
+            whitecard6 = player.hand[5];
+            whitecard7 = player.hand[6];
+            whitecard8 = player.hand[7];
+            whitecard9 = player.hand[8];
+            whitecard10 = player.hand[9];
+
             progressBar.Visibility = Visibility.Visible;
             message = "waiting for game to start";
 
