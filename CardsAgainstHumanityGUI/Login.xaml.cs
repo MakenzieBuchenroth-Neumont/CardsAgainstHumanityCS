@@ -28,7 +28,7 @@ namespace CardsAgainstHumanityGUI
 
         public Player player = new Player();
 
-        public Game game;
+        public static Game game;
 
         public Login()
         {

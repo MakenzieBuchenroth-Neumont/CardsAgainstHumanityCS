@@ -224,6 +224,11 @@ namespace CardsAgainstHumanityGUI
             Connection.Connect("!chat.sendMessage|" + message);
         }
 
+        public void createMessageBox(string info)
+        {
+            MessageBox.Show(info);
+        }
+
         public void Start(Player playerDetails)
         {
             Thread chatUpdater = new Thread(chatUpdate);
@@ -248,9 +253,17 @@ namespace CardsAgainstHumanityGUI
             Message.Visibility = Visibility.Collapsed;
 
             string hasWon = "no";
-            int numPlayers;
+            int numPlayers = 0;
+            try
+            {
+                numPlayers = int.Parse(Connection.Connect("!game.numPlayers"));
+            }
+            catch (Exception)
+            {
+            	MessageBox.Show("The server is unresponsive\n" + "click ok to exit");
+                Environment.Exit(0);
+            }
 
-            numPlayers = int.Parse(Connection.Connect("!game.numPlayers"));
             Connection.bufferSize = Connection.bufferSize * numPlayers;
 
             while (hasWon == "no" && hasWon.Length > 0)
@@ -371,6 +384,7 @@ namespace CardsAgainstHumanityGUI
                     }
 
                     temp += player.hand[chosenCard] + "`";
+                    toRemove.Add(chosenCard);
 
                 }
 
@@ -618,12 +632,22 @@ namespace CardsAgainstHumanityGUI
                    foreach (string s in parsedMessages)
                    {
                        string[] messageComponents = s.Split('`');
-                       this.Dispatcher.Invoke((Action)(() =>
+
+                        this.Dispatcher.Invoke((Action)(() =>
                         {
-                            chatBox.AppendText(messageComponents[1] + " | " + messageComponents[2] + "\n");
-                            chatBox.AppendText(messageComponents[0] + "\n\n");
-                            chatBox.ScrollToEnd();
+                            try
+                            {
+                                chatBox.AppendText(messageComponents[1] + " | " + messageComponents[2] + "\n");
+                                chatBox.AppendText(messageComponents[0] + "\n\n");
+                                chatBox.ScrollToEnd();
+                            }
+                            catch (Exception)
+                            {
+                                //this accommodates for if the program crashes mid cycle, stopping it from reading non chat information in.
+                            }
+
                         }));
+
                    }
                }
 

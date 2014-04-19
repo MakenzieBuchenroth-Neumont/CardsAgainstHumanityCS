@@ -51,7 +51,7 @@ namespace CardsAgainstHumanityGUI
             }
             catch (ArgumentNullException e)
             {
-                Console.WriteLine("ArgumentNullException: {0}", e);
+                Login.game.createMessageBox("ArgumentNullException:" + e);
             }
             catch (SocketException e)
             {
@@ -63,14 +63,12 @@ namespace CardsAgainstHumanityGUI
                 {
                     return "ConnectionRefused";
                 }
-                Console.WriteLine("SocketException: {0}", e);
+                Login.game.createMessageBox("SocketException:" + e);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                Console.WriteLine("Error occurred, please restart the client");
-                Console.WriteLine("Hit enter to exit");
-                Console.ReadLine();
+                Login.game.createMessageBox("Error occurred, please restart the client\n" + "Click ok to exit");
                 Environment.Exit(0);
             }
 
