@@ -279,6 +279,17 @@ namespace CardsAgainstHumanityGUI
 
             Connection.bufferSize = Connection.bufferSize * numPlayers;
 
+            c1.Visibility = Visibility.Hidden;
+            c2.Visibility = Visibility.Hidden;
+            c3.Visibility = Visibility.Hidden;
+            c4.Visibility = Visibility.Hidden;
+            c5.Visibility = Visibility.Hidden;
+            c6.Visibility = Visibility.Hidden;
+            c7.Visibility = Visibility.Hidden;
+            c8.Visibility = Visibility.Hidden;
+            c9.Visibility = Visibility.Hidden;
+            c10.Visibility = Visibility.Hidden;
+
             whitecard1 = "";
             whitecard2 = "";
             whitecard3 = "";
@@ -655,7 +666,7 @@ namespace CardsAgainstHumanityGUI
                 cardOffset += 2;
             }
 
-            cardOffset += chosenWinner-1;
+            cardOffset += chosenWinner;
 
             for (int i = 0; i < fields; i++)
             {
