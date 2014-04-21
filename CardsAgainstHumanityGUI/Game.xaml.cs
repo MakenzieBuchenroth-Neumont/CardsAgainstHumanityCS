@@ -185,6 +185,7 @@ namespace CardsAgainstHumanityGUI
         public Game()
         {
             InitializeComponent();
+            this.PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -224,6 +225,21 @@ namespace CardsAgainstHumanityGUI
             message += "`" + player.Name + "`" + DateTime.Now.ToString("HH:mm:ss");
 
             Connection.Connect("!chat.sendMessage|" + message);
+        }
+
+        private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (messageBox.Text != "")
+                {
+                    sendButton_Click(sendButton, null);
+                }
+            }
+            else if (e.Key == Key.Escape)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         public void createMessageBox(string info)
@@ -274,7 +290,7 @@ namespace CardsAgainstHumanityGUI
             catch (Exception)
             {
             	MessageBox.Show("The server is unresponsive\n" + "click ok to exit");
-                Environment.Exit(0);
+                Application.Current.Shutdown();
             }
 
             Connection.bufferSize = Connection.bufferSize * numPlayers;
@@ -331,7 +347,7 @@ namespace CardsAgainstHumanityGUI
 
             Yield(2000000);
 
-            Environment.Exit(0);
+            Application.Current.Shutdown();
 
         }
 
@@ -461,7 +477,7 @@ namespace CardsAgainstHumanityGUI
 
             message = Connection.Connect("!game.roundWinner") + " has won the round!";
 
-            Yield(30000000);
+            Yield(50000000);
 
             whitecard1 = "";
             whitecard2 = "";
@@ -487,7 +503,7 @@ namespace CardsAgainstHumanityGUI
             if (action.ToLower().Trim() == "q")
             {
                 Connection.Connect("!player.leave|" + player.Name);
-                Environment.Exit(0);
+                Application.Current.Shutdown();
             }
 
             Connection.Connect("!player.rejoin|" + player.Name);

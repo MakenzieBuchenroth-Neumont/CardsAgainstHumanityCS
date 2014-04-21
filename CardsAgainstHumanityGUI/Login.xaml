@@ -46,7 +46,7 @@
                 <StackPanel Margin="94,226,-242,6" Orientation="Vertical">
 
                     <Label Content="Server IP Address" FontSize="14"  />
-                    <TextBox x:Name="serverIP" HorizontalAlignment="Left" Width="147"/>
+                    <TextBox x:Name="serverIP" HorizontalAlignment="Left" Width="147" HorizontalScrollBarVisibility="Auto"/>
                     <Grid Height="12" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="12*"/>

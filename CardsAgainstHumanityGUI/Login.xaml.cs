@@ -33,6 +33,7 @@ namespace CardsAgainstHumanityGUI
         public Login()
         {
             InitializeComponent();
+            this.PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
 
             List<int> nums = Enumerable.Range(0, 60).ToList();
             listOfNumbers = nums.ConvertAll<string>(delegate(int i) { return i.ToString(); });
@@ -44,6 +45,14 @@ namespace CardsAgainstHumanityGUI
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Connect_Click(Connect, null);
+            }
         }
 
         private void Connect_Click(object sender, RoutedEventArgs e)
