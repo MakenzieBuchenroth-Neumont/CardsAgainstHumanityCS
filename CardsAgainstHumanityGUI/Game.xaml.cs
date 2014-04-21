@@ -476,7 +476,7 @@ namespace CardsAgainstHumanityGUI
 
             message = Connection.Connect("!game.roundWinner") + " has won the round!";
 
-            Yield(50000000);
+            Yield(30000000);
 
             whitecard1 = "";
             whitecard2 = "";
