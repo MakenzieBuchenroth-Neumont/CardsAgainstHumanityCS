@@ -20,7 +20,6 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 
-
 namespace CardsAgainstHumanityGUI
 {
     /// <summary>
