@@ -28,7 +28,6 @@ namespace CardsAgainstHumanityGUI
 
         public CardBinding()
         {
-            Card = "blah";
         }
 
         public CardBinding(string input)

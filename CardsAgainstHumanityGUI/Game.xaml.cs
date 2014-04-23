@@ -83,11 +83,22 @@ namespace CardsAgainstHumanityGUI
         public void Start(Player playerDetails)
         {
             whitecards = new ObservableCollection<CardBinding>();
+
+            for (int i = 0; i < 10; i++)
+            {
+                whitecards.Add(new CardBinding());
+            }
+
             player = playerDetails;
 
             string handString = Connection.Connect("!player.draw|max");
             player.SeperateHand(handString);
             maxHand = player.hand.Count;
+
+            for (int i = 0; i < whitecards.Count; i++)
+            {
+                whitecards[i].Card = player.hand[i];
+            }
 
             waitingForStart.Visibility = Visibility.Visible;
             progressBar.Visibility = Visibility.Visible;
