@@ -356,7 +356,7 @@ namespace Server
             }
             else if (command.StartsWith("!player.isCzar"))
             {
-                return gameManager.players[gameManager.CzarCounter].IpAddress.ToString();
+                return gameManager.players[gameManager.CzarCounter].Name;
             }
             else if (command.StartsWith("!player.leave"))
             {

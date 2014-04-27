@@ -272,6 +272,9 @@ namespace CardsAgainstHumanityGUI
             progressBar.Visibility = Visibility.Visible;
             message = "waiting for game to start";
 
+            messageBox.Text = player.Name + " has joined the game";
+            sendButton_Click(null, null);
+
             while (Connection.Connect("!game.hasStarted") == "False")
             {
                 Yield(10000000);
@@ -320,7 +323,7 @@ namespace CardsAgainstHumanityGUI
             while (hasWon == "no" && hasWon.Length > 0)
             {
 
-                if (Connection.Connect("!player.isCzar") == player.IpAddress)
+                if (Connection.Connect("!player.isCzar") == player.Name)
                 {
                     CzarLoop();
                 }
