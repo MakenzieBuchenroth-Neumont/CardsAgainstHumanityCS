@@ -4,7 +4,7 @@
     
     "cards" : [
         {
-            "text" : "Wake up, America.  Christmas is under attack by [secular liberals] and their ___",
+            "text" : "Wake up, America.  Christmas is under attack by secular liberals and their ___",
             "definitionProvider" : "ud"
         },
 		{
@@ -21,15 +21,15 @@
             "definitionProvider" : "ud"
         },
 		{
-            "text" : "[Jesus] is ___.",
+            "text" : "Jesus is ___.",
             "definitionProvider" : "ud"
         },
 		{
-            "text" : "This holiday season, [Tim Allen] must overcome his fear of ___ to save Christmas.",
+            "text" : "This holiday season, Tim Allen must overcome his fear of ___ to save Christmas.",
             "definitionProvider" : "ud"
         },
 		{
-            "text" : "After blacking out during [New Year's Eve], I was awoken by ___",
+            "text" : "After blacking out during New Year's Eve, I was awoken by ___",
             "definitionProvider" : "ud"
         }
     ]

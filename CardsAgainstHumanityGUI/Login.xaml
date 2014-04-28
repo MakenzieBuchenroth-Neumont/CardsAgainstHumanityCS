@@ -36,7 +36,7 @@
                 <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Name="hoursSinceDump"  ItemsSource="{Binding listOfNumbers}" Margin="0,30,0,0" />
                 <Label Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Minutes Since Last Dump&#xA;" FontSize="14" HorizontalAlignment="Center" Margin="0,5,0,0"/>
                 <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="2" Name="minsSinceDump"  ItemsSource="{Binding listOfNumbers}" Margin="0,30,0,0"/>
-                <TextBox Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="serverIP" HorizontalScrollBarVisibility="Auto" Margin="0,30,0,0"/>
+                <TextBox Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="serverIP" Margin="0,30,0,0"/>
                 <Label Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="Server IP Address" FontSize="14" HorizontalAlignment="Center"  Margin="0,5,0,0"/>
                 <Button Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2"  x:Name="Connect" Content="Connect" Style="{DynamicResource GreenButton}" Height="25" HorizontalAlignment="Center" Click="Connect_Click" />
             </Grid>
