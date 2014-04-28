@@ -82,12 +82,12 @@ namespace CardsAgainstHumanityGUI
 
             if (hoursSinceDump.Text == "you are too constipated to play this game, please leave")
             {
-                hoursSinceDump.Text = int.MaxValue.ToString();
+                player.LastDump = "60:59";
             }
 
             if (minsSinceDump.Text == "you are too constipated to play this game, please leave")
             {
-                minsSinceDump.Text = int.MaxValue.ToString();
+                player.LastDump = "60:59";
             }
             string connectionVal = Connection.Connect("!player.join|" + player);
 

@@ -166,7 +166,6 @@ namespace Server
                 server = new TcpListener(ipaddr, port);
                 server.Start();
 
-                // Buffer for reading data
                 Byte[] bytes = new Byte[bufferSize];
                 String data = null;
 
@@ -179,7 +178,7 @@ namespace Server
                         Console.WriteLine("\n");
                         Thread.Sleep(1000);
                     }
-                    // Perform a blocking call to accept requests. 
+                     
                     TcpClient client = server.AcceptTcpClient();
                    //Console.WriteLine("Connected!");
 
@@ -192,7 +191,7 @@ namespace Server
                     while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                     {
                         data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
-                        //Console.WriteLine("Received: {0}", data);
+                        //Console.WriteLine("Received: " + data);
 
                         if (data.Substring(0,1) == "!")
                         {
@@ -212,12 +211,10 @@ namespace Server
 
                         byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 
-                        // Send back a response.
                         stream.Write(msg, 0, msg.Length);
                         //Console.WriteLine("Sent: {0}", data);
                     }
 
-                    // Shutdown and end connection
                     stream.Close();
                     client.Close();
                 }
@@ -233,7 +230,6 @@ namespace Server
             }
             finally
             {
-                // Stop listening for new clients.
                 server.Stop();
             }
 
