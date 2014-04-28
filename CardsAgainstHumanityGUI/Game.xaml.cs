@@ -246,6 +246,13 @@ namespace CardsAgainstHumanityGUI
             MessageBox.Show(info);
         }
 
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Connection.Connect("!player.leave|" + player.Name);
+            messageBox.Text = player.Name + " has left the game";
+            sendButton_Click(null, null);
+        }
+
         public void Start(Player playerDetails)
         {
             Thread chatUpdater = new Thread(chatUpdate);
