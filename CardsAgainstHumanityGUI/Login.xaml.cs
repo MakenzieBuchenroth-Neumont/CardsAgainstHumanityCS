@@ -42,11 +42,6 @@ namespace CardsAgainstHumanityGUI
 
         }
 
-        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -85,6 +80,15 @@ namespace CardsAgainstHumanityGUI
                 return;          
             }
 
+            if (hoursSinceDump.Text == "you are too constipated to play this game, please leave")
+            {
+                hoursSinceDump.Text = int.MaxValue.ToString();
+            }
+
+            if (minsSinceDump.Text == "you are too constipated to play this game, please leave")
+            {
+                minsSinceDump.Text = int.MaxValue.ToString();
+            }
             string connectionVal = Connection.Connect("!player.join|" + player);
 
             if (connectionVal == "nameTaken")
