@@ -4,11 +4,11 @@
     
     "cards" : [
         {
-            "text" : "Our most powerful weapon on the day of the zombie [apocalypse] will be ___.",
+            "text" : "Our most powerful weapon on the day of the zombie apocalypse will be ___.",
             "definitionProvider" : "ud"
         },
         {
-            "text" : "2 things you need to survive on a [deserted island]: ___ and ___.",
+            "text" : "2 things you need to survive on a deserted island: ___ and ___.",
             "definitionProvider" : "ud"
         },
         {
@@ -46,7 +46,7 @@
             "definitionProvider" : "ud"
         },
         {
-            "text" : "Next time, on [Survivor]...___",
+            "text" : "Next time, on Survivor...___",
             "definitionProvider" : "ud"
         },
         {
@@ -63,7 +63,7 @@
             "definitionProvider" : "ud"
         },
         {
-            "text" : "The [road to success] is paved with ___.",
+            "text" : "The road to success is paved with ___.",
             "definitionProvider" : "ud"
         },
         {
@@ -80,7 +80,7 @@
             "definitionProvider" : "ud"
         },
         {
-            "text" : "[Bill Cosby] should have endorsed ___ instead of pudding.",
+            "text" : "Bill Cosby should have endorsed ___ instead of pudding.",
             "definitionProvider" : "ud"
         },
         {
@@ -100,7 +100,7 @@
             "definitionProvider" : "ud"
         },
         {
-            "text" : "As the clock struck 12, [Cinderlla] turned into ___.",
+            "text" : "As the clock struck 12, Cinderlla turned into ___.",
             "definitionProvider" : "ud"
         },
         {
@@ -108,7 +108,7 @@
             "definitionProvider" : "ud"
         },
         {
-            "text" : "[Hitler] should have focused more on ___.",
+            "text" : "Hitler should have focused more on ___.",
             "definitionProvider" : "ud"
         },
         {
@@ -121,7 +121,7 @@
             "definitionProvider" : "ud"
         },
         {
-            "text" : "What makes me [tingle] all over? ___",
+            "text" : "What makes me tingle all over? ___",
             "definitionProvider" : "ud"
         },
         {
@@ -129,7 +129,7 @@
             "definitionProvider" : "ud"
         },
         {
-            "text" : "[Olive Garden]: When you're here, you're ___.",
+            "text" : "Olive Garden: When you're here, you're ___.",
             "definitionProvider" : "ud"
         },
         {
@@ -146,7 +146,7 @@
             "definitionText" : "Buffalo Bill Silence of the Lambs"
         },
         {
-            "text" : "___ vs. ___: The new [SyFy] Original Movie.",
+            "text" : "___ vs. ___: The new SyFy Original Movie.",
             "definitionProvider" : "ud"
         },
         {
@@ -154,7 +154,7 @@
             "definitionProvider" : "ud"
         },
         {
-            "text" : "Warning: This product contains [trace amounts] of ___.",
+            "text" : "Warning: This product contains trace amounts of ___.",
             "definitionProvider" : "ud"
         }
     ]
