@@ -83,13 +83,13 @@ namespace Server
         public void incrementCzarCounter()
         {
         
-            if (this.CzarCounter != this.players.Count-1)
+            if (this.CzarCounter >= this.players.Count-1)
             {
-                this.CzarCounter++;
+                this.CzarCounter = 0;
             }
             else
             {
-                this.CzarCounter = 0;
+                this.CzarCounter++;
             }
             
         }

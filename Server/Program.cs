@@ -132,7 +132,7 @@ namespace Server
 
             string responce = "";
 
-            while (responce != "!game.quit")
+            while (true)
             {
 
                 if (gameManager.players.Count > 0)
@@ -595,6 +595,11 @@ namespace Server
                     gameManager.players.Remove(p);
                 }
 
+                return "0";
+            }
+            else if (command.StartsWith("!game.quit"))
+            {
+                Environment.Exit(0);
                 return "0";
             }
             else if (command.StartsWith("!help"))
