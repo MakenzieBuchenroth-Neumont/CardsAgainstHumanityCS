@@ -272,6 +272,9 @@ namespace CardsAgainstHumanityGUI
             progressBar.Visibility = Visibility.Visible;
             message = "waiting for game to start";
 
+            messageBox.Text = player.Name + " has joined the game";
+            sendButton_Click(null, null);
+
             while (Connection.Connect("!game.hasStarted") == "False")
             {
                 Yield(10000000);
@@ -320,7 +323,7 @@ namespace CardsAgainstHumanityGUI
             while (hasWon == "no" && hasWon.Length > 0)
             {
 
-                if (Connection.Connect("!player.isCzar") == player.IpAddress)
+                if (Connection.Connect("!player.isCzar") == player.Name)
                 {
                     CzarLoop();
                 }
@@ -388,22 +391,13 @@ namespace CardsAgainstHumanityGUI
             {
 
                 message = ("Click the card you wish to play");
-                playerTimer.Start();
 
                 chosenCard = -1;
 
                 while (chosenCard == -1)
                 {
                     Yield(100000);
-
-                    if (playerTimer.ElapsedMilliseconds == 60000)
-                    {
-                        TimeoutScreen();
-                        return;
-                    }
                 }
-                playerTimer.Stop();
-                playerTimer.Reset();
 
                 Connection.Connect("!player.playCard|" + player.hand[chosenCard] + "`" + player.Name);
                 player.hand.RemoveAt(chosenCard);
@@ -418,28 +412,18 @@ namespace CardsAgainstHumanityGUI
                 {
                     message ="Click the card you wish to go in field " + (i + 1);
 
-                    playerTimer.Start();
 
                     chosenCard = -1;
 
                     while (chosenCard == -1)
                     {
                         Yield(100000);
-
-                        if (playerTimer.ElapsedMilliseconds == 60000)
-                        {
-                            TimeoutScreen();
-                            return;
-                        }
                     }
 
                     temp += player.hand[chosenCard] + "`";
                     toRemove.Add(chosenCard);
 
                 }
-
-                playerTimer.Stop();
-                playerTimer.Reset();
 
                 Connection.Connect("!player.playCard|" + temp + player.Name);
 
@@ -492,24 +476,6 @@ namespace CardsAgainstHumanityGUI
 
         }
 
-        private void TimeoutScreen()
-        {
-            Console.Clear();
-            Console.WriteLine("You have taken too long to play your cards and have been made sit out");
-            Console.WriteLine("To rejoin enter r");
-            Console.WriteLine("To quit enter q");
-            string action = Console.ReadLine();
-            if (action.ToLower().Trim() == "q")
-            {
-                Connection.Connect("!player.leave|" + player.Name);
-                Application.Current.Shutdown();
-            }
-
-            Connection.Connect("!player.rejoin|" + player.Name);
-            return;
-
-        }
-
         private void CzarLoop()
         {
 
@@ -517,8 +483,6 @@ namespace CardsAgainstHumanityGUI
 
             blackcard = Connection.Connect("!game.blackcard");
             int fields = numFields(blackcard);
-
-            int timeout = 0;
 
             message = "waiting for players to choose";
             Message.Visibility = Visibility.Visible;
@@ -528,11 +492,6 @@ namespace CardsAgainstHumanityGUI
             while (Connection.Connect("!game.roundPlayed") == "False")
             {
                 Yield(10000000);
-                timeout++;
-                if (timeout == 60)
-                {
-                    Connection.Connect("!game.playerTimeout");
-                }
             }
 
             progressBar.Visibility = Visibility.Collapsed;
