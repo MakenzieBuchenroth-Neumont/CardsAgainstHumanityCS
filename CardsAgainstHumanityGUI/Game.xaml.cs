@@ -60,7 +60,7 @@ namespace CardsAgainstHumanityGUI
             }
         }
 
-        private string _whitecard1;
+        private string _whitecard1; //whitescards are declared as single properties as i was unable to get list databinding to work 
 
         public string whitecard1
         {
@@ -511,7 +511,7 @@ namespace CardsAgainstHumanityGUI
 
             int offset = 0;
 
-            if (cards.Length/fields > 0)
+            if (cards.Length/fields > 0)  //this code is a consequence of being unable to get list databinding to work (lines 514 - 612)
             {
                 for (int j = 0; j < fields; j++)
                 {
@@ -682,7 +682,7 @@ namespace CardsAgainstHumanityGUI
         private void Yield(long ticks)
         {
 
-            // Note: a tick is 100 nanoseconds
+            // tick == 100 nanoseconds
 
             long dtEnd = DateTime.Now.AddTicks(ticks).Ticks;
 
