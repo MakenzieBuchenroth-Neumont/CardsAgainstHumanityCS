@@ -89,7 +89,16 @@ namespace CardsAgainstHumanityGUI
             {
                 player.LastDump = "60:59";
             }
-            string connectionVal = Connection.Connect("!player.join|" + player);
+
+            string connectionVal = "";
+
+            if (serverIP.Text.IndexOf(':') != -1)
+            {
+                Connection.port = int.Parse(serverIP.Text.Substring(serverIP.Text.IndexOf(':') + 1));
+            }
+
+            connectionVal = Connection.Connect("!player.join|" + player);
+
 
             if (connectionVal == "nameTaken")
             {

@@ -43,3 +43,5 @@ To Play:
   3. optionally add ai's to the game with the command "!game.addAI" from the server console //their must be at least 3 players to have a functioning game, 1 human player can play with any number of ai's but will always be the card czar
   4. when ready you can start the game from the server console with "!game.start" // all commands can be viewed by doing "!help" from the server console
   5. have fun, this game is not for the easily offeneded!
+
+Code can be viewed on github at : https://github.com/ThatCrazyIrishGuy/CardsAgainstHumanityCS

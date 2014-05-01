@@ -15,6 +15,7 @@ namespace Server
     public class Program
     {
         public static IPAddress ipaddr;
+        public static int port = 1337;
         public static List<string> AInames;
         public static int bufferSize = 720;
         public static GameManager gameManager;
@@ -39,7 +40,14 @@ namespace Server
             Console.WriteLine("Hit enter for a standard game, otherwise enter 'custom'");
             if (Console.ReadLine().ToLower() == "custom")
             {
-                //do custom setup
+                Console.WriteLine("Set the server port (enter d for default) :");
+                string temp = Console.ReadLine();
+
+                if(temp.ToLower().Trim() != "d")
+                {
+                    port = int.Parse(temp);
+                }
+
                 Console.WriteLine("Max cards: (recommended 5-15)");
                 int maxCards = int.Parse(Console.ReadLine());
 
@@ -160,8 +168,6 @@ namespace Server
 
             try
             {
-
-                int port = 1337;
 
                 server = new TcpListener(ipaddr, port);
                 server.Start();
