@@ -1,7 +1,16 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Neumont\\Year_3\\Quarter_2\\Software_Projects_in_Existing_Code\\CardsAgainstHumanityCS\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|c:\\neumont\\year_3\\quarter_2\\software_projects_in_existing_code\\cardsagainsthumanitycs\\cardsagainsthumanitygui\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|c:\\neumont\\year_3\\quarter_2\\software_projects_in_existing_code\\cardsagainsthumanitycs\\cardsagainsthumanitygui\\game.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\game.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,6 +43,31 @@
             {
               "$type": "Bookmark",
               "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Game.xaml",
+              "DocumentMoniker": "C:\\Neumont\\Year_3\\Quarter_2\\Software_Projects_in_Existing_Code\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Game.xaml",
+              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Game.xaml",
+              "ToolTip": "C:\\Neumont\\Year_3\\Quarter_2\\Software_Projects_in_Existing_Code\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Game.xaml",
+              "RelativeToolTip": "CardsAgainstHumanityGUI\\Game.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-21T02:27:21.818Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Connection.cs",
+              "DocumentMoniker": "C:\\Neumont\\Year_3\\Quarter_2\\Software_Projects_in_Existing_Code\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Connection.cs",
+              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Connection.cs",
+              "ToolTip": "C:\\Neumont\\Year_3\\Quarter_2\\Software_Projects_in_Existing_Code\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Connection.cs",
+              "RelativeToolTip": "CardsAgainstHumanityGUI\\Connection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-21T02:27:57.718Z",
+              "EditorCaption": ""
             }
           ]
         },
