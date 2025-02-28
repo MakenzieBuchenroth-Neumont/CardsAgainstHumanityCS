@@ -82,7 +82,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 26,
+          "SelectedChildIndex": 22,
           "Children": [
             {
               "$type": "Bookmark",
@@ -147,18 +147,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Login.xaml",
-              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Login.xaml",
-              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Login.xaml",
-              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Login.xaml",
-              "RelativeToolTip": "CardsAgainstHumanityGUI\\Login.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-02-28T02:14:43.598Z",
-              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -239,6 +227,31 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanity\\Program.cs",
+              "RelativeDocumentMoniker": "CardsAgainstHumanity\\Program.cs",
+              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanity\\Program.cs",
+              "RelativeToolTip": "CardsAgainstHumanity\\Program.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAtwCYAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-28T01:59:18.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Login.xaml",
+              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Login.xaml",
+              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Login.xaml",
+              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Login.xaml",
+              "RelativeToolTip": "CardsAgainstHumanityGUI\\Login.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-02-28T02:14:43.598Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
               "Title": "Connection.cs",
               "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Connection.cs",
@@ -274,19 +287,6 @@
               "ViewState": "AgIAADMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T01:58:57.699Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanity\\Program.cs",
-              "RelativeDocumentMoniker": "CardsAgainstHumanity\\Program.cs",
-              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanity\\Program.cs",
-              "RelativeToolTip": "CardsAgainstHumanity\\Program.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAtwCYAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T01:59:18.171Z",
               "EditorCaption": ""
             },
             {
