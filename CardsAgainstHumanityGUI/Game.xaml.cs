@@ -339,7 +339,8 @@ namespace CardsAgainstHumanityGUI
                     PlayerLoop();
                 }
 
-                hasWon = Connection.Connect("!player.hasWon");
+				Yield(100000);
+				hasWon = Connection.Connect("!player.hasWon");
             }
 
             if (hasWon == player.Name)
