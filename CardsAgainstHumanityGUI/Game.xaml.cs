@@ -435,10 +435,13 @@ namespace CardsAgainstHumanityGUI
 
                 Connection.Connect("!player.playCard|" + temp + player.Name);
 
-                foreach (int i in toRemove)
-                {
-                    player.hand.RemoveAt(i);
-                }
+                for (int i = 0; i < toRemove.Count; i++) {
+                    if (i == 0 || toRemove[i - 1] > toRemove[i]) {
+                        player.hand.RemoveAt(toRemove[i]);
+                    } else {
+                        player.hand.RemoveAt(toRemove[i]-1);
+                    }
+				}
             }
 
             player.SeperateHand(Connection.Connect("!player.draw|" + (maxHand - player.hand.Count)));
