@@ -184,10 +184,11 @@
                 </Button>
                 <ProgressBar Name="progressBar"  Grid.Row="1" Grid.Column="7" Grid.ColumnSpan="2"  Value="50" Maximum="100" IsIndeterminate="True" Height="20" Visibility="Collapsed" />
                 <TextBlock Name="Message" TextWrapping="Wrap"  Grid.Row="1"  Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Text="{Binding Path=message}" HorizontalAlignment="Center" TextAlignment="Center"  Margin="10,0,10,30" FontFamily="Helvetica" FontWeight="Bold" Foreground="White"></TextBlock>
-                <TextBox Grid.Row="3" Grid.Column ="6" Grid.ColumnSpan ="4" Name="chatBox" TextWrapping="Wrap"  IsReadOnly="True" VerticalScrollBarVisibility="Visible" Margin="0,0,0,30" />
-                <TextBox Grid.Row="3" Grid.Column ="6" Grid.ColumnSpan ="4" Name="messageBox" MinHeight="29" VerticalAlignment="Bottom" Margin="0,0,60,0" HorizontalScrollBarVisibility="Auto"/>
-                <Button Grid.Row="3" Grid.Column ="6" Grid.ColumnSpan ="4" Style="{DynamicResource GreenButton}" Name="sendButton" MinHeight="28" MinWidth="58"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Content ="Send" Padding="1,1,0,0" Click="sendButton_Click"/>
-                <TextBlock x:Name="czarInfo" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0" FontSize="16" FontWeight="Bold" />
+                <TextBox Grid.Row="2" Grid.Column ="3" Grid.ColumnSpan ="5" Name="chatBox" TextWrapping="Wrap"  IsReadOnly="True" VerticalScrollBarVisibility="Visible" Margin="39,0,40,30" />
+                <TextBox Grid.Row="2" Grid.Column ="3" Grid.ColumnSpan ="4" Name="messageBox" MinHeight="29" VerticalAlignment="Bottom" Margin="39,0,21,0" HorizontalScrollBarVisibility="Auto"/>
+                <Button Grid.Row="2" Grid.Column ="6" Grid.ColumnSpan ="2" Style="{DynamicResource GreenButton}" Name="sendButton" MinHeight="28" MinWidth="58"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Content ="Send" Padding="1,1,0,0" Click="sendButton_Click" Margin="0,0,40,0"/>
+                <TextBox Grid.Row="2" Grid.Column ="8" Grid.ColumnSpan ="5" x:Name="chatBox_Copy" TextWrapping="Wrap"  IsReadOnly="True" VerticalScrollBarVisibility="Visible" Margin="40,0,39,30" />
+                <TextBlock Grid.Row="2" Grid.Column="8" x:Name="czarInfo" Text="Current Czar: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="55,10,0,0" FontSize="16" FontWeight="Bold" Grid.ColumnSpan="2" />
             </Grid>
         </TabItem>
     </TabControl>
