@@ -334,8 +334,8 @@ namespace CardsAgainstHumanityGUI
                 {
                     CzarLoop();
                 }
-                else
-                {
+                else if (Connection.Connect("!game.roundWinner") == "wait")
+				{
                     PlayerLoop();
                 }
 
