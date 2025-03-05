@@ -37,9 +37,10 @@ namespace CardsAgainstHumanityGUI {
 		public Player player;
 		private string _czarInfo;
 
-		public string currentCzarInfo {
-			get { return currentCzarInfo; }
-			set { currentCzarInfo = value; NotifyPropertyChanged("czarInfo"); }
+		public string czarInfo {
+			get { return czarInfoLabel.Content.ToString(); }
+			set { czarInfoLabel.Content = value; }
+		}
 
 		#region Cards
 		private string _blackcard;
@@ -151,7 +152,7 @@ namespace CardsAgainstHumanityGUI {
 			this.PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
 
 			gameManager = new GameManager();
-			gameManager.CzarChanged += onCzarChanged;
+			gameManager.CzarChanged += updateCzarInfo;
 		}
 
 		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -645,13 +646,8 @@ namespace CardsAgainstHumanityGUI {
 			}
 		}
 
-		public void updateCzarInfo() {
-			Server.Player czar = gameManager.players[gameManager.CzarCounter];
-			currentCzarInfo = $"Current Czar: {czar.Name}";
-		}
-
-		public void onCzarChanged() {
-			updateCzarInfo();
+		public void updateCzarInfo(string czarName) {
+			czarInfo = $"Current Czar: {czarName}";
 		}
 	}
 }

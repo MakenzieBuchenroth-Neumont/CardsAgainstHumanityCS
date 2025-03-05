@@ -60,7 +60,7 @@ namespace Server {
 			pointThreshold = 10;
 		}
 
-		public event Action CzarChanged;
+		public event Action<string> CzarChanged;
 
 		public void incrementCzarCounter() {
 			foreach (var player in players) {
@@ -75,7 +75,7 @@ namespace Server {
 			}
 
 			players[CzarCounter].IsCzar = true;
-			CzarChanged?.Invoke();
+			CzarChanged?.Invoke(players[CzarCounter].Name);
 		}
 
 		public void NewRound() {
