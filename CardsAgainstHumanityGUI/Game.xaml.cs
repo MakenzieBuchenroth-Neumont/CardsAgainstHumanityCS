@@ -152,7 +152,6 @@ namespace CardsAgainstHumanityGUI {
 			this.PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
 
 			gameManager = new GameManager();
-			gameManager.CzarChanged += updateCzarInfo;
 		}
 
 		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -281,7 +280,11 @@ namespace CardsAgainstHumanityGUI {
 
 			while (hasWon == "no" && hasWon.Length > 0) {
 
-				if (Connection.Connect("!player.isCzar") == player.Name) {
+				string cardCzar = Connection.Connect("!player.isCzar");
+
+				czarInfoLabel.Content = $"Current Czar: {cardCzar}";
+
+				if (cardCzar == player.Name) {
 					CzarLoop();
 				}
 				else {
@@ -305,7 +308,7 @@ namespace CardsAgainstHumanityGUI {
 
 			Application.Current.Shutdown();
 
-			updateCzarInfo();
+			updateCzarInfo(czarInfo);
 		}
 
 		private void PlayerLoop() {

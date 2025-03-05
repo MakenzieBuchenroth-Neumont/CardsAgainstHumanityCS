@@ -198,7 +198,7 @@
                     Margin="55,10,0,0" 
                     FontSize="16" 
                     FontWeight="Bold" 
-                    Grid.ColumnSpan="2"
+                    Grid.ColumnSpan="4" Width="261"
                     />
             </Grid>
         </TabItem>
