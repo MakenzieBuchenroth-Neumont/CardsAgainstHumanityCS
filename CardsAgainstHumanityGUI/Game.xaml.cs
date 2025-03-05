@@ -647,7 +647,7 @@ namespace CardsAgainstHumanityGUI {
 		}
 
 		public void updateCzarInfo(string czarName) {
-			czarInfo = $"Current Czar: {czarName}";
+			czarInfoLabel.Content = $"Current Czar: {czarName}";
 		}
 	}
 }
