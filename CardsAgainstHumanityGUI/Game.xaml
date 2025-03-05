@@ -191,8 +191,8 @@
                 <Label 
                     Grid.Row="2" 
                     Grid.Column="8" 
-                    x:Name="czarInfoLabel" 
-                    Content="Current Czar: N/A" 
+                    x:Name="playerInfo" 
+                    Content="0 - PlayerName&#xD;&#xA;3 - Player2Name - Card Czar&#xD;&#xA;2 - Player3Name" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" 
                     Margin="55,10,0,0" 

@@ -20,6 +20,7 @@ using System.Windows.Threading;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using Server;
+using System.Xml.Linq;
 
 namespace CardsAgainstHumanityGUI {
 	/// <summary>
@@ -38,8 +39,8 @@ namespace CardsAgainstHumanityGUI {
 		private string _czarInfo;
 
 		public string czarInfo {
-			get { return czarInfoLabel.Content.ToString(); }
-			set { czarInfoLabel.Content = value; }
+			get { return playerInfo.Content.ToString(); }
+			set { playerInfo.Content = value; }
 		}
 
 		#region Cards
@@ -152,6 +153,7 @@ namespace CardsAgainstHumanityGUI {
 			this.PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
 
 			gameManager = new GameManager();
+			gameManager.CzarChanged += updateCzarInfo;
 		}
 
 		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -280,9 +282,14 @@ namespace CardsAgainstHumanityGUI {
 
 			while (hasWon == "no" && hasWon.Length > 0) {
 
+				string score = Connection.Connect("!player.Points");
+				string[] playerScores = score.Split('|');
+				string name = Connection.Connect("!player.Names");
+				string[] playerNames = name.Split('|');
+				
 				string cardCzar = Connection.Connect("!player.isCzar");
 
-				czarInfoLabel.Content = $"Current Czar: {cardCzar}";
+				updateCzarInfo(playerScores, playerNames, cardCzar);
 
 				if (cardCzar == player.Name) {
 					CzarLoop();
@@ -307,8 +314,6 @@ namespace CardsAgainstHumanityGUI {
 			Yield(2000000);
 
 			Application.Current.Shutdown();
-
-			updateCzarInfo(czarInfo);
 		}
 
 		private void PlayerLoop() {
@@ -649,8 +654,13 @@ namespace CardsAgainstHumanityGUI {
 			}
 		}
 
-		public void updateCzarInfo(string czarName) {
-			czarInfoLabel.Content = $"Current Czar: {czarName}";
+		public void updateCzarInfo(string[] scores, string[] names, string cardCzar) {
+			string final = "";
+			for (int i = 0; i < scores.Length; i++) {
+				final += $"{scores[i]} - {names[i]} - Card Czar&#xD;&#xA;3";
+				// TO-DO!!!!!!
+			}
+			playerInfo.Content = final;
 		}
 	}
 }
