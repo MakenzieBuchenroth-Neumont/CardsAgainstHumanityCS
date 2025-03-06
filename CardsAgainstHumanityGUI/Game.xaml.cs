@@ -434,10 +434,14 @@ namespace CardsAgainstHumanityGUI
 
                 Connection.Connect("!player.playCard|" + temp + player.Name);
 
+                // Sort indices in descending order to prevent shifting issues
+                toRemove.Sort((a, b) => b.CompareTo(a));
+
                 foreach (int i in toRemove)
                 {
                     player.hand.RemoveAt(i);
                 }
+
             }
 
             player.SeperateHand(Connection.Connect("!player.draw|" + (maxHand - player.hand.Count)));
