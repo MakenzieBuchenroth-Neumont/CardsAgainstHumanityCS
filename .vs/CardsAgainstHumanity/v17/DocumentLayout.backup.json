@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|c:\\users\\dnguyen\\downloads\\cardsagainsthumanitycs\\cardsagainsthumanitygui\\game.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\game.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|c:\\users\\dnguyen\\downloads\\cardsagainsthumanitycs\\cardsagainsthumanitygui\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -86,7 +90,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 29,
+          "SelectedChildIndex": 37,
           "Children": [
             {
               "$type": "Bookmark",
@@ -162,7 +166,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "SDKStyles.xaml",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Assets\\SDKStyles.xaml",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Assets\\SDKStyles.xaml",
@@ -173,7 +177,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\Server\\GameManager.cs",
               "RelativeDocumentMoniker": "Server\\GameManager.cs",
@@ -185,7 +189,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Game.xaml",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Game.xaml",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Game.xaml",
@@ -196,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\Server\\Player.cs",
               "RelativeDocumentMoniker": "Server\\Player.cs",
@@ -208,7 +212,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Player.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Player.cs",
@@ -220,7 +224,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "Login.xaml",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Login.xaml",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Login.xaml",
@@ -231,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\Server\\Program.cs",
               "RelativeDocumentMoniker": "Server\\Program.cs",
@@ -243,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "Shuffler.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\Server\\Shuffler.cs",
               "RelativeDocumentMoniker": "Server\\Shuffler.cs",
@@ -255,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Styles.xaml",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Assets\\Styles.xaml",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Assets\\Styles.xaml",
@@ -266,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\App.xaml",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\App.xaml",
@@ -277,7 +281,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanity\\Program.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanity\\Program.cs",
@@ -289,20 +293,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Connection.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Connection.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Connection.cs",
               "ToolTip": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Connection.cs",
               "RelativeToolTip": "CardsAgainstHumanityGUI\\Connection.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAIBJwCsAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAEgAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T01:49:49.609Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Card.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Card.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Card.cs",
@@ -314,7 +318,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanity\\Player.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanity\\Player.cs",
@@ -326,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "MassPing.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanity\\MassPing.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanity\\MassPing.cs",
@@ -338,7 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "App.g.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\obj\\x86\\Debug\\App.g.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\obj\\x86\\Debug\\App.g.cs",
@@ -351,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "App.xaml.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\App.xaml.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\App.xaml.cs",
@@ -363,7 +367,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "BlankBlackCard.png",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\BlankBlackCard.png",
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\BlankBlackCard.png",
@@ -374,7 +378,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "Card.cs",
               "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanity\\Card.cs",
               "RelativeDocumentMoniker": "CardsAgainstHumanity\\Card.cs",
@@ -383,6 +387,19 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-28T01:58:53.962Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Game.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Game.xaml.cs",
+              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Game.xaml.cs",
+              "ToolTip": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Game.xaml.cs",
+              "RelativeToolTip": "CardsAgainstHumanityGUI\\Game.xaml.cs",
+              "ViewState": "AgIAAJwBAAAAAAAAAAAAwLUBAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T16:03:36.267Z",
+              "EditorCaption": ""
             }
           ]
         },

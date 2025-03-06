@@ -409,16 +409,14 @@ namespace CardsAgainstHumanityGUI
                 Connection.Connect("!player.playCard|" + player.hand[chosenCard] + "`" + player.Name);
                 player.hand.RemoveAt(chosenCard);
             }
-            else
+            else // if the player picked two cards
             {
-
                 string temp = "";
                 List<int> toRemove = new List<int>();
 
                 for (int i = 0; i < fields; i++)
                 {
                     message ="Click the card you wish to go in field " + (i + 1);
-
 
                     chosenCard = -1;
 
@@ -429,7 +427,6 @@ namespace CardsAgainstHumanityGUI
 
                     temp += player.hand[chosenCard] + "`";
                     toRemove.Add(chosenCard);
-
                 }
 
                 Connection.Connect("!player.playCard|" + temp + player.Name);
