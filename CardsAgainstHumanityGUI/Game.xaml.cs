@@ -657,7 +657,11 @@ namespace CardsAgainstHumanityGUI {
 		public void updateCzarInfo(string[] scores, string[] names, string cardCzar) {
 			string final = "";
 			for (int i = 0; i < scores.Length; i++) {
-				final += $"{scores[i]} - {names[i]} - Card Czar&#xD;&#xA;3";
+				final += $"{scores[i]} - {names[i]}";
+				if (names[i] == cardCzar) {
+					final += "-Card Czar";
+				}
+				final += "&#xD;&#xA;3";
 				// TO-DO!!!!!!
 			}
 			playerInfo.Content = final;
