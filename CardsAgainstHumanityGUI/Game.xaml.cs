@@ -153,7 +153,6 @@ namespace CardsAgainstHumanityGUI {
 			this.PreviewKeyDown += new KeyEventHandler(MainWindow_PreviewKeyDown);
 
 			gameManager = new GameManager();
-			gameManager.CzarChanged += updateCzarInfo;
 		}
 
 		private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -276,7 +275,7 @@ namespace CardsAgainstHumanityGUI {
 			whitecard6 = "";
 			whitecard7 = "";
 			whitecard8 = "";
-			whitecard9 = "";
+			whitecard9 = "";	
 			whitecard10 = "";
 			blackcard = "";
 
@@ -659,10 +658,11 @@ namespace CardsAgainstHumanityGUI {
 			for (int i = 0; i < scores.Length; i++) {
 				final += $"{scores[i]} - {names[i]}";
 				if (names[i] == cardCzar) {
-					final += "-Card Czar";
+					final += $"- Card Czar";
 				}
-				final += "&#xD;&#xA;3";
-				// TO-DO!!!!!!
+				final += $"\n";
+					//$"&#x0a;
+					// TO-DO!!!!!!
 			}
 			playerInfo.Content = final;
 		}

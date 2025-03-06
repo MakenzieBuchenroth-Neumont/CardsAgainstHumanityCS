@@ -305,7 +305,7 @@ namespace Server {
 			else if (command.StartsWith("!player.isCzar")) {
 				return gameManager.players[gameManager.CzarCounter].Name;
 			}
-			else if (command.StartsWith("!player.Point")) {
+			else if (command.StartsWith("!player.SinglePoint")) {
 				string[] playerinfo = parseFields(command);
 
 				foreach (var player in gameManager.players) {
@@ -322,7 +322,7 @@ namespace Server {
 				}
 				return points;
 			}
-			else if (command.StartsWith("!player.Name")) {
+			else if (command.StartsWith("!player.SingleName")) {
 				string[] playerinfo = parseFields(command);
 
 				foreach (var player in gameManager.players) {
