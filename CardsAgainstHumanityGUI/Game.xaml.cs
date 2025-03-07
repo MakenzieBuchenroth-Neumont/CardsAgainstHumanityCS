@@ -334,12 +334,13 @@ namespace CardsAgainstHumanityGUI
                 {
                     CzarLoop();
                 }
-                else
-                {
+                else if (Connection.Connect("!game.roundWinner") == "wait")
+				{
                     PlayerLoop();
                 }
 
-                hasWon = Connection.Connect("!player.hasWon");
+				Yield(100000);
+				hasWon = Connection.Connect("!player.hasWon");
             }
 
             if (hasWon == player.Name)
@@ -434,10 +435,7 @@ namespace CardsAgainstHumanityGUI
 
                 Connection.Connect("!player.playCard|" + temp + player.Name);
 
-                foreach (int i in toRemove)
-                {
-                    player.hand.RemoveAt(i);
-                }
+                
             }
 
             player.SeperateHand(Connection.Connect("!player.draw|" + (maxHand - player.hand.Count)));
