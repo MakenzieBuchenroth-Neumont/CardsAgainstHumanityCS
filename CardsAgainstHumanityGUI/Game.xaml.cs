@@ -424,32 +424,38 @@ namespace CardsAgainstHumanityGUI
                 Connection.Connect("!player.playCard|" + player.hand[chosenCard] + "`" + player.Name);
                 player.hand.RemoveAt(chosenCard);
             }
-			else {
-
-				string temp = "";
-				List<int> toRemove = new List<int>();
+            else // if the player picked two cards
+            {
+                string temp = "";
+                List<int> toRemove = new List<int>();
 
 				for (int i = 0; i < fields; i++) {
 					message = "Click the card you wish to go in field " + (i + 1);
 
 
-					chosenCard = -1;
+                    chosenCard = -1;
 
 					while (chosenCard == -1) {
 						Yield(100000);
 					}
 
-					temp += player.hand[chosenCard] + "`";
-					toRemove.Add(chosenCard);
 
-				}
+                    temp += player.hand[chosenCard] + "`";
+                    toRemove.Add(chosenCard);
+                }
 
 				Connection.Connect("!player.playCard|" + temp + player.Name);
 
-				foreach (int i in toRemove) {
-					player.hand.RemoveAt(i);
-				}
-			}
+
+                // Sort indices in descending order to prevent shifting issues
+                toRemove.Sort((a, b) => b.CompareTo(a));
+
+                foreach (int i in toRemove)
+                {
+                    player.hand.RemoveAt(i);
+                }
+
+            }
 
 			player.SeperateHand(Connection.Connect("!player.draw|" + (maxHand - player.hand.Count)));
 

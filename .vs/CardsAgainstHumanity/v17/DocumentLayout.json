@@ -1,26 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\",
+  "WorkspaceRootPath": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|c:\\neumont\\existing projects\\cardsagainsthumanitycsexisting\\cardsagainsthumanitygui\\game.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|c:\\users\\dnguyen\\downloads\\cardsagainsthumanitycs\\cardsagainsthumanitygui\\game.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\game.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|solutionrelative:server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\server\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|solutionrelative:server\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\cardsagainsthumanitygui\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\cardsagainsthumanitygui\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\server\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|solutionrelative:server\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\cardsagainsthumanitygui\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\card.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\cardsagainsthumanitygui\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,11 +26,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 18,
+          "SelectedChildIndex": 21,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
             },
             {
               "$type": "Bookmark",
@@ -46,7 +46,23 @@
             },
             {
               "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
               "$type": "Bookmark",
@@ -55,10 +71,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:136:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:133:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
               "$type": "Bookmark",
@@ -86,76 +98,59 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\Server\\Player.cs",
-              "RelativeDocumentMoniker": "Server\\Player.cs",
-              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\Server\\Player.cs",
-              "RelativeToolTip": "Server\\Player.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAAC0AAAAVAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Player.cs",
+              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Player.cs",
+              "ToolTip": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Player.cs",
+              "RelativeToolTip": "CardsAgainstHumanityGUI\\Player.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAADoAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-05T02:24:17.195Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "GameManager.cs",
-              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\Server\\GameManager.cs",
-              "RelativeDocumentMoniker": "Server\\GameManager.cs",
-              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\Server\\GameManager.cs",
-              "RelativeToolTip": "Server\\GameManager.cs",
-              "ViewState": "AgIAAEgAAAAAAAAAAAAAADgAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-05T01:55:45.803Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Game.xaml.cs",
-              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Game.xaml.cs",
-              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Game.xaml.cs",
-              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Game.xaml.cs",
-              "RelativeToolTip": "CardsAgainstHumanityGUI\\Game.xaml.cs",
-              "ViewState": "AgIAAFECAAAAAAAAAAAAALwBAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-05T01:29:59.709Z",
+              "WhenOpened": "2025-02-28T01:59:36.89Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\Server\\Program.cs",
-              "RelativeDocumentMoniker": "Server\\Program.cs",
-              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\Server\\Program.cs",
-              "RelativeToolTip": "Server\\Program.cs",
-              "ViewState": "AgIAAIkCAAAAAAAAAAAawJgCAAA1AAAAAAAAAA==",
+              "Title": "Connection.cs",
+              "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Connection.cs",
+              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Connection.cs",
+              "ToolTip": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Connection.cs",
+              "RelativeToolTip": "CardsAgainstHumanityGUI\\Connection.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAE8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T01:50:16.811Z"
+              "WhenOpened": "2025-02-28T01:49:49.609Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Connection.cs",
-              "DocumentMoniker": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Connection.cs",
-              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Connection.cs",
-              "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Connection.cs",
-              "RelativeToolTip": "CardsAgainstHumanityGUI\\Connection.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAawCAAAAAcAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Card.cs",
+              "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Card.cs",
+              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Card.cs",
+              "ToolTip": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Card.cs",
+              "RelativeToolTip": "CardsAgainstHumanityGUI\\Card.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T01:49:49.609Z"
+              "WhenOpened": "2025-02-28T02:00:50.474Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Game.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Game.xaml.cs",
+              "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Game.xaml.cs",
+              "ToolTip": "C:\\Users\\dnguyen\\Downloads\\CardsAgainstHumanityCS\\CardsAgainstHumanityGUI\\Game.xaml.cs",
+              "RelativeToolTip": "CardsAgainstHumanityGUI\\Game.xaml.cs",
+              "ViewState": "AgIAANsBAAAAAAAAAAAAwKsBAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T16:03:36.267Z",
+              "EditorCaption": ""
             }
           ]
         },
@@ -163,6 +158,10 @@
           "DockedWidth": 200,
           "SelectedChildIndex": -1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{de1fc918-f32e-4dd7-a915-1792a051f26b}"
