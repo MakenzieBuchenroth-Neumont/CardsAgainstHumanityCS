@@ -27,7 +27,7 @@ namespace Server {
 		public bool gameStarted;
 		public int maxCards;
 		public Card currentBlackCard;
-		public string roundWinner;
+		public string roundWinner = "wait";
 		public int numAIs;
 		public int pointThreshold;
 		public string winCards;

@@ -175,6 +175,7 @@ namespace Server {
 						//Console.WriteLine("Received: " + data);
 
 						if (data.Substring(0, 1) == "!") {
+
 							data = parseCommand(data);
 							if (data == "False" || data == "wait" || data == "0" || data.Contains('`')) {
 							}
