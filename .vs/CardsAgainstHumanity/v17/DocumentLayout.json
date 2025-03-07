@@ -19,7 +19,7 @@
       "RelativeMoniker": "D:0:0:{656389B2-4479-41EA-AC62-140E6912CD59}|CardsAgainstHumanityGUI\\CardsAgainstHumanityGUI.csproj|solutionrelative:cardsagainsthumanitygui\\connection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|c:\\neumont\\existing projects\\cardsagainsthumanitycsexisting\\server\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\server\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A96AEAE-8CBB-4E40-9A05-ABD8B18F4524}|Server\\Server.csproj|solutionrelative:server\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -106,8 +106,7 @@
               "RelativeToolTip": "Server\\Player.cs",
               "ViewState": "AgIAABsAAAAAAAAAAAAAAC0AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-05T02:24:17.195Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-05T02:24:17.195Z"
             },
             {
               "$type": "Document",
@@ -119,8 +118,7 @@
               "RelativeToolTip": "Server\\GameManager.cs",
               "ViewState": "AgIAAEgAAAAAAAAAAAAAADgAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-05T01:55:45.803Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-05T01:55:45.803Z"
             },
             {
               "$type": "Document",
@@ -130,7 +128,7 @@
               "RelativeDocumentMoniker": "CardsAgainstHumanityGUI\\Game.xaml.cs",
               "ToolTip": "C:\\Neumont\\Existing Projects\\CardsAgainstHumanityCSEXISTING\\CardsAgainstHumanityGUI\\Game.xaml.cs",
               "RelativeToolTip": "CardsAgainstHumanityGUI\\Game.xaml.cs",
-              "ViewState": "AgIAAKYBAAAAAAAAAAAAALkBAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAFECAAAAAAAAAAAAALwBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-05T01:29:59.709Z",
               "EditorCaption": ""
@@ -145,8 +143,7 @@
               "RelativeToolTip": "Server\\Program.cs",
               "ViewState": "AgIAAIkCAAAAAAAAAAAawJgCAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T01:50:16.811Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T01:50:16.811Z"
             },
             {
               "$type": "Document",
@@ -158,8 +155,7 @@
               "RelativeToolTip": "CardsAgainstHumanityGUI\\Connection.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAawCAAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-28T01:49:49.609Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-28T01:49:49.609Z"
             }
           ]
         },
