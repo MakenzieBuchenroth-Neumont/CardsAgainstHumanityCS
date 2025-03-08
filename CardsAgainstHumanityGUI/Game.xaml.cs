@@ -172,6 +172,8 @@ namespace CardsAgainstHumanityGUI
             }
         }
 
+        private int _cardClickCount = 0;
+        private int _numFields = 0;
         public void NotifyPropertyChanged(String propertyName)
         {
             if (PropertyChanged != null)
@@ -179,7 +181,6 @@ namespace CardsAgainstHumanityGUI
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
 
         public Game()
         {
@@ -209,8 +210,20 @@ namespace CardsAgainstHumanityGUI
 
             if (player.IsPlayer)
             {
-                button.Visibility = Visibility.Hidden;
-                chosenCard = int.Parse(button.Name.Substring(1))-1;
+                _cardClickCount++;
+                if (_cardClickCount == _numFields)
+                {
+                    button.Visibility = Visibility.Hidden;
+                    chosenCard = int.Parse(button.Name.Substring(1)) - 1;
+                    player.HasPlayed = true;
+                    ToggleCardButtons(true);
+                }
+                else
+                {
+                    button.Visibility = Visibility.Hidden;
+                    chosenCard = int.Parse(button.Name.Substring(1)) - 1;
+                }
+
                 return;
             }
 
@@ -265,16 +278,7 @@ namespace CardsAgainstHumanityGUI
             player.SeperateHand(handString);
             maxHand = player.hand.Count;
 
-            whitecard1 = player.hand[0];
-            whitecard2 = player.hand[1];
-            whitecard3 = player.hand[2];
-            whitecard4 = player.hand[3];
-            whitecard5 = player.hand[4];
-            whitecard6 = player.hand[5];
-            whitecard7 = player.hand[6];
-            whitecard8 = player.hand[7];
-            whitecard9 = player.hand[8];
-            whitecard10 = player.hand[9];
+            SetPlayersHand();
 
             progressBar.Visibility = Visibility.Visible;
             message = "waiting for game to start";
@@ -304,16 +308,7 @@ namespace CardsAgainstHumanityGUI
 
             Connection.bufferSize = Connection.bufferSize * numPlayers;
 
-            c1.Visibility = Visibility.Hidden;
-            c2.Visibility = Visibility.Hidden;
-            c3.Visibility = Visibility.Hidden;
-            c4.Visibility = Visibility.Hidden;
-            c5.Visibility = Visibility.Hidden;
-            c6.Visibility = Visibility.Hidden;
-            c7.Visibility = Visibility.Hidden;
-            c8.Visibility = Visibility.Hidden;
-            c9.Visibility = Visibility.Hidden;
-            c10.Visibility = Visibility.Hidden;
+            ToggleCardVisibility(false);
 
             whitecard1 = "";
             whitecard2 = "";
@@ -366,37 +361,22 @@ namespace CardsAgainstHumanityGUI
 
             Yield(10000000);
 
-            c1.Visibility = Visibility.Visible;
-            c2.Visibility = Visibility.Visible;
-            c3.Visibility = Visibility.Visible;
-            c4.Visibility = Visibility.Visible;
-            c5.Visibility = Visibility.Visible;
-            c6.Visibility = Visibility.Visible;
-            c7.Visibility = Visibility.Visible;
-            c8.Visibility = Visibility.Visible;
-            c9.Visibility = Visibility.Visible;
-            c10.Visibility = Visibility.Visible;
+            ToggleCardVisibility(true);
 
             blackcard = Connection.Connect("!game.blackcard");
 
             int fields = numFields(blackcard);
+            _numFields = fields;
 
-            whitecard1 = player.hand[0];
-            whitecard2 = player.hand[1];
-            whitecard3 = player.hand[2];
-            whitecard4 = player.hand[3];
-            whitecard5 = player.hand[4];
-            whitecard6 = player.hand[5];
-            whitecard7 = player.hand[6];
-            whitecard8 = player.hand[7];
-            whitecard9 = player.hand[8];
-            whitecard10 = player.hand[9];
+            SetPlayersHand();
 
             player.IsPlayer = true;
+            player.HasPlayed = false;
+            ToggleCardButtons(false);
+            _cardClickCount = 0;
 
             if (fields == 1)
             {
-
                 message = ("Click the card you wish to play");
 
                 chosenCard = -1;
@@ -414,7 +394,6 @@ namespace CardsAgainstHumanityGUI
 
                 string temp = "";
                 List<int> toRemove = new List<int>();
-
                 for (int i = 0; i < fields; i++)
                 {
                     message ="Click the card you wish to go in field " + (i + 1);
@@ -429,7 +408,6 @@ namespace CardsAgainstHumanityGUI
 
                     temp += player.hand[chosenCard] + "`";
                     toRemove.Add(chosenCard);
-
                 }
 
                 Connection.Connect("!player.playCard|" + temp + player.Name);
@@ -450,16 +428,7 @@ namespace CardsAgainstHumanityGUI
                 Yield(10000000);
             }
 
-            c1.Visibility = Visibility.Hidden;
-            c2.Visibility = Visibility.Hidden;
-            c3.Visibility = Visibility.Hidden;
-            c4.Visibility = Visibility.Hidden;
-            c5.Visibility = Visibility.Hidden;
-            c6.Visibility = Visibility.Hidden;
-            c7.Visibility = Visibility.Hidden;
-            c8.Visibility = Visibility.Hidden;
-            c9.Visibility = Visibility.Hidden;
-            c10.Visibility = Visibility.Hidden;
+            ToggleCardVisibility(false);
 
             progressBar.Visibility = Visibility.Collapsed;
 
@@ -494,7 +463,6 @@ namespace CardsAgainstHumanityGUI
             message = "waiting for players to choose";
             Message.Visibility = Visibility.Visible;
             progressBar.Visibility = Visibility.Visible;
-            
 
             while (Connection.Connect("!game.roundPlayed") == "False")
             {
@@ -519,6 +487,7 @@ namespace CardsAgainstHumanityGUI
                 }
                 offset += fields;
                 c1.Visibility = Visibility.Visible;
+                c1.IsEnabled = true;
             }
 
             if (cards.Length/fields > 1)
@@ -529,6 +498,7 @@ namespace CardsAgainstHumanityGUI
                 }
                 offset += fields;
                 c2.Visibility = Visibility.Visible;
+                c2.IsEnabled = true;
             }
 
             if (cards.Length/fields > 2)
@@ -539,6 +509,7 @@ namespace CardsAgainstHumanityGUI
                 }
                 offset += fields;
                 c3.Visibility = Visibility.Visible;
+                c3.IsEnabled = true;
             }
 
             if (cards.Length/fields > 3)
@@ -549,6 +520,7 @@ namespace CardsAgainstHumanityGUI
                 }
                 offset += fields;
                 c4.Visibility = Visibility.Visible;
+                c4.IsEnabled = true;
             }
 
             if (cards.Length/fields > 4)
@@ -559,6 +531,7 @@ namespace CardsAgainstHumanityGUI
                 }
                 offset += fields;
                 c5.Visibility = Visibility.Visible;
+                c5.IsEnabled = true;
             }
 
             if (cards.Length/fields > 5)
@@ -569,6 +542,7 @@ namespace CardsAgainstHumanityGUI
                 }
                 offset += fields;
                 c6.Visibility = Visibility.Visible;
+                c6.IsEnabled = true;
             }
 
             if (cards.Length/fields > 6)
@@ -579,6 +553,7 @@ namespace CardsAgainstHumanityGUI
                 }
                 offset += fields;
                 c7.Visibility = Visibility.Visible;
+                c7.IsEnabled = true;
             }
 
             if (cards.Length/fields > 7)
@@ -588,6 +563,7 @@ namespace CardsAgainstHumanityGUI
                     whitecard8 += cards[offset + j] + "\n\n\n";
                 }
                 c8.Visibility = Visibility.Visible;
+                c8.IsEnabled = true;
                 offset += fields;
             }
 
@@ -598,6 +574,7 @@ namespace CardsAgainstHumanityGUI
                     whitecard9 += cards[offset + j] + "\n\n\n";
                 }
                 c9.Visibility = Visibility.Visible;
+                c9.IsEnabled = true;
                 offset += fields;
             }
 
@@ -608,6 +585,7 @@ namespace CardsAgainstHumanityGUI
                     whitecard10 += cards[offset + j] + "\n\n\n";
                 }
                 c10.Visibility = Visibility.Visible;
+                c10.IsEnabled = true;
                 offset += fields;
             }
 
@@ -620,17 +598,7 @@ namespace CardsAgainstHumanityGUI
                 Yield(100000);
             }
 
-            c1.Visibility = Visibility.Hidden;
-            c2.Visibility = Visibility.Hidden;
-            c3.Visibility = Visibility.Hidden;
-            c4.Visibility = Visibility.Hidden;
-            c5.Visibility = Visibility.Hidden;
-            c6.Visibility = Visibility.Hidden;
-            c7.Visibility = Visibility.Hidden;
-            c8.Visibility = Visibility.Hidden;
-            c9.Visibility = Visibility.Hidden;
-            c10.Visibility = Visibility.Hidden;
-
+            ToggleCardVisibility(false);
 
             StringBuilder sb = new StringBuilder(blackcard);
 
@@ -742,5 +710,89 @@ namespace CardsAgainstHumanityGUI
             }
         }
 
+        /// <summary>
+        /// Toggles the buttons of all whitecards
+        /// </summary>
+        /// <param name="ShouldDisable">Bool to determine active or deactive</param>
+        private void ToggleCardButtons(bool ShouldDisable)
+        {
+            if (ShouldDisable)
+            {
+                c1.IsEnabled = false;
+                c2.IsEnabled = false;
+                c3.IsEnabled = false;
+                c4.IsEnabled = false;
+                c5.IsEnabled = false;
+                c6.IsEnabled = false;
+                c7.IsEnabled = false;
+                c8.IsEnabled = false;
+                c9.IsEnabled = false;
+                c10.IsEnabled = false;
+            }
+            else
+            {
+                c1.IsEnabled = true;
+                c2.IsEnabled = true;
+                c3.IsEnabled = true;
+                c4.IsEnabled = true;
+                c5.IsEnabled = true;
+                c6.IsEnabled = true;
+                c7.IsEnabled = true;
+                c8.IsEnabled = true;
+                c9.IsEnabled = true;
+                c10.IsEnabled = true;
+            }
+        }
+        
+        /// <summary>
+        /// Toggles the visibility of all whitecards
+        /// </summary>
+        /// <param name="ShouldBeVisible">Boolean to decide if cards should be visible or not</param>
+        private void ToggleCardVisibility(bool ShouldBeVisible)
+        {
+            if (ShouldBeVisible)
+            {
+                c1.Visibility = Visibility.Visible;
+                c2.Visibility = Visibility.Visible;
+                c3.Visibility = Visibility.Visible;
+                c4.Visibility = Visibility.Visible;
+                c5.Visibility = Visibility.Visible;
+                c6.Visibility = Visibility.Visible;
+                c7.Visibility = Visibility.Visible;
+                c8.Visibility = Visibility.Visible;
+                c9.Visibility = Visibility.Visible;
+                c10.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                c1.Visibility = Visibility.Hidden;
+                c2.Visibility = Visibility.Hidden;
+                c3.Visibility = Visibility.Hidden;
+                c4.Visibility = Visibility.Hidden;
+                c5.Visibility = Visibility.Hidden;
+                c6.Visibility = Visibility.Hidden;
+                c7.Visibility = Visibility.Hidden;
+                c8.Visibility = Visibility.Hidden;
+                c9.Visibility = Visibility.Hidden;
+                c10.Visibility = Visibility.Hidden;
+            }
+        }
+    
+        /// <summary>
+        /// Updates all whitecards to the players hand
+        /// </summary>
+        private void SetPlayersHand()
+        {
+            whitecard1 = player.hand[0];
+            whitecard2 = player.hand[1];
+            whitecard3 = player.hand[2];
+            whitecard4 = player.hand[3];
+            whitecard5 = player.hand[4];
+            whitecard6 = player.hand[5];
+            whitecard7 = player.hand[6];
+            whitecard8 = player.hand[7];
+            whitecard9 = player.hand[8];
+            whitecard10 = player.hand[9];
+        }
     }
 }
