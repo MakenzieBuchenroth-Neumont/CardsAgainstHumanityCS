@@ -175,6 +175,9 @@ namespace CardsAgainstHumanityGUI
             }
         }
 
+        private bool _czarIsPicking = false;
+        private int _cardClickCount = 0;
+        private int _numFields = 0;
         public void NotifyPropertyChanged(String propertyName)
         {
             if (PropertyChanged != null)
@@ -182,7 +185,6 @@ namespace CardsAgainstHumanityGUI
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-
 
         public Game()
         {
@@ -212,8 +214,20 @@ namespace CardsAgainstHumanityGUI
 
             if (player.IsPlayer)
             {
-                button.Visibility = Visibility.Hidden;
-                chosenCard = int.Parse(button.Name.Substring(1))-1;
+                _cardClickCount++;
+                if (_cardClickCount == _numFields)
+                {
+                    button.Visibility = Visibility.Hidden;
+                    chosenCard = int.Parse(button.Name.Substring(1)) - 1;
+                    player.HasPlayed = true;
+                    ToggleCardButtons(true);
+                }
+                else
+                {
+                    button.Visibility = Visibility.Hidden;
+                    chosenCard = int.Parse(button.Name.Substring(1)) - 1;
+                }
+
                 return;
             }
 
@@ -268,16 +282,7 @@ namespace CardsAgainstHumanityGUI
             player.SeperateHand(handString);
             maxHand = player.hand.Count;
 
-            whitecard1 = player.hand[0];
-            whitecard2 = player.hand[1];
-            whitecard3 = player.hand[2];
-            whitecard4 = player.hand[3];
-            whitecard5 = player.hand[4];
-            whitecard6 = player.hand[5];
-            whitecard7 = player.hand[6];
-            whitecard8 = player.hand[7];
-            whitecard9 = player.hand[8];
-            whitecard10 = player.hand[9];
+            SetPlayersHand();
 
             progressBar.Visibility = Visibility.Visible;
             message = "waiting for game to start";
@@ -307,16 +312,7 @@ namespace CardsAgainstHumanityGUI
 
             Connection.bufferSize = Connection.bufferSize * numPlayers;
 
-            c1.Visibility = Visibility.Hidden;
-            c2.Visibility = Visibility.Hidden;
-            c3.Visibility = Visibility.Hidden;
-            c4.Visibility = Visibility.Hidden;
-            c5.Visibility = Visibility.Hidden;
-            c6.Visibility = Visibility.Hidden;
-            c7.Visibility = Visibility.Hidden;
-            c8.Visibility = Visibility.Hidden;
-            c9.Visibility = Visibility.Hidden;
-            c10.Visibility = Visibility.Hidden;
+            ToggleCardVisibility(false);
 
             whitecard1 = "";
             whitecard2 = "";
@@ -381,37 +377,22 @@ namespace CardsAgainstHumanityGUI
 
             Yield(10000000);
 
-            c1.Visibility = Visibility.Visible;
-            c2.Visibility = Visibility.Visible;
-            c3.Visibility = Visibility.Visible;
-            c4.Visibility = Visibility.Visible;
-            c5.Visibility = Visibility.Visible;
-            c6.Visibility = Visibility.Visible;
-            c7.Visibility = Visibility.Visible;
-            c8.Visibility = Visibility.Visible;
-            c9.Visibility = Visibility.Visible;
-            c10.Visibility = Visibility.Visible;
+            ToggleCardVisibility(true);
 
             blackcard = Connection.Connect("!game.blackcard");
 
             int fields = numFields(blackcard);
+            _numFields = fields;
 
-            whitecard1 = player.hand[0];
-            whitecard2 = player.hand[1];
-            whitecard3 = player.hand[2];
-            whitecard4 = player.hand[3];
-            whitecard5 = player.hand[4];
-            whitecard6 = player.hand[5];
-            whitecard7 = player.hand[6];
-            whitecard8 = player.hand[7];
-            whitecard9 = player.hand[8];
-            whitecard10 = player.hand[9];
+            SetPlayersHand();
 
             player.IsPlayer = true;
+            player.HasPlayed = false;
+            ToggleCardButtons(false);
+            _cardClickCount = 0;
 
             if (fields == 1)
             {
-
                 message = ("Click the card you wish to play");
 
                 chosenCard = -1;
@@ -455,191 +436,220 @@ namespace CardsAgainstHumanityGUI
                     player.hand.RemoveAt(i);
                 }
 
+
+ }
+
+            player.SeperateHand(Connection.Connect("!player.draw|" + (maxHand - player.hand.Count)));
+
+            message = "waiting for other players";
+            progressBar.Visibility = Visibility.Visible;
+
+            while (Connection.Connect("!game.roundWinner") == "False")
+            {
+                Yield(10000000);
             }
 
-			player.SeperateHand(Connection.Connect("!player.draw|" + (maxHand - player.hand.Count)));
+            ToggleCardVisibility(false);
 
-			message = "waiting for czar to choose";
-			progressBar.Visibility = Visibility.Visible;
+            DisplaySelectedCards();
 
-			while (Connection.Connect("!game.roundWinner") == "wait") {
-				Yield(10000000);
-			}
+            message = "waiting for czar to choose the winner";
 
-			c1.Visibility = Visibility.Hidden;
-			c2.Visibility = Visibility.Hidden;
-			c3.Visibility = Visibility.Hidden;
-			c4.Visibility = Visibility.Hidden;
-			c5.Visibility = Visibility.Hidden;
-			c6.Visibility = Visibility.Hidden;
-			c7.Visibility = Visibility.Hidden;
-			c8.Visibility = Visibility.Hidden;
-			c9.Visibility = Visibility.Hidden;
-			c10.Visibility = Visibility.Hidden;
+            while (Connection.Connect("!game.roundWinner") == "wait")
+            {
+                Yield(10000000);
+            }
 
-			progressBar.Visibility = Visibility.Collapsed;
+            _czarIsPicking = false;
 
-			blackcard = Connection.Connect("!game.getWinCards|" + blackcard);
+            ToggleCardVisibility(false);
 
-			message = Connection.Connect("!game.roundWinner") + " has won the round!";
+            progressBar.Visibility = Visibility.Collapsed;
 
-			Yield(30000000);
+            blackcard = Connection.Connect("!game.getWinCards|" + blackcard);
 
-			whitecard1 = "";
-			whitecard2 = "";
-			whitecard3 = "";
-			whitecard4 = "";
-			whitecard5 = "";
-			whitecard6 = "";
-			whitecard7 = "";
-			whitecard8 = "";
-			whitecard9 = "";
-			whitecard10 = "";
-			blackcard = "";
+            message = Connection.Connect("!game.roundWinner") + " has won the round!";
 
-		}
+            Yield(30000000);
 
-		private void CzarLoop() {
+            whitecard1 = "";
+            whitecard2 = "";
+            whitecard3 = "";
+            whitecard4 = "";
+            whitecard5 = "";
+            whitecard6 = "";
+            whitecard7 = "";
+            whitecard8 = "";
+            whitecard9 = "";
+            whitecard10 = "";
+            blackcard = "";
+        }
 
-			Connection.Connect("!game.newRound");
+private void CzarLoop()
+        {
 
-			blackcard = Connection.Connect("!game.blackcard");
-			int fields = numFields(blackcard);
+            Connection.Connect("!game.newRound");
 
-			message = "waiting for players to choose";
-			Message.Visibility = Visibility.Visible;
-			progressBar.Visibility = Visibility.Visible;
+            blackcard = Connection.Connect("!game.blackcard");
+            int fields = numFields(blackcard);
 
+            message = "waiting for players to choose";
+            Message.Visibility = Visibility.Visible;
+            progressBar.Visibility = Visibility.Visible;
 
-			while (Connection.Connect("!game.roundPlayed") == "False") {
-				Yield(10000000);
-			}
+            while (Connection.Connect("!game.roundPlayed") == "False")
+            {
+                Yield(10000000);
+            }
 
-			progressBar.Visibility = Visibility.Collapsed;
+            _czarIsPicking = true;
+            progressBar.Visibility = Visibility.Collapsed;
 
 
-			string parse = Connection.Connect("!game.roundEntries");
-			string[] cards = parse.Split('`');
+            string parse = Connection.Connect("!game.roundEntries");
+            string[] cards = parse.Split('`');
 
-			message = "pick the winner";
+            message = "pick the winner";
 
-			int offset = 0;
+            int offset = 0;
 
-			if (cards.Length / fields > 0)  //this code is a consequence of being unable to get list databinding to work (lines 514 - 612)
-			{
-				for (int j = 0; j < fields; j++) {
-					whitecard1 += cards[offset + j] + "\n\n\n";
-				}
-				offset += fields;
-				c1.Visibility = Visibility.Visible;
-			}
+            if (cards.Length/fields > 0)  //this code is a consequence of being unable to get list databinding to work (lines 514 - 612)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard1 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c1.Visibility = Visibility.Visible;
+                c1.IsEnabled = true;
+            }
 
-			if (cards.Length / fields > 1) {
-				for (int j = 0; j < fields; j++) {
-					whitecard2 += cards[offset + j] + "\n\n\n";
-				}
-				offset += fields;
-				c2.Visibility = Visibility.Visible;
-			}
+            if (cards.Length/fields > 1)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard2 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c2.Visibility = Visibility.Visible;
+                c2.IsEnabled = true;
+            }
 
-			if (cards.Length / fields > 2) {
-				for (int j = 0; j < fields; j++) {
-					whitecard3 += cards[offset + j] + "\n\n\n";
-				}
-				offset += fields;
-				c3.Visibility = Visibility.Visible;
-			}
+            if (cards.Length/fields > 2)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard3 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c3.Visibility = Visibility.Visible;
+                c3.IsEnabled = true;
+            }
 
-			if (cards.Length / fields > 3) {
-				for (int j = 0; j < fields; j++) {
-					whitecard4 += cards[offset + j] + "\n\n\n";
-				}
-				offset += fields;
-				c4.Visibility = Visibility.Visible;
-			}
+            if (cards.Length/fields > 3)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard4 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c4.Visibility = Visibility.Visible;
+                c4.IsEnabled = true;
+            }
 
-			if (cards.Length / fields > 4) {
-				for (int j = 0; j < fields; j++) {
-					whitecard5 += cards[offset + j] + "\n\n\n";
-				}
-				offset += fields;
-				c5.Visibility = Visibility.Visible;
-			}
+            if (cards.Length/fields > 4)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard5 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c5.Visibility = Visibility.Visible;
+                c5.IsEnabled = true;
+            }
 
-			if (cards.Length / fields > 5) {
-				for (int j = 0; j < fields; j++) {
-					whitecard6 += cards[offset + j] + "\n\n\n";
-				}
-				offset += fields;
-				c6.Visibility = Visibility.Visible;
-			}
+            if (cards.Length/fields > 5)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard6 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c6.Visibility = Visibility.Visible;
+                c6.IsEnabled = true;
+            }
 
-			if (cards.Length / fields > 6) {
-				for (int j = 0; j < fields; j++) {
-					whitecard7 += cards[offset + j] + "\n\n\n";
-				}
-				offset += fields;
-				c7.Visibility = Visibility.Visible;
-			}
+            if (cards.Length/fields > 6)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard7 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c7.Visibility = Visibility.Visible;
+                c7.IsEnabled = true;
+            }
 
-			if (cards.Length / fields > 7) {
-				for (int j = 0; j < fields; j++) {
-					whitecard8 += cards[offset + j] + "\n\n\n";
-				}
-				c8.Visibility = Visibility.Visible;
-				offset += fields;
-			}
+            if (cards.Length/fields > 7)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard8 += cards[offset + j] + "\n\n\n";
+                }
+                c8.Visibility = Visibility.Visible;
+                c8.IsEnabled = true;
+                offset += fields;
+            }
 
-			if (cards.Length / fields > 8) {
-				for (int j = 0; j < fields; j++) {
-					whitecard9 += cards[offset + j] + "\n\n\n";
-				}
-				c9.Visibility = Visibility.Visible;
-				offset += fields;
-			}
+            if (cards.Length/fields > 8)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard9 += cards[offset + j] + "\n\n\n";
+                }
+                c9.Visibility = Visibility.Visible;
+                c9.IsEnabled = true;
+                offset += fields;
+            }
 
-			if (cards.Length / fields > 9) {
-				for (int j = 0; j < fields; j++) {
-					whitecard10 += cards[offset + j] + "\n\n\n";
-				}
-				c10.Visibility = Visibility.Visible;
-				offset += fields;
-			}
+            if (cards.Length/fields > 9)
+            {
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard10 += cards[offset + j] + "\n\n\n";
+                }
+                c10.Visibility = Visibility.Visible;
+                c10.IsEnabled = true;
+                offset += fields;
+            }
 
-			player.IsCzar = true;
+            player.IsCzar = true;
 
-			chosenWinner = -1;
+            chosenWinner = -1;
 
-			while (chosenWinner == -1) {
-				Yield(100000);
-			}
+            while (chosenWinner == -1)
+            {
+                Yield(100000);
+            }
 
-			c1.Visibility = Visibility.Hidden;
-			c2.Visibility = Visibility.Hidden;
-			c3.Visibility = Visibility.Hidden;
-			c4.Visibility = Visibility.Hidden;
-			c5.Visibility = Visibility.Hidden;
-			c6.Visibility = Visibility.Hidden;
-			c7.Visibility = Visibility.Hidden;
-			c8.Visibility = Visibility.Hidden;
-			c9.Visibility = Visibility.Hidden;
-			c10.Visibility = Visibility.Hidden;
+            ToggleCardVisibility(false);
 
+            StringBuilder sb = new StringBuilder(blackcard);
 
-			StringBuilder sb = new StringBuilder(blackcard);
-
-			List<string> winningCards = new List<string>();
+            List<string> winningCards = new List<string>();
 
 
-			for (int i = 0; i < fields; i++) {
-				winningCards.Add(cards[chosenWinner * fields + i]);
-			}
+            for (int i = 0; i < fields; i++)
+            {
+                winningCards.Add(cards[chosenWinner * fields + i]);
+            }
 
-			for (int i = 0; i < fields; i++) {
-				int index = sb.ToString().IndexOf("___");
+            for (int i = 0; i < fields; i++)
+            {
+                int index = sb.ToString().IndexOf("___");
 
-				sb.Remove(index, "___".Length);
-				sb.Insert(index, winningCards[i]);
+                sb.Remove(index, "___".Length);
+                sb.Insert(index, winningCards[i]);
 
 			}
 
@@ -736,4 +746,208 @@ namespace CardsAgainstHumanityGUI
 			playerInfo.Content = final;
 		}
 	}
+        /// <summary>
+        /// Toggles the buttons of all whitecards
+        /// </summary>
+        /// <param name="ShouldDisable">Bool to determine active or deactive</param>
+        private void ToggleCardButtons(bool ShouldDisable)
+        {
+            if (ShouldDisable)
+            {
+                c1.IsEnabled = false;
+                c2.IsEnabled = false;
+                c3.IsEnabled = false;
+                c4.IsEnabled = false;
+                c5.IsEnabled = false;
+                c6.IsEnabled = false;
+                c7.IsEnabled = false;
+                c8.IsEnabled = false;
+                c9.IsEnabled = false;
+                c10.IsEnabled = false;
+            }
+            else
+            {
+                c1.IsEnabled = true;
+                c2.IsEnabled = true;
+                c3.IsEnabled = true;
+                c4.IsEnabled = true;
+                c5.IsEnabled = true;
+                c6.IsEnabled = true;
+                c7.IsEnabled = true;
+                c8.IsEnabled = true;
+                c9.IsEnabled = true;
+                c10.IsEnabled = true;
+            }
+        }
+        
+        /// <summary>
+        /// Toggles the visibility of all whitecards
+        /// </summary>
+        /// <param name="ShouldBeVisible">Boolean to decide if cards should be visible or not</param>
+        private void ToggleCardVisibility(bool ShouldBeVisible)
+        {
+            if (ShouldBeVisible)
+            {
+                c1.Visibility = Visibility.Visible;
+                c2.Visibility = Visibility.Visible;
+                c3.Visibility = Visibility.Visible;
+                c4.Visibility = Visibility.Visible;
+                c5.Visibility = Visibility.Visible;
+                c6.Visibility = Visibility.Visible;
+                c7.Visibility = Visibility.Visible;
+                c8.Visibility = Visibility.Visible;
+                c9.Visibility = Visibility.Visible;
+                c10.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                c1.Visibility = Visibility.Hidden;
+                c2.Visibility = Visibility.Hidden;
+                c3.Visibility = Visibility.Hidden;
+                c4.Visibility = Visibility.Hidden;
+                c5.Visibility = Visibility.Hidden;
+                c6.Visibility = Visibility.Hidden;
+                c7.Visibility = Visibility.Hidden;
+                c8.Visibility = Visibility.Hidden;
+                c9.Visibility = Visibility.Hidden;
+                c10.Visibility = Visibility.Hidden;
+            }
+        }
+    
+        /// <summary>
+        /// Updates all whitecards to the players hand
+        /// </summary>
+        private void SetPlayersHand()
+        {
+            whitecard1 = player.hand[0];
+            whitecard2 = player.hand[1];
+            whitecard3 = player.hand[2];
+            whitecard4 = player.hand[3];
+            whitecard5 = player.hand[4];
+            whitecard6 = player.hand[5];
+            whitecard7 = player.hand[6];
+            whitecard8 = player.hand[7];
+            whitecard9 = player.hand[8];
+            whitecard10 = player.hand[9];
+        }
+    
+        private void DisplaySelectedCards()
+        {
+            string parse = Connection.Connect("!game.roundEntries");
+            string[] cards = parse.Split('`');
+
+            int fields = numFields(blackcard);
+            int offset = 0;
+
+            if (cards.Length / fields > 0)
+            {
+                whitecard1 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard1 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c1.Visibility = Visibility.Visible;
+            }
+
+            if (cards.Length / fields > 1)
+            {
+                whitecard2 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard2 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c2.Visibility = Visibility.Visible;
+            }
+
+            if (cards.Length / fields > 2)
+            {
+                whitecard3 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard3 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c3.Visibility = Visibility.Visible;
+            }
+
+            if (cards.Length / fields > 3)
+            {
+                whitecard4 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard4 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c4.Visibility = Visibility.Visible;
+            }
+
+            if (cards.Length / fields > 4)
+            {
+                whitecard5 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard5 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c5.Visibility = Visibility.Visible;
+            }
+
+            if (cards.Length / fields > 5)
+            {
+                whitecard6 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard6 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c6.Visibility = Visibility.Visible;
+            }
+
+            if (cards.Length / fields > 6)
+            {
+                whitecard7 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard7 += cards[offset + j] + "\n\n\n";
+                }
+                offset += fields;
+                c7.Visibility = Visibility.Visible;
+            }
+
+            if (cards.Length / fields > 7)
+            {
+                whitecard8 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard8 += cards[offset + j] + "\n\n\n";
+                }
+                c8.Visibility = Visibility.Visible;
+                offset += fields;
+            }
+
+            if (cards.Length / fields > 8)
+            {
+                whitecard9 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard9 += cards[offset + j] + "\n\n\n";
+                }
+                c9.Visibility = Visibility.Visible;
+                offset += fields;
+            }
+
+            if (cards.Length / fields > 9)
+            {
+                whitecard10 = "";
+                for (int j = 0; j < fields; j++)
+                {
+                    whitecard10 += cards[offset + j] + "\n\n\n";
+                }
+                c10.Visibility = Visibility.Visible;
+                offset += fields;
+            }
+        }
+    }
 }

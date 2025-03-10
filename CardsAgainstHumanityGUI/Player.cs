@@ -51,6 +51,7 @@ namespace CardsAgainstHumanityGUI
 
         public List<string> hand;
 
+        public bool HasPlayed { get; set; }
 
         public Player()
         {
@@ -59,6 +60,7 @@ namespace CardsAgainstHumanityGUI
             isCzar = false;
             lastDump = "100:100";
             hand = new List<string>();
+            HasPlayed = false;
         }
 
         public void SeperateHand(string handString)
